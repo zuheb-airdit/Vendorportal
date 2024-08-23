@@ -1,0 +1,86 @@
+/* Enter your custom styles here */
+.text-head {
+    font-size: large;
+    font-weight: 900;
+    color: blue;
+}
+
+.noWrapText {
+    white-space: nowrap;
+    margin: auto;
+}
+
+.customSimpleForm {
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+}
+
+@font-face {
+    font-family: 'MetroStyle';
+    src: url('../fonts/metrostyle.txt') format('truetype');
+}
+
+.metroStyleFont {
+    font-family: 'MetroStyle', sans-serif;
+    font-weight: bold;
+    font-size: medium;
+}
+
+.usermasterColo{
+    color: #ef530b;
+}
+
+.iconCustomColor .sapUiIcon {
+    color: #f7844f;
+}
+
+.noMargin {
+    margin: 0 !important;
+    padding: 0 !important;
+}
+.customCardMargin {
+    margin-top: 0.25rem; /* Adjust as needed */
+}
+
+.customCardPadding {
+    padding: 0.25rem; /* Adjust as needed */
+}
+
+.customGridList {
+    margin-bottom: 0.25rem;
+}
+
+.marginGrid{
+    margin-top: -5px;
+}
+
+.labelSize{
+    font-weight: 600;   
+}
+
+.title{
+    color: #f7844f;
+    font-size: x-large;
+}
+
+.marginTopZero{
+    margin-top: 0;
+    padding-top: 0;
+}
+
+.scrollableList {
+    height: 150px; /* Adjust the height as needed */
+    overflow-y: auto;
+}
+
+.vaibhav{
+    color: blue;
+}
+
+.testmargin{
+    margin-top: -9px;
+}
+
+.marginRight{
+    margin-right: -9px;
+}

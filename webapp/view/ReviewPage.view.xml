@@ -1,0 +1,272 @@
+<mvc:View controllerName="com.air.vp.lnchpage.controller.RegistrationForm"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:core="sap.ui.core"
+    xmlns="sap.uxap"
+    xmlns:layout="sap.ui.layout"
+    xmlns:m="sap.m"
+    xmlns:f="sap.ui.layout.form" height="100%">
+    <ObjectPageLayout showTitleInHeaderContent="true" upperCaseAnchorBar="false">
+        <headerTitle>
+            <ObjectPageDynamicHeaderTitle>
+                <expandedHeading>
+                    <m:Title text="{RegistrationData>/GENERAL_INFORMATION/VENDOR_INFORMATION/VENDOR_NAME}" wrapping="true"/>
+                </expandedHeading>
+
+                <snappedHeading>
+                    <m:FlexBox fitContainer="true" alignItems="Center">
+                        <m:Avatar class="sapUiTinyMarginEnd"/>
+                        <m:Title text="{RegistrationData>/GENERAL_INFORMATION/VENDOR_INFORMATION/VENDOR_NAME}" wrapping="true" />
+                    </m:FlexBox>
+                </snappedHeading>
+
+                <expandedContent>
+                    <m:Title text="{RegistrationData>/GENERAL_INFORMATION/VENDOR_ADDRESS/CITY}"/>
+                </expandedContent>
+
+                <snappedContent>
+                    <m:Title text="{RegistrationData>/GENERAL_INFORMATION/VENDOR_ADDRESS/CITY}"/>
+                </snappedContent>
+
+                <snappedTitleOnMobile>
+                    <m:Title text="{RegistrationData>/GENERAL_INFORMATION/VENDOR_ADDRESS/CITY}"/>
+                </snappedTitleOnMobile>
+
+
+            </ObjectPageDynamicHeaderTitle>
+        </headerTitle>
+
+        <headerContent>
+            <m:FlexBox wrap="Wrap" fitContainer="true">
+                <m:Avatar class="sapUiSmallMarginEnd" displaySize="M" />
+
+                <layout:VerticalLayout class="sapUiSmallMarginBeginEnd">
+                    <m:Link text="{RegistrationData>/GENERAL_INFORMATION/VENDOR_INFORMATION/WEBSITE}"/>
+                    <m:Link text="{RegistrationData>/GENERAL_INFORMATION/VENDOR_INFORMATION/EMAIL}"/>
+                </layout:VerticalLayout>
+
+                <layout:VerticalLayout class="sapUiSmallMarginBeginEnd">
+                    <m:Label text="{RegistrationData>/GENERAL_INFORMATION/VENDOR_ADDRESS/STREET} {RegistrationData>/GENERAL_INFORMATION/VENDOR_ADDRESS/REGION}"/>
+                    <m:Label text="{RegistrationData>/GENERAL_INFORMATION/VENDOR_ADDRESS/CITY}"/>
+                    <m:Label text="{RegistrationData>/GENERAL_INFORMATION/VENDOR_ADDRESS/STATE}"/>
+                    <m:Label text="{RegistrationData>/GENERAL_INFORMATION/VENDOR_ADDRESS/COUNTRY}"/>
+                </layout:VerticalLayout>
+            </m:FlexBox>
+        </headerContent>
+        <sections>
+
+            <!-- GENERAL -->
+            <ObjectPageSection titleUppercase="false" title="General Information" importance="Medium">
+                <subSections>
+                    <ObjectPageSubSection title="Vendor Address" titleUppercase="false">
+                        <blocks>
+                            <f:SimpleForm class="sapUiTinyMarginTop" objectBindings="{ path: 'RegistrationData>/GENERAL_INFORMATION/VENDOR_ADDRESS' }" layout="ResponsiveGridLayout" adjustLabelSpan="false" columnsXL="3" columnsL="3" columnsM="1" singleContainerFullSize="false">
+                                <f:content>
+                                    <m:Label text="Name" />
+                                    <m:Text text="{RegistrationData>NAME}" />
+                                    <m:Label text="Street" />
+                                    <m:Text text="{RegistrationData>STREET}" />
+                                    <m:Label text="Region" />
+                                    <m:Text text="{RegistrationData>REGION}" />
+                                    <m:Label text="City" />
+                                    <m:Text text="{RegistrationData>CITY}" />
+                                    <m:Label text="State" />
+                                    <m:Text text="{RegistrationData>STATE}" />
+                                    <m:Label text="Country" />
+                                    <m:Text text="{RegistrationData>COUNTRY}" />
+                                    <m:Label text="Postal Code" />
+                                    <m:Text text="{RegistrationData>POSTAL_CODE}" />
+                                    <m:Label text="Email" />
+                                    <m:Text text="{RegistrationData>EMAIL}" />
+                                    <m:Label text="Contact Number" />
+                                    <m:Text text="{RegistrationData>CONTACT_NO}" />
+                                </f:content>
+                            </f:SimpleForm>
+                        </blocks>
+                    </ObjectPageSubSection>
+
+                    <ObjectPageSubSection title="Contact Details" titleUppercase="false">
+                        <blocks>
+                            <f:SimpleForm class="sapUiTinyMarginTop" objectBindings="{ path: 'RegistrationData>/GENERAL_INFORMATION/PRIMARY_CONTACT' }" layout="ColumnLayout" adjustLabelSpan="false" columnsXL="3" columnsL="3" columnsM="3" singleContainerFullSize="false">
+                                <f:content>
+                                    <m:Label text="First Name" />
+                                    <m:Text text="{RegistrationData>FIRST_NAME}" />
+                                    <m:Label text="First Name" />
+                                    <m:Text text="{RegistrationData>FIRST_NAME}" />
+                                    <m:Label text="Last Name" />
+                                    <m:Text text="{RegistrationData>LAST_NAME}" />
+                                    <m:Label text="Designation" />
+                                    <m:Text text="{RegistrationData>DESIGNATION}" />
+                                    <m:Label text="Email Address" />
+                                    <m:Text text="{RegistrationData>EMAIL}" />
+                                    <m:Label text="Region" />
+                                    <m:Text text="{RegistrationData>REGION}" />
+                                    <m:Label text="City" />
+                                    <m:Text text="{RegistrationData>CITY}" />
+                                    <m:Label text="State" />
+                                    <m:Text text="{RegistrationData>STATE}" />
+                                    <m:Label text="Country" />
+                                    <m:Text text="{RegistrationData>COUNTRY}" />
+                                    <m:Label text="Postal Code" />
+                                    <m:Text text="{RegistrationData>CONTACT_NO}" />
+                                    <m:Label text="Mobile Number" />
+                                    <m:Text text="{RegistrationData>MOBILE_NO}" />
+                                </f:content>
+                            </f:SimpleForm>
+                        </blocks>
+                    </ObjectPageSubSection>
+
+                    <ObjectPageSubSection title="Business Information" titleUppercase="false">
+                        <blocks>
+                            <f:SimpleForm objectBindings="{ path: 'RegistrationData>/GENERAL_INFORMATION/BUSINESS_INFORMATION' }" layout="ColumnLayout" adjustLabelSpan="false" columnsXL="3" columnsL="3" columnsM="3" singleContainerFullSize="false">
+                                <f:content>
+                                    <m:Label text="No. of Employees" />
+                                    <m:Text text="{RegistrationData>NO_OF_EMPLOYEES}" />
+                                    <m:Label text="No. of Employees in Engineering" />
+                                    <m:Text text="{RegistrationData>NO_OF_EMPLOYEES_ENGG}" />
+                                    <m:Label text="No. of Employees in Quality" />
+                                    <m:Text text="{RegistrationData>NO_OF_EMPLOYEES_QUALITY}" />
+                                    <m:Label text="No. of Employees in Production" />
+                                    <m:Text text="{RegistrationData>NO_OF_EMPLOYEES_PRODUCTION}" />
+                                    <m:Label text="No. of Employees in Administration" />
+                                    <m:Text text="{RegistrationData>NO_OF_EMPLOYEES_ADMIN}" />
+                                </f:content>
+                            </f:SimpleForm>
+                        </blocks>
+                    </ObjectPageSubSection>
+
+                    <ObjectPageSubSection title="Vendor Details" titleUppercase="false">
+                        <blocks>
+                            <f:SimpleForm objectBindings="{ path: 'RegistrationData>/GENERAL_INFORMATION/VENDOR_DETAILS' }" layout="ColumnLayout" adjustLabelSpan="false" columnsXL="3" columnsL="3" columnsM="3" singleContainerFullSize="false">
+                                <f:content>
+                                    <m:Label text="Trade Licence Number" />
+                                    <m:Text text="{RegistrationData>TRADE_LICENCE_NO}" />
+                                    <m:Label text="Trade Licence Number Expiry Date" />
+                                    <m:Text text="{path: 'RegistrationData>TRADE_LICENCE_NO_EXP_DATE', type: 'sap.ui.model.type.Date', formatOptions: {pattern: 'yyyy-MM-dd'}}" />
+                                    <m:Label text="Establishment year" />
+                                    <m:Text text="{path: 'RegistrationData>ESTABLISHMENT_YEAR', type: 'sap.ui.model.type.Date', formatOptions: {pattern: 'yyyy'}}" />
+                                    <m:Label text="Vendor Category" />
+                                    <m:Text text="{RegistrationData>VENDOR_CATEGORY}"/>
+                                    <m:Label text="Business Type" />
+                                    <m:Text text="{RegistrationData>BUSINESS_TYPE}"/>
+                                </f:content>
+                            </f:SimpleForm>
+                        </blocks>
+                    </ObjectPageSubSection>
+                </subSections>
+            </ObjectPageSection>
+
+            <!-- FINANCIAL -->
+            <ObjectPageSection titleUppercase="false" title="Financial Information" importance="Medium">
+                <subSections>
+                    <ObjectPageSubSection>
+                        <blocks>
+                            <f:SimpleForm editable="true" title="Primary Bank Details" objectBindings="{ path: 'RegistrationData>/FINANCIAL_INFORMATION/PRIMARY_BANK_DETAILS' }" layout="ColumnLayout" adjustLabelSpan="false" columnsXL="3" columnsL="3" columnsM="3" singleContainerFullSize="false">
+                                <f:content>
+                                    <m:Label text="Bank Name" />
+                                    <m:Text text="{RegistrationData>BANK_NAME}" />
+                                    <m:Label text="Branch Name" />
+                                    <m:Text text="{RegistrationData>BRANCH_NAME}" />
+                                    <m:Label text="IFSC Code" />
+                                    <m:Text text="{RegistrationData>IFSC_CODE}" />
+                                    <m:Label text="Swift Code" />
+                                    <m:Text text="{RegistrationData>SWIFT_CODE}" />
+                                    <m:Label text="Bank Country" />
+                                    <m:Text text="{RegistrationData>BANK_COUNTRY}"/>
+                                    <m:Label text="Bank Currency" />
+                                    <m:Text text="{RegistrationData>BANK_CURRENCY}" />
+                                    <m:Label text="Benificiary Name" />
+                                    <m:Text text="{RegistrationData>BENIFICIARY_NAME}" />
+                                    <m:Label text="Account Number" />
+                                    <m:Text text="{RegistrationData>ACCOUNT_NO}" />
+                                    <m:Label text="Account Type" />
+                                    <m:Text text="{RegistrationData>ACCOUNT_TYPE}" />
+                                    <m:Label text="Local Sales Tax (LST) Number" />
+                                    <m:Text text="{RegistrationData>LOCAL_SALES_TAX_NO}" />
+                                    <m:Label text="Commercial Sales Tax (LST) Number" />
+                                    <m:Text text="{RegistrationData>COMMERCIAL_SALES_TAX_NO}" />
+                                    <m:Label text="Permanent Account Number (PAN)" />
+                                    <m:Text text="{RegistrationData>PAN_NO}" />
+                                    <m:Label text="Goods and Services Tax (GST) Number" />
+                                    <m:Text text="{RegistrationData>GST_NO}" />
+                                    <m:Label text="MSME Category" />
+                                    <m:CheckBox text="Yes" editable="false" selected="{RegistrationData>MSME_CATEGORY}"/>
+                                </f:content>
+                            </f:SimpleForm>
+                        </blocks>
+                    </ObjectPageSubSection>
+                </subSections>
+            </ObjectPageSection>
+
+            <!-- ATTACHMENTS -->
+            <ObjectPageSection titleUppercase="false" title="Attachments" importance="Medium">
+                <subSections>
+                    <ObjectPageSubSection title="Attachments" titleUppercase="false">
+                        <blocks>
+                            <m:Table inset="false" items="{path:'RegistrationData>/ATTACHMENTS_TABLE'}">
+                                <m:columns>
+                                    <m:Column>
+                                        <m:Text text="Name" />
+                                    </m:Column>
+                                    <m:Column>
+                                        <m:Text text="Description" />
+                                    </m:Column>
+                                    <m:Column>
+                                        <m:Text text="File" />
+                                    </m:Column>
+                                    <m:Column>
+                                        <m:Text text="Preview" />
+                                    </m:Column>
+                                </m:columns>
+                                <m:items>
+                                    <m:ColumnListItem vAlign="Middle">
+                                        <m:cells>
+                                            <m:Text text="{RegistrationData>name}" />
+                                            <m:Text text="{RegistrationData>description}" />
+                                            <m:Text text="{RegistrationData>fileName}" />
+                                            <m:Button press="onPreviewAttachment" icon="sap-icon://show">
+                                                <m:customData>
+                                                    <core:CustomData key="customData" value="{RegistrationData>url}" writeToDom="false"/>
+                                                </m:customData>
+                                            </m:Button>
+                                        </m:cells>
+                                    </m:ColumnListItem>
+                                </m:items>
+                            </m:Table>
+                        </blocks>
+                    </ObjectPageSubSection>
+                </subSections>
+            </ObjectPageSection>
+
+            <!-- SUBMISSION -->
+            <ObjectPageSection titleUppercase="false" title="Submit" importance="Medium">
+                <subSections>
+                    <ObjectPageSubSection title="Submission Details" titleUppercase="false">
+                        <blocks>
+                            <f:SimpleForm editable="true" objectBindings="{ path: 'RegistrationData>/SUBMISSION_INFORMATION' }" layout="ColumnLayout" singleContainerFullSize="false" columnsL="3" columnsM="3" columnsXL="3">
+                                <f:content>
+                                    <m:Label text="Completed by" />
+                                    <m:Text text="{RegistrationData>COMPLETED_BY}" />
+                                    <m:Label text="Designation" />
+                                    <m:Text text="{RegistrationData>DESIGNATION}" />
+                                    <m:Label text="Due Diligence Required" />
+                                    <m:CheckBox text="Yes" select="onDueDiligence" editable="false" selected="{RegistrationData>DUE_DELI_CHECK}"/>
+                                    <m:Label text="Date" />
+                                    <m:Text text="{RegistrationData>DATE}" />
+                                    <m:Label id="idLbdue" text="Due Diligence Request Number" />
+                                    <m:Text id="idIpdue" text="{RegistrationData>DUE_DELI_NUM}" />
+                                </f:content>
+                            </f:SimpleForm>
+                        </blocks>
+                    </ObjectPageSubSection>
+                </subSections>
+            </ObjectPageSection>
+        </sections>
+        <footer>
+            <m:OverflowToolbar>
+                <m:ToolbarSpacer />
+                <m:Button type="Accept" text="Accept" />
+                <m:Button type="Reject" text="Reject" />
+            </m:OverflowToolbar>
+        </footer>
+    </ObjectPageLayout>
+</mvc:View>

@@ -1,0 +1,446 @@
+<core:FragmentDefinition
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:f="sap.ui.layout.form"
+    xmlns:l="sap.ui.layout"
+>
+    <Dialog
+        id="previewDialog"
+        title="Form Preview"
+        contentWidth="65%"
+        contentHeight="auto"
+    >
+    <VBox id="previewVBox">
+        <f:SimpleForm
+            id="SimpleFormChangeColumn_oneGrousp234"
+            editable="true"
+            layout="ColumnLayout"
+            columnsM="2"
+            columnsL="2"
+            columnsXL="2"
+        >
+            <f:content>
+                <Label
+                    text="Vendor Organisation Name"
+                    required="true"
+                />
+                <Text
+                    text="{agpFormData>/GENERAL_INFORMATION/VENDOR_INFORMATION/VENDOR_ORGANISATION_NAME}"
+                >
+                    <layoutData>
+                        <l:GridData span="XL12 L12 M12 S12" />
+                    </layoutData>
+                </Text>
+
+                <Label text="Contact Person" />
+                <Text
+                    text="{agpFormData>/GENERAL_INFORMATION/VENDOR_INFORMATION/CONTACT_PERSON}"
+                />
+
+                <Label text="Priority" />
+                <Text
+                    text="{agpFormData>/GENERAL_INFORMATION/VENDOR_INFORMATION/PRIORITY}"
+                />
+            </f:content>
+        </f:SimpleForm>
+        <f:SimpleForm
+            id="SimpleFormChangeColumn_oneGroup234"
+            editable="true"
+            layout="ColumnLayout"
+            title="Complete Office Address"
+            columnsM="2"
+            columnsL="2"
+            columnsXL="2"
+            class="sapUiTinyMarginTop"
+            objectBindings="{ path: 'agpFormData>/GENERAL_INFORMATION/VENDOR_ADDRESS' }"
+        >
+            <f:content>
+                <Label
+                    text="Street"
+                    required="true"
+                />
+                <Text
+                    text="{agpFormData>/GENERAL_INFORMATION/VENDOR_ADDRESS/STREET}"
+                />
+
+                <Label
+                    text="Street 2"
+                    required="true"
+                />
+                <Text
+                    text="{agpFormData>/GENERAL_INFORMATION/VENDOR_ADDRESS/STREET2}"
+                />
+
+                <Label
+                    text="Street 3"
+                    required="true"
+                />
+                <Text
+                    text="{agpFormData>/GENERAL_INFORMATION/VENDOR_ADDRESS/STREET3}"
+                />
+
+                <Label
+                    text="City"
+                    required="true"
+                />
+                <Text
+                    text="{agpFormData>/GENERAL_INFORMATION/VENDOR_ADDRESS/CITY}"
+                />
+
+                <Label text="District" />
+                <Text
+                    text="{agpFormData>/GENERAL_INFORMATION/VENDOR_ADDRESS/DISTRICT}"
+                />
+
+                <Label
+                    text="Pincode"
+                    required="true"
+                />
+                <Text
+                    text="{agpFormData>/GENERAL_INFORMATION/VENDOR_ADDRESS/POSTAL_CODE}"
+                />
+
+                <Label
+                    text="State"
+                    required="true"
+                />
+                <Text
+                    text="{agpFormData>/GENERAL_INFORMATION/VENDOR_ADDRESS/STATE}"
+                />
+
+                <Label text="Country" />
+                <Text
+                    text="{agpFormData>/GENERAL_INFORMATION/VENDOR_ADDRESS/COUNTRY}"
+                />
+
+                <Label
+                    text="Email Address"
+                    required="true"
+                />
+                <Text
+                    text="{agpFormData>/GENERAL_INFORMATION/VENDOR_ADDRESS/EMAIL}"
+                />
+
+                <Label text="Email Address for Payment" />
+                <Text
+                    text="{agpFormData>/GENERAL_INFORMATION/VENDOR_ADDRESS/EMAIL_PAYMENT}"
+                />
+
+                <Label
+                    text="Telephone No"
+                    required="true"
+                />
+                <Text
+                    text="{agpFormData>/GENERAL_INFORMATION/VENDOR_ADDRESS/TELEPHONE}"
+                />
+
+                <Label text="Mobile Number (if any)" />
+                <Text
+                    text="{agpFormData>/GENERAL_INFORMATION/VENDOR_ADDRESS/CONTACT_NO}"
+                />
+            </f:content>
+        </f:SimpleForm>
+        <f:SimpleForm
+            id="SimpleFormChangeColumn_oneGrokup234"
+            editable="true"
+            layout="ColumnLayout"
+            title="Bank Details"
+            class="sapUiTinyMarginTop"
+            columnsM="2"
+            columnsL="2"
+            columnsXL="2"
+        >
+            <f:content>
+                <Label text="Bank Name" />
+                <Text
+                    text="{agpFormData>/FINANCIAL_INFORMATION/PRIMARY_BANK_DETAILS/BANK_NAME}"
+                />
+
+                <Label text="Bank Branch" />
+                <Text
+                    text="{agpFormData>/FINANCIAL_INFORMATION/PRIMARY_BANK_DETAILS/BRANCH_NAME}"
+                />
+
+                <Label text="IFSC Code" />
+                <Text
+                    text="{agpFormData>/FINANCIAL_INFORMATION/PRIMARY_BANK_DETAILS/IFSC_CODE}"
+                />
+
+                <Label text="Bank Account Number" />
+                <Text
+                    text="{agpFormData>/FINANCIAL_INFORMATION/PRIMARY_BANK_DETAILS/ACCOUNT_NO}"
+                />
+
+                <Label text="Account Type" />
+                <Text
+                    text="{agpFormData>/FINANCIAL_INFORMATION/PRIMARY_BANK_DETAILS/ACCOUNT_TYPE}"
+                />
+            </f:content>
+        </f:SimpleForm>
+
+        <f:SimpleForm
+            id="SimpleFormChangeColumn_oneGrsoup234"
+            editable="true"
+            layout="ColumnLayout"
+            columnsM="2"
+            columnsL="2"
+            columnsXL="2"
+            class="sapUiTinyMarginTop"
+        >
+            <f:content>
+                <Label text="LST No" />
+                <Text
+                    text="{agpFormData>/FINANCIAL_INFORMATION/PRIMARY_BANK_DETAILS/LST_NO}"
+                />
+
+                <Label text="CST No" />
+                <Text
+                    text="{agpFormData>/FINANCIAL_INFORMATION/PRIMARY_BANK_DETAILS/CST_NO}"
+                />
+
+                <Label text="Due Diligence required" />
+                <Text
+                    text="{agpFormData>/FINANCIAL_INFORMATION/PRIMARY_BANK_DETAILS/DUE_DILIGENCE_REQUIRED}"
+                />
+
+                <Label
+                    text="GST No"
+                    required="true"
+                />
+                <Text
+                    text="{agpFormData>/FINANCIAL_INFORMATION/PRIMARY_BANK_DETAILS/GST_NO}"
+                />
+
+                <Label text="Approver" />
+                <Text
+                    text="{agpFormData>/FINANCIAL_INFORMATION/PRIMARY_BANK_DETAILS/APPROVER}"
+                />
+
+                <Label
+                    text="PAN No"
+                    required="true"
+                />
+                <Text
+                    text="{agpFormData>/FINANCIAL_INFORMATION/PRIMARY_BANK_DETAILS/PAN_NO}"
+                />
+
+                <Label text="MSME Category (if applicable)" />
+                <Text
+                    text="{agpFormData>/FINANCIAL_INFORMATION/PRIMARY_BANK_DETAILS/MSME_CATEGORY}"
+                />
+
+                <Label text="Due Diligence request number" />
+                <Text
+                    text="{agpFormData>/FINANCIAL_INFORMATION/PRIMARY_BANK_DETAILS/DUE_DELI_NUM}"
+                />
+
+                <Label text="Vendor Account Group" />
+                <Text
+                    text="{agpFormData>/FINANCIAL_INFORMATION/PRIMARY_BANK_DETAILS/STATE}"
+                />
+            </f:content>
+        </f:SimpleForm>
+</VBox>
+        <!-- <VBox id="previewVBox">
+            <Title
+                text="Vendor Information"
+                level="H2"
+            />
+            <HBox>
+                <Text text="Vendor Organisation Name: " />
+                <Text
+                    text="{agpFormData>/GENERAL_INFORMATION/VENDOR_INFORMATION/VENDOR_ORGANISATION_NAME}"
+                />
+            </HBox>
+            <HBox>
+                <Text text="Contact Person: " />
+                <Text
+                    text="{agpFormData>/GENERAL_INFORMATION/VENDOR_INFORMATION/CONTACT_PERSON}"
+                />
+            </HBox>
+            <HBox>
+                <Text text="Priority: " />
+                <Text
+                    text="{agpFormData>/GENERAL_INFORMATION/VENDOR_INFORMATION/PRIORITY}"
+                />
+            </HBox>
+
+            <Title
+                text="Complete Office Address"
+                level="H2"
+            />
+            <HBox>
+                <Text text="Street: " />
+                <Text
+                    text="{agpFormData>/GENERAL_INFORMATION/VENDOR_ADDRESS/STREET}"
+                />
+            </HBox>
+            <HBox>
+                <Text text="Street 2: " />
+                <Text
+                    text="{agpFormData>/GENERAL_INFORMATION/VENDOR_ADDRESS/STREET2}"
+                />
+            </HBox>
+            <HBox>
+                <Text text="Street 3: " />
+                <Text
+                    text="{agpFormData>/GENERAL_INFORMATION/VENDOR_ADDRESS/STREET3}"
+                />
+            </HBox>
+            <HBox>
+                <Text text="City: " />
+                <Text
+                    text="{agpFormData>/GENERAL_INFORMATION/VENDOR_ADDRESS/CITY}"
+                />
+            </HBox>
+            <HBox>
+                <Text text="District: " />
+                <Text
+                    text="{agpFormData>/GENERAL_INFORMATION/VENDOR_ADDRESS/DISTRICT}"
+                />
+            </HBox>
+            <HBox>
+                <Text text="Pincode: " />
+                <Text
+                    text="{agpFormData>/GENERAL_INFORMATION/VENDOR_ADDRESS/POSTAL_CODE}"
+                />
+            </HBox>
+            <HBox>
+                <Text text="State: " />
+                <Text
+                    text="{agpFormData>/GENERAL_INFORMATION/VENDOR_ADDRESS/STATE}"
+                />
+            </HBox>
+            <HBox>
+                <Text text="Country: " />
+                <Text
+                    text="{agpFormData>/GENERAL_INFORMATION/VENDOR_ADDRESS/COUNTRY}"
+                />
+            </HBox>
+            <HBox>
+                <Text text="Email Address: " />
+                <Text
+                    text="{agpFormData>/GENERAL_INFORMATION/VENDOR_ADDRESS/EMAIL}"
+                />
+            </HBox>
+            <HBox>
+                <Text text="Email Address for Payment: " />
+                <Text
+                    text="{agpFormData>/GENERAL_INFORMATION/VENDOR_ADDRESS/EMAIL_PAYMENT}"
+                />
+            </HBox>
+            <HBox>
+                <Text text="Telephone No: " />
+                <Text
+                    text="{agpFormData>/GENERAL_INFORMATION/VENDOR_ADDRESS/TELEPHONE}"
+                />
+            </HBox>
+            <HBox>
+                <Text text="Mobile Number (if any): " />
+                <Text
+                    text="{agpFormData>/GENERAL_INFORMATION/VENDOR_ADDRESS/CONTACT_NO}"
+                />
+            </HBox>
+
+            <Title
+                text="Bank Details"
+                level="H2"
+            />
+            <HBox>
+                <Text text="Bank Name: " />
+                <Text
+                    text="{agpFormData>/FINANCIAL_INFORMATION/PRIMARY_BANK_DETAILS/BANK_NAME}"
+                />
+            </HBox>
+            <HBox>
+                <Text text="Bank Branch: " />
+                <Text
+                    text="{agpFormData>/FINANCIAL_INFORMATION/PRIMARY_BANK_DETAILS/BRANCH_NAME}"
+                />
+            </HBox>
+            <HBox>
+                <Text text="IFSC Code: " />
+                <Text
+                    text="{agpFormData>/FINANCIAL_INFORMATION/PRIMARY_BANK_DETAILS/IFSC_CODE}"
+                />
+            </HBox>
+            <HBox>
+                <Text text="Bank Account Number: " />
+                <Text
+                    text="{agpFormData>/FINANCIAL_INFORMATION/PRIMARY_BANK_DETAILS/ACCOUNT_NO}"
+                />
+            </HBox>
+            <HBox>
+                <Text text="Account Type: " />
+                <Text
+                    text="{agpFormData>/FINANCIAL_INFORMATION/PRIMARY_BANK_DETAILS/ACCOUNT_TYPE}"
+                />
+            </HBox>
+
+            <Title
+                text="Financial Information"
+                level="H2"
+            />
+            <HBox>
+                <Text text="LST No: " />
+                <Text
+                    text="{agpFormData>/FINANCIAL_INFORMATION/PRIMARY_BANK_DETAILS/LST_NO}"
+                />
+            </HBox>
+            <HBox>
+                <Text text="CST No: " />
+                <Text
+                    text="{agpFormData>/FINANCIAL_INFORMATION/PRIMARY_BANK_DETAILS/CST_NO}"
+                />
+            </HBox>
+            <HBox>
+                <Text text="GST No: " />
+                <Text
+                    text="{agpFormData>/FINANCIAL_INFORMATION/PRIMARY_BANK_DETAILS/GST_NO}"
+                />
+            </HBox>
+            <HBox>
+                <Text text="Approver: " />
+                <Text
+                    text="{agpFormData>/FINANCIAL_INFORMATION/PRIMARY_BANK_DETAILS/APPROVER}"
+                />
+            </HBox>
+            <HBox>
+                <Text text="PAN No: " />
+                <Text
+                    text="{agpFormData>/FINANCIAL_INFORMATION/PRIMARY_BANK_DETAILS/PAN_NO}"
+                />
+            </HBox>
+            <HBox>
+                <Text text="MSME Category: " />
+                <Text
+                    text="{agpFormData>/FINANCIAL_INFORMATION/PRIMARY_BANK_DETAILS/MSME_CATEGORY}"
+                />
+            </HBox>
+            <HBox>
+                <Text text="Due Diligence request number: " />
+                <Text
+                    text="{agpFormData>/FINANCIAL_INFORMATION/PRIMARY_BANK_DETAILS/DUE_DELI_NUM}"
+                />
+            </HBox>
+            <HBox>
+                <Text text="Vendor Account Group: " />
+                <Text
+                    text="{agpFormData>/FINANCIAL_INFORMATION/PRIMARY_BANK_DETAILS/STATE}"
+                />
+            </HBox>
+        </VBox> -->
+        <beginButton>
+            <Button
+                text="Close"
+                press="onClosePreview"
+            />
+        </beginButton>
+        <endButton>
+            <Button
+                text="Download PDF"
+                press="onDownloadPDF"
+            />
+        </endButton>
+    </Dialog>
+</core:FragmentDefinition>

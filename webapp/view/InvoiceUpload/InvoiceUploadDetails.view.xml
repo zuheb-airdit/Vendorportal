@@ -1,0 +1,129 @@
+<mvc:View xmlns:core="sap.ui.core"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m" controllerName="com.air.vp.lnchpage.controller.InvoiceUpload.InvoiceUploadDetails"
+    xmlns:objectPage="sap.uxap"
+    xmlns:layout="sap.ui.layout"
+    xmlns:smartTable='sap.ui.comp.smarttable'
+    xmlns:form="sap.ui.layout.form"
+    xmlns:upload="sap.m.upload"
+    xmlns:smartFilterBar="sap.ui.comp.smartfilterbar"
+    xmlns:f="sap.f">
+
+    <objectPage:ObjectPageLayout showTitleInHeaderContent="false" upperCaseAnchorBar="false">
+        <objectPage:headerTitle>
+            <objectPage:ObjectPageDynamicHeaderTitle>
+                <objectPage:expandedHeading>
+                    <HBox>
+                        <Title wrapping="true" text="{HeaderDetails>/PurchaseOrder}"/>
+                    </HBox>
+                </objectPage:expandedHeading>
+                <objectPage:snappedHeading>
+                    <FlexBox fitContainer="true" alignItems="Center">
+                        <Avatar class="sapUiSmallMarginEnd" src="sap-icon://order-status" displaySize="S"/>
+                        <Title text="{HeaderDetails>/PurchaseOrder}" wrapping="true"/>
+                    </FlexBox>
+                </objectPage:snappedHeading>
+                <objectPage:snappedContent>
+                    <Text text="{HeaderDetails>/AddressName}"/>
+                </objectPage:snappedContent>
+                <objectPage:actions>
+                    <Button text="Submit" type="Emphasized" id="idSubmitButton" enabled="false" press="handleInvoiceSubmit"/>
+                </objectPage:actions>
+            </objectPage:ObjectPageDynamicHeaderTitle>
+        </objectPage:headerTitle>
+        <objectPage:headerContent>
+            <FlexBox wrap="Wrap" fitContainer="true" justifyContent="SpaceBetween">
+                <layout:HorizontalLayout >
+                    <Avatar class="sapUiSmallMarginEnd" src="sap-icon://order-status" displaySize="M"/>
+                    <layout:VerticalLayout class="sapUiSmallMarginBeginEnd">
+                        <Label text="Order Amount"/>
+                        <VBox>
+                            <Label text="Rs.10000/-"/>
+                            <Text text="Price Exclusive of Taxes" class="smallText"/>
+                        </VBox>
+                    </layout:VerticalLayout>
+                </layout:HorizontalLayout>
+
+                <layout:VerticalLayout class="sapUiSmallMarginBeginEnd">
+                    <Text text="{HeaderDetails>/AddressName}"  class="smallText"/>
+                    <Text text='{HeaderDetails>/AddressStreetName}'  class="smallText"></Text>
+                    <Text text='{HeaderDetails>/AddressCityName} - {HeaderDetails>/AddressPostalCode}'  class="smallText"></Text>
+                    <Link text="Phone:{HeaderDetails>/AddressPhoneNumber}"  class="smallText"/>
+                </layout:VerticalLayout>
+
+            </FlexBox>
+        </objectPage:headerContent>
+        <objectPage:sections>
+            <!--____________________________________________________Item Details_______________________________________________________-->
+            <!-- <objectPage:ObjectPageSection title="PurchaseOrder Items" titleUppercase="false">
+                <objectPage:subSections>
+                    <objectPage:ObjectPageSubSection>
+                        <objectPage:blocks>
+                            <layout:VerticalLayout>
+                                <smartTable:SmartTable id="idSmartTable" entitySet="A_PurchaseOrderItem" showRowCount="true" tableType="ResponsiveTable" enableAutoBinding="true" header="PO Items" class="sapUiResponsiveContentPadding" beforeRebindTable="handleBeforeRebindTable" enableAutoColumnWidth="true" demandPopin="true" useTablePersonalisation="true" enableCopy="false">
+                                </smartTable:SmartTable>
+                            </layout:VerticalLayout>
+                        </objectPage:blocks>
+                    </objectPage:ObjectPageSubSection>
+                </objectPage:subSections>
+            </objectPage:ObjectPageSection> -->
+            <objectPage:ObjectPageSection title="Add Invoice Quantity" titleUppercase="false">
+                <objectPage:subSections>
+                    <objectPage:ObjectPageSubSection >
+                        <objectPage:blocks>
+                            <layout:VerticalLayout width="100%">
+                                <Table growing="true" items="{ItemDetails>/}">
+                                    <columns>
+                                        <Column >
+                                            <Label text="PO Items"/>
+                                        </Column>
+                                        <Column >
+                                            <Label text="Item Description"/>
+                                        </Column>
+                                        <Column >
+                                            <Label text="Order quantity"/>
+                                        </Column>
+                                        <Column >
+                                            <Label text="Unit Price"/>
+                                        </Column>
+                                    </columns>
+                                    <items>
+                                        <ColumnListItem vAlign="Middle">
+                                            <cells>
+
+                                                <Text text="{ItemDetails>PurchaseOrderItem}"/>
+                                                <Text text="{ItemDetails>PurchaseOrderItemText}"/>
+                                                <HBox >
+                                                    <Input type="Number" value="{ItemDetails>OrderQuantity}"/>
+                                                    <Text text="{ItemDetails>PurchaseOrderQuantityUnit}"></Text>
+                                                </HBox>
+                                                <Text text="{ItemDetails>NetPriceAmount}"/>
+                                            </cells>
+                                        </ColumnListItem>
+                                    </items>
+                                </Table>
+                            </layout:VerticalLayout>
+                        </objectPage:blocks>
+                    </objectPage:ObjectPageSubSection>
+                </objectPage:subSections>
+            </objectPage:ObjectPageSection>
+            <objectPage:ObjectPageSection title="Add Invoice" titleUppercase="false">
+                <objectPage:subSections>
+                    <objectPage:ObjectPageSubSection >
+                        <objectPage:blocks>
+                            <layout:VerticalLayout width="100%">
+                                <upload:UploadSet id="attachmentUpl" uploadUrl="../../samplefiles" instantUpload="true" maxFileSize="200" mode="SingleSelectMaster" uploadCompleted="onUploadCompleted" fileTypes="pdf">
+                                    <!-- <upload:items>
+                                        <upload:UploadSetItem openPressed="onOpenPressed" fileName="xxx" url="../../samplefiles/file-sample">
+                                        </upload:UploadSetItem>
+                                    </upload:items> -->
+                                </upload:UploadSet>
+                                <!-- <PDFViewer id="pdfViewer" width="100%" height="600px" displayType="Link" url="../../samplefiles/file-sample"/> -->
+                            </layout:VerticalLayout>
+                        </objectPage:blocks>
+                    </objectPage:ObjectPageSubSection>
+                </objectPage:subSections>
+            </objectPage:ObjectPageSection>
+        </objectPage:sections>
+    </objectPage:ObjectPageLayout>
+</mvc:View>

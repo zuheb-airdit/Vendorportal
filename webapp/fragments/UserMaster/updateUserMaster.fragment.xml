@@ -1,0 +1,151 @@
+<core:FragmentDefinition
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:upload="sap.m.upload"
+    xmlns:form="sap.ui.comp.smartform"
+    xmlns:sf="sap.ui.comp.smartfield"
+    xmlns:l="sap.ui.layout"
+>
+    <Dialog
+        id="dailogforUpdate"
+        title="Edit User"
+        contentWidth="50%"
+        titleAlignment="Start"
+    >
+        <content>
+            <VBox id="vboxUpdate">
+                <l:Grid
+                    defaultSpan="L3 M3"
+                    class="sapUiMediumMarginTop sapUiMediumMarginBottom"
+                >
+                    <l:content>
+                        <Label
+                            text="User ID"
+                            labelFor="idUserIdEdit"
+                        />
+                        <Input
+                            id="idUserIdEdit"
+                            editable="false"
+                            valueHelpRequest="onValueHelp"
+                            showValueHelp="false"
+                            suggestionItems="{user-master>/IasUsers}"
+                            suggestionItemSelected=".onSuggestionItemSelected"
+                            
+                        >
+                            <suggestionItems>
+                                <core:ListItem
+                                    key="{user-master>FIRST_NAME}"
+                                    text="{user-master>EMAIL}"
+                                    additionalText="{EMAIL}"
+                                />
+                            </suggestionItems>
+                        </Input>
+                        <Label text="Company Code" />
+                        <MultiComboBox
+                            id="idUserEditEntity"
+                            width="100%"
+                            showSecondaryValues="true"
+                            items="{
+                               path: 'user-master>/CompanyCode',
+                               templateShareable: true
+                                }"
+                        >
+                            <core:ListItem
+                                key="{user-master>BUKRS}"
+                                text="{user-master>BUKRS}"
+                                additionalText="{user-master>BUTXT}"
+                            />
+                        </MultiComboBox>
+                        <Label text="User Name" />
+                        <Input
+                            id="idUserEditName"
+                            required="true"
+                            editable="false"
+                        />
+                        <Label text="Role" />
+                        <MultiComboBox
+                            id="idEditUserRole"
+                            showSecondaryValues="true"
+                            width="100%"
+                            items="{
+                               path: 'user-master>/UserRole',
+                               templateShareable: true
+                                }"
+                        >
+                            <items>
+                                <core:ListItem
+                                    text="{user-master>CODE}"
+                                    key="{user-master>CODE}"
+                                    additionalText="{user-master>DESCRIPTION}"
+                                />
+                            </items>
+                        </MultiComboBox>
+                    </l:content>
+                </l:Grid>
+                <!-- <Label
+                    required="true"
+                    text="User ID"
+                />
+                <Input
+                    id="idUserId"
+                />
+
+                <Label />
+                <Label
+                    text="User Name"
+                />
+                <Input
+                    id="idUsername"
+                    editable="false"
+                />
+                <Label />
+                <Label
+                    required="true"
+                    text="Entity"
+                />
+                <MultiComboBox
+                    id="idUserEntity"
+                    width="100%"
+                >
+                    <items>
+                        <core:Item
+                            text="QCM"
+                            key="QCM"
+                        />
+                    </items>
+                </MultiComboBox>
+                 <Label
+                    required="true"
+                    text="Role"
+                />
+                <MultiComboBox
+                    id="idUserRole"
+                    width="100%"
+                >
+                    <items>
+                        <core:Item
+                            text="QCM"
+                            key="QCM"
+                        />
+                    </items>
+                </MultiComboBox> -->
+            </VBox>
+        </content>
+        <buttons>
+            <Button
+                text="Submit"
+                press="onSumbitUserMasterEdit"
+                icon="sap-icon://accept"
+                type="Accept"
+                id="idSubmitBtn"
+            />
+            <Button
+                id="idCancelBtn"
+                press="onCloseUserFragmentEdit"
+                text="Cancel"
+                type="Reject"
+                icon="sap-icon://cancel"
+            />
+        </buttons>
+    </Dialog>
+</core:FragmentDefinition>

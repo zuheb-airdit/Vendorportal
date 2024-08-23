@@ -1,0 +1,476 @@
+{
+    "_version": "1.59.0",
+    "sap.app": {
+        "id": "com.air.vp.lnchpage",
+        "type": "application",
+        "i18n": "i18n/i18n.properties",
+        "applicationVersion": {
+            "version": "0.0.1"
+        },
+        "title": "{{appTitle}}",
+        "description": "{{appDescription}}",
+        "resources": "resources.json",
+        "sourceTemplate": {
+            "id": "@sap/generator-fiori:basic",
+            "version": "1.14.0",
+            "toolsId": "0356f78a-c5f3-423f-ac64-955fe7796b80"
+        },
+        "dataSources": {
+            "navigationApps": {
+                "uri": "model/SideApps.json",
+                "type": "JSON"
+            },
+            "data": {
+                "uri": "model/data.json",
+                "type": "JSON"
+            },
+            "formData": {
+                "uri": "model/agpForm.json",
+                "type": "JSON"
+            },
+            "stateData": {
+                "uri": "model/state.json",
+                "type": "JSON"
+            },
+            "approval-matrix": {
+                "uri": "v2/odata/v4/approval-matrix",
+                "type": "OData",
+                "settings": {
+                    "annotations": [
+                        "annotationApprovalMatrix"
+                    ],
+                    "localUri": "localService/approval-matrix/metadata.xml",
+                    "odataVersion": "2.0"
+                }
+            },
+            "user-master": {
+                "uri": "v2/odata/v4/user-master",
+                "type": "OData",
+                "settings": {
+                    "annotations": [
+                        "annotationUserMaster"
+                    ],
+                    "localUri": "localService/user-master/metadata.xml",
+                    "odataVersion": "2.0"
+                }
+            },
+            "annotationUserMaster": {
+                "type": "ODataAnnotation",
+                "uri": "annotations/annotationUserMaster.xml",
+                "settings": {
+                    "localUri": "annotations/annotationUserMaster.xml"
+                }
+            },
+            "annotationApprovalMatrix": {
+                "type": "ODataAnnotation",
+                "uri": "annotations/annotationApprovalMatrix.xml",
+                "settings": {
+                    "localUri": "annotations/annotationApprovalMatrix.xml"
+                }
+            },
+            "request-process": {
+                "uri": "v2/odata/v4/request-process",
+                "type": "OData",
+                "settings": {
+                    "annotations": [
+                        "annotationRequestManagement"
+                    ],
+                    "localUri": "localService/request-process/metadata.xml",
+                    "odataVersion": "2.0"
+                }
+            },
+            "annotationRequestManagement": {
+                "type": "ODataAnnotation",
+                "uri": "annotations/annotationRequestManagement.xml",
+                "settings": {
+                    "localUri": "annotations/annotationRequestManagement.xml"
+                }
+            },
+            "registration-manage": {
+                "uri": "v2/odata/v4/registration-manage",
+                "type": "OData",
+                "settings": {
+                    "annotations": [
+                        "annotationRegisterManagement"
+                    ],
+                    "localUri": "localService/registration-manage/metadata.xml",
+                    "odataVersion": "2.0"
+                }
+            },
+            "API_PURCHASEORDER_PROCESS_SRV_Annotation": {
+                "uri": "/destinations/AGP_DEV_S4D/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Annotations(TechnicalName='API_PURCHASEORDER_PROCE_ANNO_MDL',Version='0001')/$value/",
+                "type": "ODataAnnotation",
+                "settings": {
+                    "localUri": "localService/API_PURCHASEORDER_PROCESS_SRV/API_PURCHASEORDER_PROCESS_SRV_Annotation.xml"
+                }
+            },
+            "API_PURCHASEORDER_PROCESS_SRV": {
+                "uri": "/sap/opu/odata/sap/API_PURCHASEORDER_PROCESS_SRV",
+                "type": "OData",
+                "settings": {
+                    "annotations": [
+                        "API_PURCHASEORDER_PROCESS_SRV_Annotation",
+                        "annotationInvoiceUpload"
+                    ],
+                    "localUri": "localService/API_PURCHASEORDER_PROCESS_SRV/metadata.xml",
+                    "odataVersion": "2.0"
+                }
+            },
+            "annotationRegisterManagement": {
+                "type": "ODataAnnotation",
+                "uri": "annotations/annotationRegisterManagement.xml",
+                "settings": {
+                    "localUri": "annotations/annotationRegisterManagement.xml"
+                }
+            },
+            "annotationInvoiceUpload": {
+                "type": "ODataAnnotation",
+                "uri": "annotations/annotationInvoiceUpload.xml",
+                "settings": {
+                    "localUri": "annotations/annotationInvoiceUpload.xml"
+                }
+            }
+        }
+    },
+    "sap.ui": {
+        "technology": "UI5",
+        "icons": {
+            "icon": "",
+            "favIcon": "",
+            "phone": "",
+            "phone@2": "",
+            "tablet": "",
+            "tablet@2": ""
+        },
+        "deviceTypes": {
+            "desktop": true,
+            "tablet": true,
+            "phone": true
+        }
+    },
+    "sap.ui5": {
+        "flexEnabled": false,
+        "dependencies": {
+            "minUI5Version": "1.125.1",
+            "libs": {
+                "sap.m": {},
+                "sap.ui.core": {},
+                "sap.f": {},
+                "sap.suite.ui.generic.template": {},
+                "sap.ui.comp": {},
+                "sap.ui.generic.app": {},
+                "sap.ui.table": {},
+                "sap.ushell": {}
+            }
+        },
+        "contentDensities": {
+            "compact": true,
+            "cozy": true
+        },
+        "models": {
+            "i18n": {
+                "type": "sap.ui.model.resource.ResourceModel",
+                "settings": {
+                    "bundleName": "com.air.vp.lnchpage.i18n.i18n"
+                }
+            },
+            "navigationApps": {
+                "dataSource": "navigationApps",
+                "type": "sap.ui.model.json.JSONModel"
+            },
+            "stateModel": {
+                "type": "sap.ui.model.json.JSONModel",
+                "dataSource": "stateData"
+            },
+            "": {
+                "preload": true,
+                "dataSource": "approval-matrix",
+                "settings": {
+                    "defaultBindingMode": "TwoWay",
+                    "defaultCountMode": "Inline",
+                    "refreshAfterChange": false,
+                    "metadataUrlParams": {
+                        "sap-value-list": "none"
+                    }
+                }
+            },
+            "RegistrationData": {
+                "type": "sap.ui.model.json.JSONModel",
+                "dataSource": "data"
+            },
+            "agpFormData": {
+                "type": "sap.ui.model.json.JSONModel",
+                "dataSource": "formData"
+            },
+            "user-master": {
+                "dataSource": "user-master",
+                "preload": true,
+                "settings": {
+                    "defaultBindingMode": "TwoWay",
+                    "defaultCountMode": "Inline",
+                    "refreshAfterChange": false,
+                    "metadataUrlParams": {
+                        "sap-value-list": "none"
+                    }
+                }
+            },
+            "request-process": {
+                "dataSource": "request-process",
+                "preload": true,
+                "settings": {
+                    "defaultBindingMode": "TwoWay",
+                    "defaultCountMode": "Inline",
+                    "refreshAfterChange": false,
+                    "metadataUrlParams": {
+                        "sap-value-list": "none"
+                    }
+                }
+            },
+            "registration-manage": {
+                "dataSource": "registration-manage",
+                "preload": true,
+                "settings": {
+                    "defaultBindingMode": "TwoWay",
+                    "defaultCountMode": "Inline",
+                    "refreshAfterChange": false,
+                    "metadataUrlParams": {
+                        "sap-value-list": "none"
+                    }
+                }
+            },
+            "API_PURCHASEORDER_PROCESS_SRV": {
+                "dataSource": "API_PURCHASEORDER_PROCESS_SRV",
+                "preload": true,
+                "settings": {
+                    "defaultBindingMode": "TwoWay",
+                    "defaultCountMode": "Inline",
+                    "refreshAfterChange": false,
+                    "metadataUrlParams": {
+                        "sap-value-list": "none"
+                    }
+                }
+            }
+        },
+        "resources": {
+            "css": [
+                {
+                    "uri": "css/style.css"
+                }
+            ]
+        },
+        "routing": {
+            "config": {
+                "routerClass": "sap.m.routing.Router",
+                "viewType": "XML",
+                "async": true,
+                "viewPath": "com.air.vp.lnchpage.view",
+                "controlAggregation": "pages",
+                "controlId": "app",
+                "clearControlAggregation": false
+            },
+            "routes": [
+                {
+                    "name": "RouteAdministratorPage",
+                    "pattern": "",
+                    "target": [
+                        "TargetAdministratorPage"
+                    ]
+                },
+                {
+                    "name": "RouteUserMaster",
+                    "pattern": "Administrator/user-master",
+                    "target": [
+                        "TargetUserMaster"
+                    ]
+                },
+                {
+                    "name": "RouteApprovalMatrix",
+                    "pattern": "Administrator/approval-matrix",
+                    "target": [
+                        "TargetApprovalMatrix"
+                    ]
+                },
+                {
+                    "name": "Routeworkflow",
+                    "pattern": "Administrator/Workflow",
+                    "target": [
+                        "TargetWorkFlow"
+                    ]
+                },
+                {
+                    "name": "RouteAdministratorPageSupplier",
+                    "pattern": "adminSupplier",
+                    "target": [
+                        "TargetAdministratorPageSupplier"
+                    ]
+                },
+                {
+                    "name": "Request",
+                    "pattern": "Request",
+                    "target": [
+                        "TargetRequestManagement"
+                    ]
+                },
+                {
+                    "name": "RequestApproval",
+                    "pattern": "RequestApproval",
+                    "target": [
+                        "TargetRequestApproval"
+                    ]
+                },
+                {
+                    "name": "RegisterApproval",
+                    "pattern": "RegisterApproval",
+                    "target": [
+                        "TargetRegisterApproval"
+                    ]
+                },
+                {
+                    "pattern": "Register/{id}",
+                    "name": "RegisterObjPage",
+                    "target": "RegisterObjPage"
+                },
+                {
+                    "name": "RegisterManagement",
+                    "pattern": "RegisterManagement",
+                    "target": [
+                        "TargetRegisterManagement"
+                    ]
+                },
+                {
+                    "name": "RegisterFormPage",
+                    "pattern": "RegisterForm/{id}/{Email}",
+                    "target": [
+                        "TargetRegisterFormPage"
+                    ]
+                },
+                {
+                    "name": "InvoiceUploadHome",
+                    "pattern": "InvoiceUploadHome",
+                    "target": [
+                        "TargetInvoiceUploadHome"
+                    ]
+                },
+                {
+                    "name": "InvoiceUploadDetails",
+                    "pattern": "InvoiceUploadDetails/{po}",
+                    "target": [
+                        "TargetInvoiceUploadDetails"
+                    ]
+                }
+            ],
+            "targets": {
+                "TargetAdministratorPage": {
+                    "viewType": "XML",
+                    "transition": "slide",
+                    "clearControlAggregation": false,
+                    "viewLevel": 0,
+                    "viewId": "Administrator",
+                    "viewName": "Administrator"
+                },
+                "TargetAdministratorPageSupplier": {
+                    "viewType": "XML",
+                    "transition": "slide",
+                    "clearControlAggregation": false,
+                    "viewLevel": 0,
+                    "viewId": "AdministratorSupplier",
+                    "viewName": "AdministratorSupplier"
+                },
+                "TargetUserMaster": {
+                    "viewType": "XML",
+                    "transition": "slide",
+                    "clearControlAggregation": false,
+                    "viewLevel": 1,
+                    "viewId": "UserMaster",
+                    "viewName": "UserMaster"
+                },
+                "TargetApprovalMatrix": {
+                    "viewType": "XML",
+                    "transition": "slide",
+                    "clearControlAggregation": false,
+                    "viewLevel": 1,
+                    "viewId": "ApprovalMatrix",
+                    "viewName": "ApprovalMatrix"
+                },
+                "TargetRequestManagement": {
+                    "viewType": "XML",
+                    "transition": "slide",
+                    "clearControlAggregation": false,
+                    "viewLevel": 0,
+                    "viewId": "RequestManagement",
+                    "viewName": "RequestManagement"
+                },
+                "TargetRequestApproval": {
+                    "viewType": "XML",
+                    "transition": "slide",
+                    "clearControlAggregation": false,
+                    "viewLevel": 0,
+                    "viewId": "RequestApproval",
+                    "viewName": "RequestApproval"
+                },
+                "TargetRegisterApproval": {
+                    "viewType": "XML",
+                    "transition": "slide",
+                    "clearControlAggregation": false,
+                    "viewLevel": 0,
+                    "viewId": "RegisterApproval",
+                    "viewName": "RegisterApproval"
+                },
+                "RegisterObjPage": {
+                    "viewType": "XML",
+                    "transition": "slide",
+                    "clearControlAggregation": false,
+                    "viewLevel": 1,
+                    "viewId": "RegisterApprovalObj",
+                    "viewName": "RegisterApprovalObj"
+                },
+                "TargetRegisterManagement": {
+                    "viewType": "XML",
+                    "transition": "slide",
+                    "clearControlAggregation": false,
+                    "viewLevel": 0,
+                    "viewId": "RegisterManagement",
+                    "viewName": "RegisterManagement"
+                },
+                "TargetRegisterFormPage": {
+                    "viewType": "XML",
+                    "transition": "slide",
+                    "clearControlAggregation": false,
+                    "viewLevel": 0,
+                    "viewId": "RegistrationForm",
+                    "viewName": "RegistrationForm"
+                },
+                "TargetInvoiceUploadHome": {
+                    "viewType": "XML",
+                    "transition": "slide",
+                    "clearControlAggregation": false,
+                    "viewLevel": 0,
+                    "viewId": "InvoiceUploadHome",
+                    "viewName": "InvoiceUpload/InvoiceUploadHome"
+                },
+                "TargetInvoiceUploadDetails": {
+                    "viewType": "XML",
+                    "transition": "slide",
+                    "clearControlAggregation": false,
+                    "viewLevel": 1,
+                    "viewId": "InvoiceUploadDetails",
+                    "viewName": "InvoiceUpload/InvoiceUploadDetails"
+                },
+                "TargetWorkFlow": {
+                    "viewType": "XML",
+                    "transition": "slide",
+                    "clearControlAggregation": false,
+                    "viewLevel": 1,
+                    "viewId": "Workflow",
+                    "viewName": "Workflow"
+                }
+            }
+        },
+        "rootView": {
+            "viewName": "com.air.vp.lnchpage.view.App",
+            "type": "XML",
+            "async": true,
+            "id": "App"
+        }
+    }
+}

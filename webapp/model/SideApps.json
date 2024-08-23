@@ -1,0 +1,101 @@
+{
+	"selectedKey": "Dashboard",
+	"navigation": [
+		{
+			"title": "Administrator",
+			"icon": "sap-icon://bbyd-dashboard",
+			"expanded": true,
+			"key": "RouteAdministratorPage",
+			"items": [
+				{
+					"title": "User Master",
+					"key": "RouteUserMaster",
+					"icon":"sap-icon://activity-individual"
+				},
+				{
+					"title": "Approval Matrix",
+					"key": "RouteApprovalMatrix",
+					"icon":"sap-icon://add-activity-2"
+				},
+				{
+					"title": "Workflow Management",
+					"key": "Routeworkflow",
+					"icon":"sap-icon://add-activity-2"
+				}
+			]
+		},
+		{
+			"title": "Supplier Profile",
+			"icon": "sap-icon://request",
+			"key": "RouteAdministratorPageSupplier",
+			"expanded":false
+		},
+		{
+			"title": "Request Management",
+			"icon": "sap-icon://request",
+			"expanded": false,
+			"key": "Request"
+		},
+		{
+			"title": "Register Management",
+			"icon": "sap-icon://order-status",
+			"expanded": false,
+			"key": "RegisterManagement"
+		},
+		{
+			"title": "Registration Approval",
+			"icon": "sap-icon://add-document",
+			"expanded": false,
+			"key": "RegisterApproval"
+		},
+		{
+			"title": "Invoice Upload",
+			"icon": "sap-icon://upload-to-cloud",
+			"expanded": true,
+			"items": [
+				{
+					"title": "PO Based",
+					"key": "InvoiceUploadHome",
+					"icon": "sap-icon://activity-individual"
+				},
+				{
+					"title": "Non PO Based",
+					"key": "InvoiceUploadHome",
+					"icon": "sap-icon://add-activity-2"
+				}
+			]
+		}
+	],
+	"fixedNavigation": [
+		{
+			"title": "Setting",
+			"icon": "sap-icon://action-settings"
+		},
+		{
+			"title": "Support",
+			"icon": "sap-icon://headset"
+		},
+		{
+			"title": "Help Dcuments",
+			"icon": "sap-icon://learning-assistant"
+		}
+	],
+	"headerItems": [
+		{
+			"text": "File"
+		},
+		{
+			"text": "Edit"
+		},
+		{
+			"text": "View"
+		},
+		{
+			"text": "Settings"
+		},
+		{
+			"text": "Help"
+		}
+	]
+}
+

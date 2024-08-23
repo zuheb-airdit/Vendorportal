@@ -1,0 +1,15 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+	<SelectDialog
+		title="Company"
+		items="{/CompanyCode}"
+		contentHeight="10rem"
+		search=".onValueHelpDialogSearch"
+		confirm=".onValueHelpDialogClose"
+		cancel=".onValueHelpDialogClose">
+		<StandardListItem
+			iconDensityAware="false"
+			iconInset="false"
+			title="{BUKRS}"
+			info="{BUTXT}" />
+	</SelectDialog>
+</core:FragmentDefinition>

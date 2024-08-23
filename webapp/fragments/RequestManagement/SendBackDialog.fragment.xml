@@ -1,0 +1,148 @@
+<core:FragmentDefinition
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:upload="sap.m.upload"
+    xmlns:form="sap.ui.comp.smartform"
+    xmlns:sf="sap.ui.comp.smartfield"
+    xmlns:l="sap.ui.layout"
+>
+    <!-- <Dialog
+    
+        title="Request Form"
+        contentWidth="50%"
+        titleAlignment="Start"
+    >
+        <content>
+            <VBox >
+                <l:Grid
+                    defaultSpan="L3 M3"
+                    class="sapUiMediumMarginTop sapUiMediumMarginBottom"
+                >
+                    <l:content>
+                        <Label
+                            text="Request Type"
+                            labelFor="idReqType"
+                        />
+                       <ComboBox
+                            id="idReqType"
+                            width="100%"
+                            showSecondaryValues="true"
+                        >
+                            <core:ListItem
+                                key="Create Supplier"
+                                text="Create Supplier"
+                            />
+                            <core:ListItem
+                                key="Create Buyer"
+                                text="Create Buyer"
+                            />
+                        </ComboBox>
+                        <Label text="Company" />
+                        <MultiComboBox
+                            id="idVendorEntity"
+                            width="100%"
+                            showSecondaryValues="true"
+                            items="{
+                               path: 'user-master>/CompanyCode',
+                               templateShareable: true
+                                }"
+                        >
+                            <core:ListItem
+                                key="{user-master>BUKRS}"
+                                text="{user-master>BUKRS}"
+                                additionalText="{user-master>BUTXT}"
+                            />
+                        </MultiComboBox>
+                        <Label text="Vendor Name" />
+                        <Input
+                            id="idVendorName"
+                            required="true"
+                            editable="true"
+                        />
+                        <Label text="Vendor Type" />
+                           <Input
+                            id="idVendorTypes"
+                            editable="true"
+                            valueHelpRequest="onValueHelpVendorFrag"
+                            showValueHelp="true"
+                            suggestionItems="{request-process>/Vendor_Type}"
+                            suggestionItemSelected=".onSuggestionItemSelected"
+                        >
+                            <suggestionItems>
+                                <core:ListItem
+                                    key="{request-process>SPRAS}"
+                                    text="{request-process>SPRAS}"
+                                    additionalText="{request-process>TXT30}"
+                                />
+                            </suggestionItems>
+                        </Input>
+                        <Label text="Vendor Email" />
+                        <Input
+                            id="idVendorEmail"
+                            required="true"
+                            editable="true"
+                        />
+                        <Label text="Vendor SubType" />
+                          <Input
+                            id="idSubVendorTypes"
+                            editable="true"
+                            valueHelpRequest="onValueHelpSubVendorFrag"
+                            showValueHelp="true"
+                            suggestionItems="{request-process>/Vendor_Sub_Type}"
+                            suggestionItemSelected=".onSuggestionItemSelected"
+                        >
+                            <suggestionItems>
+                                <core:ListItem
+                                    key="{request-process>SPRAS}"
+                                    text="{request-process>SPRAS}"
+                                    additionalText="{request-process>TXT40}"
+                                />
+                            </suggestionItems>
+                        </Input>
+                        <Label text="Comment For Approver"></Label>
+                        <TextArea id="idTextArea" width="30rem"></TextArea>
+                    </l:content>
+                </l:Grid>
+            </VBox>
+        </content>
+        <buttons>
+            <Button
+                text="Submit"
+                press="onSumbitReqManagement"
+                icon="sap-icon://accept"
+                type="Accept"
+                id="idSubCreateBtnja"
+            />
+            <Button
+                id="idCancelCreateBtnAa"
+                press="onCloseReqManagement"
+                text="Cancel"
+                type="Reject"
+                icon="sap-icon://cancel"
+            />
+        </buttons>
+    </Dialog> -->
+     <Dialog
+        id="sendBackDialog"
+        title="Send Back Instructions"
+        type="Message"
+        afterClose="onDialogClose"
+    >
+        <content>
+            <VBox class="sapUiSmallMargin">
+                <Label text="Instructions" labelFor="instructionInput" />
+                <TextArea
+                    id="instructionInput"
+                    width="100%"
+                    placeholder="Enter instructions..."
+                />
+            </VBox>
+        </content>
+        <beginButton>
+            <Button text="Send Back" press="onSendBackConfirm" />
+        </beginButton>
+        <endButton>
+            <Button text="Cancel" press="onDialogCancel" />
+        </endButton>
+    </Dialog>
+</core:FragmentDefinition>

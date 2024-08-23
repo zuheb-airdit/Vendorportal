@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="1.0" xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx" xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" xmlns:sap="http://www.sap.com/Protocols/SAPData">
+    <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/Common.xml" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+        <edmx:Include Alias="Common" Namespace="com.sap.vocabularies.Common.v1"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Core.V1.xml" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+        <edmx:Include Alias="Core" Namespace="Org.OData.Core.V1"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Validation.V1.xml" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+        <edmx:Include Alias="Validation" Namespace="Org.OData.Validation.V1"/>
+    </edmx:Reference>
+    <edmx:DataServices m:DataServiceVersion="2.0">
+        <Schema Namespace="requestProcessService" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+            <EntityContainer Name="EntityContainer" m:IsDefaultEntityContainer="true">
+                <EntitySet Name="RequestInfo" EntityType="requestProcessService.RequestInfo"/>
+                <EntitySet Name="RequestInfoforStatus6and9" EntityType="requestProcessService.RequestInfoforStatus6and9"/>
+                <EntitySet Name="RequestManagementFilterAccToStatusAndREQno" EntityType="requestProcessService.RequestManagementFilterAccToStatusAndREQno"/>
+                <EntitySet Name="Vendor_Type" EntityType="requestProcessService.Vendor_Type"/>
+                <EntitySet Name="Vendor_Sub_Type" EntityType="requestProcessService.Vendor_Sub_Type"/>
+                <EntitySet Name="RequestType" EntityType="requestProcessService.RequestType"/>
+                <EntitySet Name="ReqApprovalNo" EntityType="requestProcessService.ReqApprovalNo"/>
+                <EntitySet Name="APPROVAL_HIERARCHY_FE" EntityType="requestProcessService.APPROVAL_HIERARCHY_FE"/>
+                <FunctionImport Name="RequestProcess" ReturnType="Edm.String" m:HttpMethod="POST">
+                    <Parameter Name="action" Type="Edm.String" Mode="In" Nullable="true"/>
+                    <Parameter Name="inputData" Type="Collection(requestProcessService.RequestInfo)" Nullable="false" Mode="In"/>
+                    <Parameter Name="userDetails" Type="requestProcessService.User_Details" Mode="In" Nullable="true"/>
+                </FunctionImport>
+                <AssociationSet Name="RequestInfo_TO_REQUEST_TYPE" Association="requestProcessService.RequestInfo_TO_REQUEST_TYPE">
+                    <End Role="RequestInfo" EntitySet="RequestInfo"/>
+                    <End Role="RequestType" EntitySet="RequestType"/>
+                </AssociationSet>
+                <AssociationSet Name="RequestInfo_TO_HIERARCHY" Association="requestProcessService.RequestInfo_TO_HIERARCHY">
+                    <End Role="RequestInfo" EntitySet="RequestInfo"/>
+                    <End Role="APPROVAL_HIERARCHY_FE" EntitySet="APPROVAL_HIERARCHY_FE"/>
+                </AssociationSet>
+                <AssociationSet Name="RequestInfoforStatus6and9_TO_REQUEST_TYPE" Association="requestProcessService.RequestInfoforStatus6and9_TO_REQUEST_TYPE">
+                    <End Role="RequestInfoforStatus6and9" EntitySet="RequestInfoforStatus6and9"/>
+                    <End Role="RequestType" EntitySet="RequestType"/>
+                </AssociationSet>
+                <AssociationSet Name="RequestInfoforStatus6and9_TO_HIERARCHY" Association="requestProcessService.RequestInfoforStatus6and9_TO_HIERARCHY">
+                    <End Role="RequestInfoforStatus6and9" EntitySet="RequestInfoforStatus6and9"/>
+                    <End Role="APPROVAL_HIERARCHY_FE" EntitySet="APPROVAL_HIERARCHY_FE"/>
+                </AssociationSet>
+                <AssociationSet Name="RequestManagementFilterAccToStatusAndREQno_TO_REQUEST_TYPE" Association="requestProcessService.RequestManagementFilterAccToStatusAndREQno_TO_REQUEST_TYPE">
+                    <End Role="RequestManagementFilterAccToStatusAndREQno" EntitySet="RequestManagementFilterAccToStatusAndREQno"/>
+                    <End Role="RequestType" EntitySet="RequestType"/>
+                </AssociationSet>
+                <AssociationSet Name="RequestManagementFilterAccToStatusAndREQno_TO_HIERARCHY" Association="requestProcessService.RequestManagementFilterAccToStatusAndREQno_TO_HIERARCHY">
+                    <End Role="RequestManagementFilterAccToStatusAndREQno" EntitySet="RequestManagementFilterAccToStatusAndREQno"/>
+                    <End Role="APPROVAL_HIERARCHY_FE" EntitySet="APPROVAL_HIERARCHY_FE"/>
+                </AssociationSet>
+            </EntityContainer>
+            <EntityType Name="RequestInfo">
+                <Key>
+                    <PropertyRef Name="REQUEST_NO"/>
+                </Key>
+                <Property Name="REQUEST_NO" Type="Edm.Int32" Nullable="false"/>
+                <Property Name="VENDOR_ORGANISATION_NAME" Type="Edm.String"/>
+                <Property Name="CONTACT_PERSON" Type="Edm.String"/>
+                <Property Name="PRIORITY" Type="Edm.String"/>
+                <Property Name="INSTRUCTIONS" Type="Edm.String"/>
+                <Property Name="STATUS" Type="Edm.Int32"/>
+                <Property Name="REGISTERED_ID" Type="Edm.String" MaxLength="100"/>
+                <Property Name="COMPANY_CODE" Type="Edm.String" MaxLength="10"/>
+                <Property Name="REQUEST_TYPE" Type="Edm.String"/>
+                <Property Name="APPROVER_LEVEL" Type="Edm.Int32"/>
+                <Property Name="APPROVER_ROLE" Type="Edm.String" MaxLength="50"/>
+                <Property Name="REQUESTER_ID" Type="Edm.String" MaxLength="100"/>
+                <Property Name="SUPPL_TYPE" Type="Edm.String" MaxLength="50"/>
+                <Property Name="SUPPL_TYPE_DESC" Type="Edm.String" MaxLength="50"/>
+                <Property Name="BP_TYPE_CODE" Type="Edm.String" MaxLength="4"/>
+                <Property Name="BP_TYPE_DESC" Type="Edm.String" MaxLength="100"/>
+                <Property Name="DUE_DELI_NUM" Type="Edm.String"/>
+                <Property Name="PAN_NO" Type="Edm.String"/>
+                <Property Name="GST_NO" Type="Edm.String"/>
+                <Property Name="LST_NO" Type="Edm.String"/>
+                <Property Name="CST_NO" Type="Edm.String"/>
+                <Property Name="MSME_CATEGORY" Type="Edm.String"/>
+                <Property Name="VENDOR_ACCOUNT_GROUP" Type="Edm.String"/>
+                <Property Name="DUE_DILIGANCE" Type="Edm.Boolean"/>
+                <Property Name="DUE_DILIGANCE_REQ_NO" Type="Edm.String"/>
+                <Property Name="APPROVER" Type="Edm.String"/>
+                <Property Name="LAST_UPDATED_ON" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="CREATED_ON" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="COMMENT" Type="Edm.String" MaxLength="1000"/>
+                <Property Name="PROCESS_LEVEL" Type="Edm.String" MaxLength="10"/>
+                <NavigationProperty Name="TO_REQUEST_TYPE" Relationship="requestProcessService.RequestInfo_TO_REQUEST_TYPE" FromRole="RequestInfo" ToRole="RequestType"/>
+                <NavigationProperty Name="TO_HIERARCHY" Relationship="requestProcessService.RequestInfo_TO_HIERARCHY" FromRole="RequestInfo" ToRole="APPROVAL_HIERARCHY_FE"/>
+            </EntityType>
+            <EntityType Name="RequestInfoforStatus6and9">
+                <Key>
+                    <PropertyRef Name="REQUEST_NO"/>
+                </Key>
+                <Property Name="REQUEST_NO" Type="Edm.Int32" Nullable="false"/>
+                <Property Name="VENDOR_ORGANISATION_NAME" Type="Edm.String"/>
+                <Property Name="CONTACT_PERSON" Type="Edm.String"/>
+                <Property Name="PRIORITY" Type="Edm.String"/>
+                <Property Name="INSTRUCTIONS" Type="Edm.String"/>
+                <Property Name="STATUS" Type="Edm.Int32"/>
+                <Property Name="REGISTERED_ID" Type="Edm.String" MaxLength="100"/>
+                <Property Name="COMPANY_CODE" Type="Edm.String" MaxLength="10"/>
+                <Property Name="REQUEST_TYPE" Type="Edm.String"/>
+                <Property Name="APPROVER_LEVEL" Type="Edm.Int32"/>
+                <Property Name="APPROVER_ROLE" Type="Edm.String" MaxLength="50"/>
+                <Property Name="REQUESTER_ID" Type="Edm.String" MaxLength="100"/>
+                <Property Name="SUPPL_TYPE" Type="Edm.String" MaxLength="50"/>
+                <Property Name="SUPPL_TYPE_DESC" Type="Edm.String" MaxLength="50"/>
+                <Property Name="BP_TYPE_CODE" Type="Edm.String" MaxLength="4"/>
+                <Property Name="BP_TYPE_DESC" Type="Edm.String" MaxLength="100"/>
+                <Property Name="DUE_DELI_NUM" Type="Edm.String"/>
+                <Property Name="PAN_NO" Type="Edm.String"/>
+                <Property Name="GST_NO" Type="Edm.String"/>
+                <Property Name="LST_NO" Type="Edm.String"/>
+                <Property Name="CST_NO" Type="Edm.String"/>
+                <Property Name="MSME_CATEGORY" Type="Edm.String"/>
+                <Property Name="VENDOR_ACCOUNT_GROUP" Type="Edm.String"/>
+                <Property Name="DUE_DILIGANCE" Type="Edm.Boolean"/>
+                <Property Name="DUE_DILIGANCE_REQ_NO" Type="Edm.String"/>
+                <Property Name="APPROVER" Type="Edm.String"/>
+                <Property Name="LAST_UPDATED_ON" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="CREATED_ON" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="COMMENT" Type="Edm.String" MaxLength="1000"/>
+                <Property Name="PROCESS_LEVEL" Type="Edm.String" MaxLength="10"/>
+                <NavigationProperty Name="TO_REQUEST_TYPE" Relationship="requestProcessService.RequestInfoforStatus6and9_TO_REQUEST_TYPE" FromRole="RequestInfoforStatus6and9" ToRole="RequestType"/>
+                <NavigationProperty Name="TO_HIERARCHY" Relationship="requestProcessService.RequestInfoforStatus6and9_TO_HIERARCHY" FromRole="RequestInfoforStatus6and9" ToRole="APPROVAL_HIERARCHY_FE"/>
+            </EntityType>
+            <EntityType Name="RequestManagementFilterAccToStatusAndREQno">
+                <Key>
+                    <PropertyRef Name="REQUEST_NO"/>
+                </Key>
+                <Property Name="REQUEST_NO" Type="Edm.Int32" Nullable="false"/>
+                <Property Name="VENDOR_ORGANISATION_NAME" Type="Edm.String"/>
+                <Property Name="CONTACT_PERSON" Type="Edm.String"/>
+                <Property Name="PRIORITY" Type="Edm.String"/>
+                <Property Name="INSTRUCTIONS" Type="Edm.String"/>
+                <Property Name="STATUS" Type="Edm.Int32"/>
+                <Property Name="REGISTERED_ID" Type="Edm.String" MaxLength="100"/>
+                <Property Name="COMPANY_CODE" Type="Edm.String" MaxLength="10"/>
+                <Property Name="REQUEST_TYPE" Type="Edm.String"/>
+                <Property Name="APPROVER_LEVEL" Type="Edm.Int32"/>
+                <Property Name="APPROVER_ROLE" Type="Edm.String" MaxLength="50"/>
+                <Property Name="REQUESTER_ID" Type="Edm.String" MaxLength="100"/>
+                <Property Name="SUPPL_TYPE" Type="Edm.String" MaxLength="50"/>
+                <Property Name="SUPPL_TYPE_DESC" Type="Edm.String" MaxLength="50"/>
+                <Property Name="BP_TYPE_CODE" Type="Edm.String" MaxLength="4"/>
+                <Property Name="BP_TYPE_DESC" Type="Edm.String" MaxLength="100"/>
+                <Property Name="DUE_DELI_NUM" Type="Edm.String"/>
+                <Property Name="PAN_NO" Type="Edm.String"/>
+                <Property Name="GST_NO" Type="Edm.String"/>
+                <Property Name="LST_NO" Type="Edm.String"/>
+                <Property Name="CST_NO" Type="Edm.String"/>
+                <Property Name="MSME_CATEGORY" Type="Edm.String"/>
+                <Property Name="VENDOR_ACCOUNT_GROUP" Type="Edm.String"/>
+                <Property Name="DUE_DILIGANCE" Type="Edm.Boolean"/>
+                <Property Name="DUE_DILIGANCE_REQ_NO" Type="Edm.String"/>
+                <Property Name="APPROVER" Type="Edm.String"/>
+                <Property Name="LAST_UPDATED_ON" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="CREATED_ON" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="COMMENT" Type="Edm.String" MaxLength="1000"/>
+                <Property Name="PROCESS_LEVEL" Type="Edm.String" MaxLength="10"/>
+                <NavigationProperty Name="TO_REQUEST_TYPE" Relationship="requestProcessService.RequestManagementFilterAccToStatusAndREQno_TO_REQUEST_TYPE" FromRole="RequestManagementFilterAccToStatusAndREQno" ToRole="RequestType"/>
+                <NavigationProperty Name="TO_HIERARCHY" Relationship="requestProcessService.RequestManagementFilterAccToStatusAndREQno_TO_HIERARCHY" FromRole="RequestManagementFilterAccToStatusAndREQno" ToRole="APPROVAL_HIERARCHY_FE"/>
+            </EntityType>
+            <EntityType Name="Vendor_Type">
+                <Key>
+                    <PropertyRef Name="KTOKK"/>
+                </Key>
+                <Property Name="MANDT" Type="Edm.String" MaxLength="10"/>
+                <Property Name="KTOKK" Type="Edm.String" MaxLength="10" Nullable="false"/>
+                <Property Name="SPRAS" Type="Edm.String" MaxLength="10"/>
+                <Property Name="TXT30" Type="Edm.String" MaxLength="30"/>
+            </EntityType>
+            <EntityType Name="Vendor_Sub_Type">
+                <Key>
+                    <PropertyRef Name="BPKIND"/>
+                </Key>
+                <Property Name="CLIENT" Type="Edm.String" MaxLength="10"/>
+                <Property Name="BPKIND" Type="Edm.String" MaxLength="10" Nullable="false"/>
+                <Property Name="SPRAS" Type="Edm.String" MaxLength="10"/>
+                <Property Name="TEXT40" Type="Edm.String" MaxLength="40"/>
+            </EntityType>
+            <EntityType Name="RequestType">
+                <Key>
+                    <PropertyRef Name="CODE"/>
+                </Key>
+                <Property Name="CODE" Type="Edm.Int32" Nullable="false"/>
+                <Property Name="DESCRIPTION" Type="Edm.String" MaxLength="50"/>
+                <Property Name="SUPPLIER_TYPE" Type="Edm.String" MaxLength="50"/>
+            </EntityType>
+            <EntityType Name="ReqApprovalNo">
+                <Property Name="REQUEST_NO" Type="Edm.Int32"/>
+                <Property Name="ApprovalLevel" Type="Edm.Int32"/>
+            </EntityType>
+            <EntityType Name="APPROVAL_HIERARCHY_FE">
+                <Key>
+                    <PropertyRef Name="APPR_TYPE"/>
+                    <PropertyRef Name="COMPANY_CODE"/>
+                    <PropertyRef Name="USER_ID"/>
+                </Key>
+                <Property Name="APPR_TYPE" Type="Edm.String" MaxLength="10" Nullable="false"/>
+                <Property Name="COMPANY_CODE" Type="Edm.String" MaxLength="20" Nullable="false"/>
+                <Property Name="USER_ID" Type="Edm.String" MaxLength="1000" Nullable="false"/>
+                <Property Name="APPROVER_LEVEL" Type="Edm.Int32"/>
+                <Property Name="USER_ROLE" Type="Edm.String" MaxLength="10"/>
+                <Property Name="ACCESS_EDIT" Type="Edm.Boolean"/>
+                <Property Name="ACCESS_APPROVE" Type="Edm.Boolean"/>
+                <Property Name="ACCESS_SENDBACK" Type="Edm.Boolean"/>
+                <Property Name="ACCESS_REJECT" Type="Edm.Boolean"/>
+            </EntityType>
+            <ComplexType Name="User_Details">
+                <Property Name="USER_ROLE" Type="Edm.String" MaxLength="50"/>
+                <Property Name="USER_ID" Type="Edm.String" MaxLength="50"/>
+            </ComplexType>
+            <Association Name="RequestInfo_TO_REQUEST_TYPE">
+                <End Role="RequestInfo" Type="requestProcessService.RequestInfo" Multiplicity="*"/>
+                <End Role="RequestType" Type="requestProcessService.RequestType" Multiplicity="0..1"/>
+                <ReferentialConstraint>
+                    <Principal Role="RequestType">
+                        <PropertyRef Name="CODE"/>
+                    </Principal>
+                    <Dependent Role="RequestInfo">
+                        <PropertyRef Name="REQUEST_TYPE"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="RequestInfo_TO_HIERARCHY">
+                <End Role="RequestInfo" Type="requestProcessService.RequestInfo" Multiplicity="*"/>
+                <End Role="APPROVAL_HIERARCHY_FE" Type="requestProcessService.APPROVAL_HIERARCHY_FE" Multiplicity="0..1"/>
+            </Association>
+            <Association Name="RequestInfoforStatus6and9_TO_REQUEST_TYPE">
+                <End Role="RequestInfoforStatus6and9" Type="requestProcessService.RequestInfoforStatus6and9" Multiplicity="*"/>
+                <End Role="RequestType" Type="requestProcessService.RequestType" Multiplicity="0..1"/>
+                <ReferentialConstraint>
+                    <Principal Role="RequestType">
+                        <PropertyRef Name="CODE"/>
+                    </Principal>
+                    <Dependent Role="RequestInfoforStatus6and9">
+                        <PropertyRef Name="REQUEST_TYPE"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="RequestInfoforStatus6and9_TO_HIERARCHY">
+                <End Role="RequestInfoforStatus6and9" Type="requestProcessService.RequestInfoforStatus6and9" Multiplicity="*"/>
+                <End Role="APPROVAL_HIERARCHY_FE" Type="requestProcessService.APPROVAL_HIERARCHY_FE" Multiplicity="0..1"/>
+            </Association>
+            <Association Name="RequestManagementFilterAccToStatusAndREQno_TO_REQUEST_TYPE">
+                <End Role="RequestManagementFilterAccToStatusAndREQno" Type="requestProcessService.RequestManagementFilterAccToStatusAndREQno" Multiplicity="*"/>
+                <End Role="RequestType" Type="requestProcessService.RequestType" Multiplicity="0..1"/>
+                <ReferentialConstraint>
+                    <Principal Role="RequestType">
+                        <PropertyRef Name="CODE"/>
+                    </Principal>
+                    <Dependent Role="RequestManagementFilterAccToStatusAndREQno">
+                        <PropertyRef Name="REQUEST_TYPE"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="RequestManagementFilterAccToStatusAndREQno_TO_HIERARCHY">
+                <End Role="RequestManagementFilterAccToStatusAndREQno" Type="requestProcessService.RequestManagementFilterAccToStatusAndREQno" Multiplicity="*"/>
+                <End Role="APPROVAL_HIERARCHY_FE" Type="requestProcessService.APPROVAL_HIERARCHY_FE" Multiplicity="0..1"/>
+            </Association>
+            <Annotations Target="requestProcessService.APPROVAL_HIERARCHY_FE/APPROVER_LEVEL" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Validation.Minimum" Int="1"/>
+                <Annotation Term="Validation.Maximum" Int="10000"/>
+            </Annotations>
+        </Schema>
+    </edmx:DataServices>
+</edmx:Edmx>

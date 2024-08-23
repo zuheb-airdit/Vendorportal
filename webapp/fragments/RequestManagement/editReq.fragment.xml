@@ -1,0 +1,124 @@
+<core:FragmentDefinition
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:upload="sap.m.upload"
+    xmlns:form="sap.ui.comp.smartform"
+    xmlns:sf="sap.ui.comp.smartfield"
+    xmlns:l="sap.ui.layout"
+>
+    <Dialog
+    
+        title="Edit Request Form"
+        contentWidth="50%"
+        titleAlignment="Start"
+    >
+        <content>
+            <VBox >
+                <l:Grid
+                    defaultSpan="L3 M3"
+                    class="sapUiMediumMarginTop sapUiMediumMarginBottom"
+                >
+                    <l:content>
+                        <Label
+                            text="Request Type"
+                            labelFor="idReqTypeEdit"
+                        />
+                       <ComboBox
+                            id="idReqTypeEdit"
+                            width="100%"
+                            showSecondaryValues="true"
+                        >
+                            <core:ListItem
+                                key="Create Supplier"
+                                text="Empanelment Filled by Supplier"
+                            />
+                            <core:ListItem
+                                key="Create Buyer"
+                                text="Empanelment Filled by Buyer"
+                            />
+                        </ComboBox>
+                        <Label text="Company" />
+                        <MultiComboBox
+                            id="idVendorEntityEdit"
+                            width="100%"
+                            showSecondaryValues="true"
+                            items="{
+                               path: 'user-master>/CompanyCode',
+                               templateShareable: true
+                                }"
+                        >
+                            <core:ListItem
+                                key="{user-master>BUKRS}"
+                                text="{user-master>BUKRS}"
+                                additionalText="{user-master>BUTXT}"
+                            />
+                        </MultiComboBox>
+                        <!-- <Label text="Vendor Name" />
+                        <Input
+                            id="idVendorName"
+                            required="true"
+                            editable="false"
+                        /> -->
+                        <Label text="Vendor Type" />
+                           <Input
+                            id="idVendorTypesEdit"
+                            editable="true"
+                            valueHelpRequest="onValueHelpVendorFrag"
+                            showValueHelp="true"
+                            suggestionItems="{request-process>/Vendor_Type}"
+                            suggestionItemSelected=".onSuggestionItemSelected"
+                        >
+                            <suggestionItems>
+                                <core:ListItem
+                                    key="{request-process>SPRAS}"
+                                    text="{request-process>SPRAS}"
+                                    additionalText="{request-process>TXT30}"
+                                />
+                            </suggestionItems>
+                        </Input>
+                        <Label text="Vendor Email" />
+                        <Input
+                            id="idVendorEmailEdit"
+                            required="true"
+                            editable="true"
+                        />
+                        <Label text="Vendor SubType" />
+                          <Input
+                            id="idSubVendorTypesEdit"
+                            editable="true"
+                            valueHelpRequest="onValueHelpSubVendorFrag"
+                            showValueHelp="true"
+                            suggestionItems="{request-process>/Vendor_Sub_Type}"
+                            suggestionItemSelected=".onSuggestionItemSelected"
+                        >
+                            <suggestionItems>
+                                <core:ListItem
+                                    key="{request-process>SPRAS}"
+                                    text="{request-process>SPRAS}"
+                                    additionalText="{request-process>TXT40}"
+                                />
+                            </suggestionItems>
+                        </Input>
+                        
+                    </l:content>
+                </l:Grid>
+            </VBox>
+        </content>
+        <buttons>
+            <Button
+                text="Update"
+                press="onUpdateReqManagement"
+                icon="sap-icon://accept"
+                type="Accept"
+                id="idSubCreateBtnjaEdit"
+            />
+            <Button
+                id="idCancelCreateBtnAaEdit"
+                press="onCloseEditReq"
+                text="Cancel"
+                type="Reject"
+                icon="sap-icon://cancel"
+            />
+        </buttons>
+    </Dialog>
+</core:FragmentDefinition>

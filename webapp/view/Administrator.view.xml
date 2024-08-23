@@ -1,0 +1,233 @@
+<mvc:View controllerName="com.air.vp.lnchpage.controller.Administrator"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:core="sap.ui.core"
+    xmlns:viz="sap.viz.ui5.controls"
+    xmlns:smartchart="sap.ui.comp.smartchart"
+    xmlns:f="sap.f"
+    xmlns:viz.feeds="sap.viz.ui5.controls.common.feeds"
+    xmlns:viz.data="sap.viz.ui5.data"
+    xmlns:chart="sap.suite.ui.commons"
+    xmlns:smartTable="sap.ui.comp.smarttable"
+    xmlns:table="sap.ui.table"
+    xmlns:exten="sap.chart"
+    xmlns:card="sap.f.cards"
+    xmlns:tnt="sap.tnt" displayBlock="true"
+    xmlns="sap.m">
+    <Page id="page" title="Administrator" showHeader="false">
+        <content>
+            <f:GridList id="gridList" class="sapUiTinyMarginTop">
+                <f:GridListItem detailPress="onDetailPress" press="onPress" highlight="{Status}" type="{type}" class="sapUiTinyMarginBegin">
+                    <VBox height="100%" class="sapUiTinyMargin">
+                        <HBox height="100%" alignItems="Center" visible="{= ${onlyImage} ? false : true }" class="marginGrid">
+                            <Image src="./Images/Total.png" width="3rem" class="sapUiSmallMarginEnd sapUiSmallMarginBegin sapUiTinyMarginBottom" />
+                            <VBox>
+                                <Title text="{calculatedModel>/total}" wrapping="true" />
+                                <Label text="Total Recieved" wrapping="true" />
+                            </VBox>
+                        </HBox>
+                    </VBox>
+                </f:GridListItem>
+                <f:GridListItem detailPress="onDetailPress" press="onPress" highlight="{Status}" type="{type}">
+                    <VBox height="100%" class="sapUiTinyMargin">
+                        <HBox height="100%" alignItems="Center" visible="{= ${onlyImage} ? false : true }" class="marginGrid">
+                            <Image src="./Images/Profile.png" width="3rem" class="sapUiSmallMarginEnd sapUiSmallMarginBegin sapUiTinyMarginBottom" />
+                            <VBox>
+                                <Title text="{calculatedModel>/approved}" wrapping="true" />
+                                <Label text="Completed" wrapping="true" />
+                            </VBox>
+                        </HBox>
+                    </VBox>
+                </f:GridListItem>
+                <f:GridListItem detailPress="onDetailPress" press="onPress" highlight="{Status}" type="{type}">
+                    <VBox height="100%" class="sapUiTinyMargin">
+                        <HBox height="100%" alignItems="Center" visible="{= ${onlyImage} ? false : true }" class="marginGrid">
+                            <Image src="./Images/Inprogress.png" width="3rem" class="sapUiSmallMarginEnd sapUiSmallMarginBegin sapUiTinyMarginBottom" />
+                            <VBox>
+                                <Title text="{calculatedModel>/inprogress}" wrapping="true" />
+                                <Label text="In Progress" wrapping="true" />
+                            </VBox>
+                        </HBox>
+                    </VBox>
+                </f:GridListItem>
+                <f:GridListItem detailPress="onDetailPress" press="onPress" highlight="{Status}" type="{type}" class="sapUiTinyMarginEnd">
+                    <VBox height="100%" class="sapUiTinyMargin">
+                        <HBox height="100%" alignItems="Center" visible="{= ${onlyImage} ? false : true }" class="marginGrid">
+                            <Image src="./Images/Rejected.png" width="3rem" class="sapUiSmallMarginEnd sapUiSmallMarginBegin  sapUiTinyMarginBottom" />
+                            <VBox>
+                                <Title text="{calculatedModel>/rejected}" wrapping="true" />
+                                <Label text="Rejected" wrapping="true" />
+                            </VBox>
+                        </HBox>
+                    </VBox>
+                </f:GridListItem>
+            </f:GridList>
+            <HBox class="testmargin">
+                <VBox width="51%" class="marginRight">
+                    <f:Card height="13.5rem" width="100%">
+                        <f:layoutData>
+                            <FlexItemData growFactor="1" baseSize="0" styleClass="sapUiTinyMargin sapUiTinyMarginTop sapUiTinyMarginBottom" />
+                        </f:layoutData>
+                        <f:content>
+                            <chart:ChartContainer showFullScreen="true" showPersonalization="false" autoAdjustHeight="true" personalizationPress="attachPersonalizationPress" contentChange="attachContentChange" title="Requests Progress">
+                                <chart:content>
+                                    <chart:ChartContainerContent icon="sap-icon://line-chart" title="Line Chart">
+                                        <chart:content>
+                                            <viz:VizFrame id="idVizFrame" uiConfig="{applicationSet:'fiori'}" height='100%' width="100%" vizType='column' renderComplete="handleZoomOut" vizProperties="{title: { visible: false }, categoryAxis:{title:{visible: false}}, valueAxis:{title:{visible: true, text: 'No. of Requests'}},plotArea: { dataLabel: {visible: true}}}">
+                                                <viz:dataset>
+                                                    <viz.data:FlattenedDataset data="{/VendorStatusCounts}">
+                                                        <viz.data:dimensions>
+                                                            <viz.data:DimensionDefinition name="Status" value="{description}" />
+                                                        </viz.data:dimensions>
+                                                        <viz.data:measures>
+                                                            <viz.data:MeasureDefinition name="Count" value="{count}" />
+                                                        </viz.data:measures>
+                                                    </viz.data:FlattenedDataset>
+                                                </viz:dataset>
+
+                                                <viz:feeds>
+                                                    <viz.feeds:FeedItem id='valueAxisFeed' uid="valueAxis" type="Measure" values="Count" />
+                                                    <viz.feeds:FeedItem uid="categoryAxis" type="Dimension" values="Status" />
+                                                </viz:feeds>
+                                                <viz:dependents>
+                                                    <viz:Popover id="idPopOver" />
+                                                </viz:dependents>
+                                            </viz:VizFrame>
+                                        </chart:content>
+                                    </chart:ChartContainerContent>
+                                </chart:content>
+                            </chart:ChartContainer>
+                        </f:content>
+                    </f:Card>
+                </VBox>
+                <VBox width="50%">
+                    <f:Card height="13.5rem" width="100%">
+                        <f:layoutData>
+                            <FlexItemData growFactor="1" baseSize="0" styleClass="sapUiTinyMargin sapUiTinyMarginTop sapUiTinyMarginBottom" />
+                        </f:layoutData>
+                        <f:content>
+                            <chart:ChartContainer showFullScreen="true" showPersonalization="false" autoAdjustHeight="true" personalizationPress="attachPersonalizationPress" contentChange="attachContentChange" title="Vendor Enrollment vs Buyer Enrollment">
+                                <chart:content>
+                                    <chart:ChartContainerContent icon="sap-icon://line-chart" title="Line Chart">
+                                        <chart:content>
+                                            <viz:VizFrame id="idVizFrsame" uiConfig="{applicationSet:'fiori'}" height='100%' width="100%" vizType='donut' vizProperties="{
+                title: { visible: false }, 
+                categoryAxis: { title: { visible: false }}, 
+                valueAxis: { title: { visible: true, text: 'No. of Requests' }},
+                plotArea: { dataLabel: { visible: true }}}">
+                                                <viz:dataset>
+                                                    <viz.data:FlattenedDataset data="{/RequestCounts}">
+                                                        <viz.data:dimensions>
+                                                            <viz.data:DimensionDefinition name="Store Name" value="{requestType}" />
+                                                        </viz.data:dimensions>
+                                                        <viz.data:measures>
+                                                            <viz.data:MeasureDefinition name="Revenue" value="{count}" />
+                                                        </viz.data:measures>
+                                                    </viz.data:FlattenedDataset>
+                                                </viz:dataset>
+                                                <viz:feeds>
+                                                    <viz.feeds:FeedItem uid="size" type="Measure" values="Revenue" />
+                                                    <viz.feeds:FeedItem uid="color" type="Dimension" values="Store Name" />
+                                                </viz:feeds>
+
+                                            </viz:VizFrame>
+                                        </chart:content>
+                                    </chart:ChartContainerContent>
+                                </chart:content>
+                            </chart:ChartContainer>
+                        </f:content>
+                    </f:Card>
+                </VBox>
+            </HBox>
+            <HBox class="testmargin">
+                <VBox width="51%" class="marginRight">
+                    <f:Card height="13.5rem" width="100%" class="marginTopZero">
+                        <f:layoutData>
+                            <FlexItemData growFactor="1" baseSize="0" styleClass="sapUiTinyMargin sapUiTinyMarginTop customCardMargin padding: 0;" />
+                        </f:layoutData>
+                        <f:content>
+                            <chart:ChartContainer showFullScreen="true" showPersonalization="false" autoAdjustHeight="true" personalizationPress="attachPersonalizationPress" contentChange="attachContentChange" title="Month-wise Buyer/Vendor Creations">
+                                <chart:content>
+                                    <chart:ChartContainerContent icon="sap-icon://line-chart" title="Line Chart">
+                                        <chart:content>
+                                            <viz:VizFrame id="idVizFrammeforGA" uiConfig="{applicationSet:'fiori'}" height='100%' width="100%" vizType='line' vizProperties="{title: { visible: false }, categoryAxis:{title:{visible: false}}, valueAxis:{title:{visible: true,text: 'No. of Requests'}},plotArea: { dataLabel: {visible: true}}}" renderComplete="handleZoomOut" selectData="onSelectGA">
+                                                <viz:dataset>
+                                                    <viz.data:FlattenedDataset data="{/MonthlyRequestCounts}">
+                                                        <viz.data:dimensions>
+                                                            <viz.data:DimensionDefinition name="GAType" value="{month}" />
+                                                        </viz.data:dimensions>
+                                                        <viz.data:measures>
+                                                            <viz.data:MeasureDefinition name="Create Supplier" value="{createSupplierCount}" />
+                                                            <viz.data:MeasureDefinition name="Create Buyer" value="{createBuyerCount}" />
+                                                        </viz.data:measures>
+                                                    </viz.data:FlattenedDataset>
+                                                </viz:dataset>
+
+                                                <viz:feeds>
+                                                    <viz.feeds:FeedItem id='valueAxisdFeed' uid="valueAxis" type="Measure" values="Create Supplier,Create Buyer" />
+                                                    <viz.feeds:FeedItem id='categoryAxisFeed' uid="categoryAxis" type="Dimension" values="GAType" />
+                                                </viz:feeds>
+                                                <viz:dependents>
+                                                    <viz:Popover id="idPopOverForGA" />
+                                                </viz:dependents>
+                                            </viz:VizFrame>
+                                        </chart:content>
+                                    </chart:ChartContainerContent>
+                                </chart:content>
+                            </chart:ChartContainer>
+                        </f:content>
+                    </f:Card>
+                </VBox>
+                <VBox width="50%">
+                    <f:Card height="13.5rem" width="100%">
+    <f:layoutData>
+        <FlexItemData growFactor="1" baseSize="0" styleClass="sapUiTinyMargin sapUiTinyMarginTop sapUiTinyMarginBottom" />
+    </f:layoutData>
+    <f:content>
+     <Table id="reqPendingTable" items="{approvalData>/}">
+    <headerToolbar>
+        <Toolbar>
+            <Title text="Requests Pending" />
+            <ToolbarSpacer />
+            <Select id="filterSelect" change="onFilterChange">
+                <core:Item key="ONE_WEEK" text="One week" />
+                <core:Item key="ONE_MONTH" text="One month" />
+                <core:Item key="THREE_MONTHS" text="Three months" />
+                <core:Item key="SIX_MONTHS" text="Six months" />
+                <core:Item key="ONE_YEAR" text="One year" />
+            </Select>
+        </Toolbar>
+    </headerToolbar>
+    <columns>
+        <Column width="15rem">
+            <header>
+                <Label text="Registered ID" />
+            </header>
+        </Column>
+        <Column width="10rem">
+            <header>
+                <Label text="Request No" />
+            </header>
+        </Column>
+        <Column >
+            <header>
+                <Label text="Action" />
+            </header>
+        </Column>
+    </columns>
+    <items>
+        <ColumnListItem>
+            <cells>
+                <Text text="{approvalData>REGISTERED_ID}" />
+                <Text text="{approvalData>REQUEST_NO}" />
+                <Button icon="sap-icon://initiative" type="Transparent" press="onNavIndashboard"/>
+            </cells>
+        </ColumnListItem>
+    </items>
+</Table>
+    </f:content>
+</f:Card>
+                </VBox>
+            </HBox>
+        </content>
+    </Page>
+</mvc:View>

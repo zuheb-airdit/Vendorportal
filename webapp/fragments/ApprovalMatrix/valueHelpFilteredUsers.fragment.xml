@@ -1,0 +1,60 @@
+<core:FragmentDefinition
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:smartTable="sap.ui.comp.smarttable"
+>
+    <Dialog
+        title="Users"
+        class="sapUiPopupWithPadding"
+        stretch="false"
+        resizable="true"
+        draggable="true"
+        contentWidth="600px"
+        contentHeight="400px"
+        afterClose="onValueHelpClose"
+    >
+        <VBox>
+            <Table
+                inset="false"
+                items="{
+			            path: 'FilteredUser>/results'
+		                 }"
+                mode="SingleSelectLeft"
+				selectionChange="onValueHelpSelectionChangeUser"
+            >
+                
+                <columns>
+                    <Column hAlign="Begin">
+                        <Text text="Email"  />
+                    </Column>
+                    <Column hAlign="Begin">
+                        <Text text="Company Code" />
+                    </Column>
+                    <Column hAlign="Begin">
+                        <Text text="Company" />
+                    </Column>
+                    <Column hAlign="Center">
+                        <Text text="User Role" />
+                    </Column>
+                </columns>
+                <items>
+                    <ColumnListItem vAlign="Middle">
+                        <cells>
+                           <Text text="{FilteredUser>EMAIL}" ></Text>
+						   <Text text="{FilteredUser>COMPANY_CODE}"></Text>
+						   <Text text="{FilteredUser>COMPANY_DESC}"></Text>
+                           <Text text="{FilteredUser>USER_ROLE}"></Text>
+						    </cells>
+                    </ColumnListItem>
+                </items>
+            </Table>
+        </VBox>
+
+        <endButton>
+            <Button
+                text="Close"
+                press="onCloseValueHelpDialog"
+            />
+        </endButton>
+    </Dialog>
+</core:FragmentDefinition>

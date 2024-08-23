@@ -1,0 +1,92 @@
+{
+    "GENERAL_INFORMATION": {
+        "VENDOR_INFORMATION": {
+            "VENDOR_NAME": "",
+            "WEBSITE": "",
+            "EMAIL": "",
+            "VENDOR_ACCOUNT_GROUP": ""
+        },
+        "VENDOR_ADDRESS": {
+            "NAME": "",
+            "STREET": "",
+            "REGION": "",
+            "CITY": "",
+            "STATE": "",
+            "COUNTRY": "",
+            "POSTAL_CODE": "",
+            "EMAIL": "",
+            "CONTACT_NO": ""
+        },
+        "PRIMARY_CONTACT": {
+            "FIRST_NAME": "",
+            "LAST_NAME": "",
+            "DESIGNATION": "",
+            "EMAIL": "",
+            "COUNTRY": "",
+            "HOUSE_NO": "",
+            "STREET": "",
+            "REGION": "",
+            "CITY": "",
+            "STATE": "",
+            "POSTAL_CODE": "",
+            "CONTACT_NO": "",
+            "MOBILE_NO": ""
+        },
+        "BUSINESS_INFORMATION": {
+            "NO_OF_EMPLOYEES": null,
+            "NO_OF_EMPLOYEES_ENGG": null,
+            "NO_OF_EMPLOYEES_QUALITY": null,
+            "NO_OF_EMPLOYEES_PRODUCTION": null,
+            "NO_OF_EMPLOYEES_ADMIN": null
+        },
+        "VENDOR_DETAILS": {
+            "TRADE_LICENCE_NO": "",
+            "TRADE_LICENCE_NO_EXP_DATE": "",
+            "ESTABLISHMENT_YEAR": null,
+            "VENDOR_CATEGORY": "",
+            "BUSINESS_TYPE": ""
+        }
+    },
+    "FINANCIAL_INFORMATION": {
+        "PRIMARY_BANK_DETAILS": {
+            "BANK_COUNTRY": "",
+            "IFSC_CODE": "",
+            "SWIFT_CODE": "",
+            "BANK_NAME": "",
+            "BRANCH_NAME": "",
+            "BENIFICIARY_NAME": "",
+            "ACCOUNT_NO": "",
+            "ACCOUNT_NAME": "",
+            "BANK_CURRENCY": "",
+            "ACCOUNT_TYPE": "",
+            "LOCAL_SALES_TAX_NO": "",
+            "COMMERCIAL_SALES_TAX_NO": "",
+            "PAN_NO": "",
+            "GST_NO": "",
+            "MSME_CATEGORY": true
+        }
+    },
+    "SUBMISSION_INFORMATION": {
+        "COMPLETED_BY": "",
+        "DESIGNATION": "",
+        "DATE": "",
+        "DUE_DELI_CHECK": true,
+        "DUE_DELI_NUM": ""
+    },
+    "ATTACHMENTS": {
+        "CompanyProfile": {
+            "REGESTERED_MAIL": "",
+            "DESCRIPTION": "",
+            "IMAGEURL": ""
+        },
+        "TaxCertificate": {
+            "REGESTERED_MAIL": "",
+            "DESCRIPTION": "",
+            "IMAGEURL": ""
+        }
+    },
+    "ATTACHMENTS_TABLE": [
+        
+        
+    ]
+}

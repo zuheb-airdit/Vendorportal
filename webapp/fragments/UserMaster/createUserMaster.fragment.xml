@@ -1,0 +1,111 @@
+<core:FragmentDefinition
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:upload="sap.m.upload"
+    xmlns:form="sap.ui.comp.smartform"
+    xmlns:sf="sap.ui.comp.smartfield"
+    xmlns:l="sap.ui.layout"
+>
+    <Dialog
+        id="idDailogCreatewed"
+        title="Add User"
+        contentWidth="50%"
+        titleAlignment="Start"
+    >
+        <content>
+            <VBox >
+            	<sf:SmartField id="idQuantity" value="{user-master>/IasUsers}">
+						<sf:customData>
+							<core:CustomData key="defaultFilterBarExpanded" value='true'/>
+						</sf:customData>
+					</sf:SmartField>
+                <l:Grid
+                    defaultSpan="L3 M3"
+                    class="sapUiMediumMarginTop sapUiMediumMarginBottom"
+                >
+                    <l:content>
+                        <Label
+                            text="User ID"
+                            labelFor="idUserId"
+                        />
+                        <Input
+                            id="idUserId"
+                            editable="true"
+                            valueHelpRequest="onValueHelp"
+                            showValueHelp="true"
+                            suggestionItems="{user-master>/IasUsers}"
+                            suggestionItemSelected=".onSuggestionItemSelected"
+                            required="true"
+                        >
+                            <suggestionItems>
+                                <core:ListItem
+                                    key="{user-master>FIRST_NAME}"
+                                    text="{user-master>EMAIL}"
+                                    additionalText="{EMAIL}"
+                                />
+                            </suggestionItems>
+                        </Input>
+                        <Label text="Company Code" labelFor="idUserEntity" />
+                        <MultiComboBox
+                            id="idUserEntity"
+                            required="true"
+                            width="100%"
+                            showSecondaryValues="true"
+                            items="{
+                               path: 'user-master>/CompanyCode',
+                               templateShareable: true
+                                }"
+                        >
+                            <core:ListItem
+                                key="{user-master>BUKRS}"
+                                text="{user-master>BUKRS}"
+                                additionalText="{user-master>BUTXT}"
+                            />
+                        </MultiComboBox>
+                        <Label text="User Name" labelFor="idUserName" />
+                        <Input
+                            id="idUserName"
+                            required="true"
+                            editable="false"
+                        />
+                        <Label text="Role" labelFor="idUserRole" />
+                        <MultiComboBox
+                            id="idUserRole"
+                            required="true"
+                            showSecondaryValues="true"
+                            width="100%"
+                            items="{
+                               path: 'user-master>/UserRole',
+                               templateShareable: true
+                                }"
+                        >
+                            <items>
+                                <core:ListItem
+                                    text="{user-master>CODE}"
+                                    key="{user-master>CODE}"
+                                    additionalText="{user-master>DESCRIPTION}"
+                                />
+                            </items>
+                        </MultiComboBox>
+                    </l:content>
+                </l:Grid>
+            </VBox>
+        </content>
+        <buttons>
+            <Button
+                text="Submit"
+                press="onSumbitUserMaster"
+                icon="sap-icon://accept"
+                type="Accept"
+                id="idSubCreateBtn"
+            />
+            <Button
+                id="idCancelCreateBtn"
+                press="onCloseUserFragment"
+                text="Cancel"
+                type="Reject"
+                icon="sap-icon://cancel"
+            />
+        </buttons>
+    </Dialog>
+</core:FragmentDefinition>

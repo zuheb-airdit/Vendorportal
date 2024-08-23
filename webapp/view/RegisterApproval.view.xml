@@ -1,0 +1,270 @@
+<mvc:View
+    xmlns:smarttable="sap.ui.comp.smarttable"
+    controllerName="com.air.vp.lnchpage.controller.RegisterApproval"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:core="sap.ui.core"
+    xmlns:smartTable='sap.ui.comp.smarttable'
+    xmlns:smartFilterBar="sap.ui.comp.smartfilterbar"
+    displayBlock="true"
+    xmlns:f="sap.f"
+    xmlns="sap.m"
+>
+    <f:DynamicPage id="dynamicPageId">
+        <f:title>
+            <f:DynamicPageTitle>
+                <f:heading>
+                    <HBox>
+                        <Text
+                            text="Registration Approval"
+                            class="sapUiTinyMarginTop sapUiTinyMarginBegin metroStyleFont"
+                        />
+                    </HBox>
+                </f:heading>
+            </f:DynamicPageTitle>
+        </f:title>
+        <f:header>
+            <f:DynamicPageHeader>
+                <!-- <smartFilterBar:SmartFilterBar
+                    id="smartFilterBarUserMaster"
+                    smartVariant="pageVariantId"
+                    persistencyKey="SmartFilterPKey"
+                    entitySet="VMUsers"
+                    useToolbar="false"
+                    basicSearch="true"
+                >
+                   
+                </smartFilterBar:SmartFilterBar> -->
+            </f:DynamicPageHeader>
+        </f:header>
+        <f:content>
+            <smartTable:SmartTable
+                entitySet="RequestInfo"
+                id="idSmartTableApprovalRegister"
+                smartFilterId="smartFilterBarUserMaster"
+                showRowCount="true"
+                tableType="ResponsiveTable"
+                enableAutoBinding="true"
+                demandPopin="true"
+                smartVariant="pageVariantId"
+                persistencyKey="SmartFilterPKey"
+                useVariantManagement="true"
+                useTablePersonalisation="true"
+                enableAutoColumnWidth="true"
+                enableCopy="false"
+                beforeRebindTable="onRebindSmartTableRegister"
+            >
+                <smartTable:customToolbar>
+                    <OverflowToolbar design="Transparent">
+                        <SearchField
+                            placeholder="Enter Request No..."
+                            search="onSearchRequestNoChange"
+                            width="20rem"
+                        />
+                    </OverflowToolbar>
+                </smartTable:customToolbar>
+                <Table
+                id="idTest"
+                    selectionChange="selectionChangeHandlerRregister"
+                    
+                >
+                    <columns>
+                        <Column width="8rem">
+                            <customData>
+                                <core:CustomData
+                                    key="p13nData"
+                                    value='\{"columnKey": "REQUEST_NO","leadingProperty": "REQUEST_NO", "sortProperty": "REQUEST_NO", "filterProperty": "REQUEST_NO", "columnIndex": "0" }'
+                                />
+                            </customData>
+                            <Label
+                                text="Requested Number"
+                                wrapping="true"
+                            />
+                        </Column>
+                        
+                        <Column>
+                            <customData>
+                                <core:CustomData
+                                    key="p13nData"
+                                    value='\{"columnKey": "STATUS","leadingProperty": "STATUS", "sortProperty": "STATUS", "filterProperty": "STATUS", "columnIndex": "7" }'
+                                />
+                            </customData>
+                            <Label
+                                text="Status"
+                                wrapping="false"
+                                vAlign="Middle"
+                            />
+                        </Column>
+                        <Column width="7rem">
+                            <customData>
+                                <core:CustomData
+                                    key="p13nData"
+                                    value='\{"columnKey": "CREATED_ON","leadingProperty": "CREATED_ON", "sortProperty": "CREATED_ON", "filterProperty": "CREATED_ON", "columnIndex": "6"}'
+                                />
+                            </customData>
+                            <Label
+                                text="Created On"
+                                wrapping="true"
+                            />
+                        </Column>
+                         
+                        <!-- <Column>
+                            <customData>
+                                <core:CustomData
+                                    key="p13nData"
+                                    value='\{"columnKey": "SUPPL_TYPE","leadingProperty": "SUPPL_TYPE", "sortProperty": "SUPPL_TYPE", "filterProperty": "SUPPL_TYPE", "columnIndex": "4"}'
+                                />
+                            </customData>
+                            <Label
+                                text="Vendor Type"
+                                wrapping="false"
+                                vAlign="Inherit"
+                            />
+                        </Column>
+                        <Column width="7rem">
+                            <customData>
+                                <core:CustomData
+                                    key="p13nData"
+                                    value='\{"columnKey": "BP_TYPE_CODE","leadingProperty": "BP_TYPE_CODE", "sortProperty": "BP_TYPE_CODE", "filterProperty": "BP_TYPE_CODE", "columnIndex": "5"}'
+                                />
+                            </customData>
+                            <Label
+                                text="Vendor Sub-Type"
+                                wrapping="true"
+                                vAlign="Inherit"
+                            />
+                        </Column> -->
+                    </columns>
+
+                    <items>
+                        <ColumnListItem
+                            vAlign="Middle"
+                            type="Navigation"
+                            press="handleProcessTable_RowClick"
+                        >
+                            <cells>
+                                <VBox>
+                                    <Text
+                                        text="{REQUEST_NO}"
+                                        class="usermasterColo"
+                                    />
+                                    <Text
+                                        text="{REQUEST_TYPE}"
+                                        class="blackText"
+                                    />
+                                </VBox>
+
+                                <ObjectStatus
+                                    text="{ parts :[{path: 'STATUS'},{path: 'APPROVER_ROLE'}], formatter: '.statusFormatter'}"
+                                    state="Indication15"
+                                    inverted="true"
+                                    class="noWrapText"
+                                />
+                                <Text
+                                    text="{path: 'CREATED_ON',
+                                    formatter: '.formatter.createdOnAndByFormatter'}"
+                                />
+                               
+                            </cells>
+                        </ColumnListItem>
+                    </items>
+                </Table>
+            </smartTable:SmartTable>
+
+            <!-- <smartTable:SmartTable
+                afterVariantSave="saveVariant"
+                entitySet="RequestInfo"
+                id="smartTableProjects"
+                smartFilterId="smartFilterBar"
+                showRowCount="true"
+                tableType="ResponsiveTable"
+                enableAutoBinding="false"
+                header="Projects"
+                beforeRebindTable=""
+                demandPopin="true"
+                smartVariant="pageVariantId"
+                persistencyKey="SmartFilterPKey"
+                useVariantManagement="true"
+                useTablePersonalisation="true"
+                enableAutoColumnWidth="true"
+                enableCopy="false"
+                requestAtLeastFields="projectType"
+            >
+                <smartTable:customToolbar>
+                    
+                </smartTable:customToolbar>
+                <Table
+                    id="idTableProjects"
+                    mode="SingleSelectLeft"
+                    selectionChange="selectionChangeHandler"
+                >
+                    <columns>
+                        <Column>
+                            <customData>
+                                <core:CustomData
+                                    key="p13nData"
+                                    value='\{"columnKey": "REQUEST_NO","leadingProperty": "REQUEST_NO", "sortProperty": "REQUEST_NO", "filterProperty": "REQUEST_NO", "columnIndex": "0" }'
+                                />
+                            </customData>
+                            <Label
+                                text="Requested Number"
+                                wrapping="true"
+                            />
+                        </Column>
+                        <Column>
+                            <customData>
+                                <core:CustomData
+                                    key="p13nData"
+                                    value='\{"columnKey": "STATUS","leadingProperty": "STATUS", "sortProperty": "STATUS", "filterProperty": "STATUS", "columnIndex": "7" }'
+                                />
+                            </customData>
+                            <Label
+                                text="Status"
+                                wrapping="false"
+                                vAlign="Middle"
+                            />
+                        </Column>
+                        <Column>
+                            <customData>
+                                <core:CustomData
+                                    key="p13nData"
+                                    value='\{"columnKey": "CREATED_ON","leadingProperty": "CREATED_ON", "sortProperty": "CREATED_ON", "filterProperty": "CREATED_ON", "columnIndex": "6"}'
+                                />
+                            </customData>
+                            <Label
+                                text="Created On"
+                                wrapping="true"
+                            />
+                        </Column>
+                    </columns>
+                    <items>
+                        <ColumnListItem
+                            vAlign="Middle"
+                            type="Navigation"
+                            press="handleProcessTable_RowClick"                            
+                        >                        
+                            <Text
+                                    text="{path: 'REQUEST_NO', formatter: '.formatter.removeCommas'}"
+                                />
+                                <ObjectStatus
+                                    text="In Approval"
+                                    state="Indication05"
+                                    inverted="true"
+                                    class="noWrapText"
+                                />
+                                <Text
+                                    text="{path: 'CREATED_ON',
+                                    formatter: '.formatter.createdOnAndByFormatter'}"
+                                />
+                        </ColumnListItem>
+                    </items>
+                </Table>
+            </smartTable:SmartTable> -->
+        </f:content>
+
+        <f:footer>
+            <OverflowToolbar>
+                <Button text="test" />
+            </OverflowToolbar>
+        </f:footer>
+    </f:DynamicPage>
+</mvc:View>

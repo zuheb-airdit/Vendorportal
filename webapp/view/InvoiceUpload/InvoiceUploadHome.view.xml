@@ -1,0 +1,35 @@
+<mvc:View controllerName="com.air.vp.lnchpage.controller.InvoiceUpload.InvoiceUploadHome"
+	xmlns:mvc="sap.ui.core.mvc" displayBlock="true"
+	xmlns="sap.m"
+	xmlns:f="sap.f"
+	xmlns:smartTable='sap.ui.comp.smarttable'
+	xmlns:uitable="sap.ui.table"
+	xmlns:smartFilterBar="sap.ui.comp.smartfilterbar"
+	xmlns:core="sap.ui.core"
+	xmlns:layout="sap.ui.layout" height="100%">
+	<f:DynamicPage id="dynamicPageId">
+		<f:title>
+			<f:DynamicPageTitle>
+				<f:heading>
+					<Title text="Purchase Orders"/>
+				</f:heading>
+			</f:DynamicPageTitle>
+		</f:title>
+		<f:header>
+			<f:DynamicPageHeader pinnable="true">
+				<smartFilterBar:SmartFilterBar id="smartFilterBar" smartVariant="pageVariantId" persistencyKey="SmartFilterPKey" entitySet="A_PurchaseOrder" useToolbar="false">
+				</smartFilterBar:SmartFilterBar>
+			</f:DynamicPageHeader>
+		</f:header>
+		<f:content>
+			<smartTable:SmartTable entitySet="A_PurchaseOrder" smartFilterId="smartFilterBar" tableType="ResponsiveTable" enableAutoBinding="true" class="sapUiResponsiveContentPadding" demandPopin="true">
+				<Table growing="true">
+					<items>
+						<ColumnListItem vAlign="Middle" type="Navigation" press="handlePO_RowClick">
+						</ColumnListItem>
+					</items>
+				</Table>
+			</smartTable:SmartTable>
+		</f:content>
+	</f:DynamicPage>
+</mvc:View>

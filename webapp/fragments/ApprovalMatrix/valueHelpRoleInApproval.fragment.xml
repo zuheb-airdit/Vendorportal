@@ -1,0 +1,16 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+	<SelectDialog
+		title="Role"
+		items="{/UserRole}"
+		search=".onValueHelpDialogSearch"
+		confirm=".onValueHelpDialogCloseRole"
+		cancel=".onValueHelpDialogCloseRole"
+		contentHeight="10rem"
+		>
+		<StandardListItem
+			iconDensityAware="false"
+			iconInset="false"
+			title="{CODE}"
+			info="{DESCRIPTION}" />
+	</SelectDialog>
+</core:FragmentDefinition>

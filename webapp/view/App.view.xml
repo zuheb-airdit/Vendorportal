@@ -1,0 +1,109 @@
+<mvc:View
+    controllerName="com.air.vp.lnchpage.controller.App"
+    xmlns:html="http://www.w3.org/1999/xhtml"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:f="sap.f"
+    xmlns:tnt="sap.tnt"
+    xmlns:cr="sap.ui.core"
+    height="100%"
+>
+    <tnt:ToolPage id="toolPage">
+        <tnt:header>
+            <tnt:ToolHeader class="ccc">
+                <OverflowToolbarButton
+                    id="sideNavigationToggleButton"
+                    icon="sap-icon://menu2"
+                    iconDensityAware="false"
+                    class="sapUiTinyMarginBegin customNavBtn"
+                    type="Transparent"
+                    press="onSideNavButtonPress"
+                >
+                    <layoutData>
+                        <OverflowToolbarLayoutData priority="NeverOverflow" />
+                    </layoutData>
+                </OverflowToolbarButton>
+                <Image src="./Images/agpp.png" />
+                <ToolbarSpacer />
+                <!--<HBox alignItems="Center">-->
+                <!--	<Text text="{i18n>title}" class="pageTitleClass"/>-->
+                <!--</HBox>-->
+                <Title
+                    text="Vendor Portal Cockpit"
+                    wrapping="false"
+                    id="productName"
+                >
+                    <layoutData>
+                        <OverflowToolbarLayoutData priority="Disappear" />
+                    </layoutData>
+                </Title>
+                <ToolbarSpacer />
+                <ToolbarSpacer width="20px" />
+
+                <tnt:ToolHeaderUtilitySeparator />
+                <ToolbarSpacer>
+                    <layoutData>
+                        <OverflowToolbarLayoutData
+                            priority="NeverOverflow"
+                            minWidth="20px"
+                        />
+                    </layoutData>
+                </ToolbarSpacer>
+                <Avatar
+                    id="myAvatar"
+                    src="{imageModel>/path}/images/cpy.png"
+                    displaySize="XS"
+                    press="onPress"
+                    tooltip="Profile"
+                >
+                    <layoutData>
+                        <OverflowToolbarLayoutData priority="NeverOverflow" />
+                    </layoutData>
+                </Avatar>
+            </tnt:ToolHeader>
+        </tnt:header>
+        <tnt:sideContent>
+            <tnt:SideNavigation
+                class="abc"
+                expanded="true"
+                selectedKey="{/selectedKey}"
+                itemSelect=".onItemSelect"
+            >
+                <tnt:NavigationList items="{path: '/navigation'}">
+                    <tnt:NavigationListItem
+                        text="{title}"
+                        icon="{icon}"
+                        enabled="{enabled}"
+                        expanded="{expanded}"
+                        items="{items}"
+                        key="{key}"
+                    >
+                        <tnt:NavigationListItem
+                            text="{title}"
+                            key="{key}"
+                            enabled="{enabled}"
+                            icon="{icon}"
+                        />
+                    </tnt:NavigationListItem>
+                </tnt:NavigationList>
+                <tnt:fixedItem>
+                    <tnt:NavigationList items="{path: '/fixedNavigation'}">
+                        <tnt:NavigationListItem
+                            text="{title}"
+                            icon="{icon}"
+                        />
+                    </tnt:NavigationList>
+                </tnt:fixedItem>
+            </tnt:SideNavigation>
+        </tnt:sideContent>
+        <tnt:mainContents>
+            <App id="app">
+                <!-- <f:FlexibleColumnLayout
+			id="layout"
+			layout="{appView>/layout}"
+			backgroundDesign="Translucent">
+		</f:FlexibleColumnLayout> -->
+            </App>
+        </tnt:mainContents>
+    </tnt:ToolPage>
+</mvc:View>

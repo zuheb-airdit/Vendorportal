@@ -1,0 +1,14 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+	<SelectDialog
+		title="Products"
+		items="{request-process>/Vendor_Sub_Type}"
+		search=".onValueHelpDialogSearch"
+		confirm="onValueHelpDialogClosereqSubVendor"
+		cancel="onValueHelpDialogClosereqSubVendor">
+		<StandardListItem
+			iconDensityAware="false"
+			iconInset="false"
+			title="{request-process>SPRAS}"
+			info="{request-process>TEXT40}" />
+	</SelectDialog>
+</core:FragmentDefinition>

@@ -1,0 +1,102 @@
+{
+    "GENERAL_INFORMATION": {
+        "VENDOR_INFORMATION": {
+            "VENDOR_NAME": "Sanju C S",
+            "WEBSITE": "www.123.com",
+            "EMAIL": "sanjucs@gmail.com",
+            "VENDOR_ACCOUNT_GROUP": "100"
+        },
+        "VENDOR_ADDRESS": {
+            "NAME": "Sanju's Supplies",
+            "STREET": "123 Main St",
+            "REGION": "South",
+            "CITY": "Metropolis",
+            "STATE": "CA",
+            "COUNTRY": "USA",
+            "POSTAL_CODE": "90210",
+            "EMAIL": "contact@sanjusupplies.com",
+            "CONTACT_NO": "+1-555-123-4567"
+        },
+        "PRIMARY_CONTACT": {
+            "FIRST_NAME": "John",
+            "LAST_NAME": "Doe",
+            "DESIGNATION": "Manager",
+            "EMAIL": "johndoe@123.com",
+            "COUNTRY": "USA",
+            "HOUSE_NO": "456",
+            "STREET": "Elm Street",
+            "REGION": "West",
+            "CITY": "Gotham",
+            "STATE": "NY",
+            "POSTAL_CODE": "10001",
+            "CONTACT_NO": "+1-555-765-4321",
+            "MOBILE_NO": "+1-555-987-6543"
+        },
+        "BUSINESS_INFORMATION": {
+            "NO_OF_EMPLOYEES": 150,
+            "NO_OF_EMPLOYEES_ENGG": 50,
+            "NO_OF_EMPLOYEES_QUALITY": 20,
+            "NO_OF_EMPLOYEES_PRODUCTION": 60,
+            "NO_OF_EMPLOYEES_ADMIN": 20
+        },
+        "VENDOR_DETAILS": {
+            "TRADE_LICENCE_NO": "TL123456",
+            "TRADE_LICENCE_NO_EXP_DATE": "2025-12-31",
+            "ESTABLISHMENT_YEAR": 2000,
+            "VENDOR_CATEGORY": "Manufacturing",
+            "BUSINESS_TYPE": "Private"
+        }
+    },
+    "FINANCIAL_INFORMATION": {
+        "PRIMARY_BANK_DETAILS": {
+            "BANK_COUNTRY": "USA",
+            "IFSC_CODE": "IFSC123456",
+            "SWIFT_CODE": "SWFT123456",
+            "BANK_NAME": "Bank of America",
+            "BRANCH_NAME": "Downtown",
+            "BENIFICIARY_NAME": "Sanju C S",
+            "ACCOUNT_NO": "123456789",
+            "ACCOUNT_NAME": "Sanju's Supplies",
+            "BANK_CURRENCY": "USD",
+            "ACCOUNT_TYPE": "Checking",
+            "LOCAL_SALES_TAX_NO": "LST123456",
+            "COMMERCIAL_SALES_TAX_NO": "CST123456",
+            "PAN_NO": "PAN123456",
+            "GST_NO": "GST123456",
+            "MSME_CATEGORY": true
+        }
+    },
+    "SUBMISSION_INFORMATION": {
+        "COMPLETED_BY": "Jane Smith",
+        "DESIGNATION": "Administrator",
+        "DATE": "2024-07-16",
+        "DUE_DELI_CHECK": true,
+        "DUE_DELI_NUM": "DD123456"
+    },
+    "ATTACHMENTS": {
+        "CompanyProfile": {
+            "REGESTERED_MAIL": "info@company.com",
+            "DESCRIPTION": "Company profile document",
+            "IMAGEURL": ""
+        },
+        "TaxCertificate": {
+            "REGESTERED_MAIL": "tax@company.com",
+            "DESCRIPTION": "Tax certificate document",
+            "IMAGEURL": ""
+        }
+    },
+    "ATTACHMENTS_TABLE": [
+        {
+            "ATTACHMENT": "CompanyProfile",
+            "FILE_NAME": "",
+            "DESCRIPTION": "Company profile document",
+            "IMAGEURL": ""
+        },
+        {
+            "ATTACHMENT": "TaxCertificate",
+            "FILE_NAME": "",
+            "DESCRIPTION": "Company profile document",
+            "IMAGEURL": ""
+        }
+    ]
+}

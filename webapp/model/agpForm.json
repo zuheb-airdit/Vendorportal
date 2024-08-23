@@ -1,0 +1,58 @@
+{
+    "GENERAL_INFORMATION": {
+        "VENDOR_INFORMATION": {
+            "VENDOR_NAME": "",
+            "WEBSITE": "",
+            "EMAIL": "",
+            "VENDOR_ORGANISATION_NAME":"",
+            "CONTACT_PERSON":"",
+            "PRIORITY":""
+        },
+        "VENDOR_ADDRESS": {
+            "STREET": "",
+            "STREET2": "",
+            "STREET3": "",
+            "REGION": "",
+            "DISTRICT":"",
+            "CITY": "",
+            "STATE": "",
+            "COUNTRY": "",
+            "POSTAL_CODE": "",
+            "EMAIL": "",
+            "CONTACT_NO": "",
+            "TELEPHONE":"",
+            "EMAIL_PAYMENT":""
+        }
+       
+    },
+    "FINANCIAL_INFORMATION": {
+        "PRIMARY_BANK_DETAILS": {
+            "BANK_COUNTRY": "",
+            "IFSC_CODE": "",
+            "SWIFT_CODE": "",
+            "BANK_NAME": "",
+            "BRANCH_NAME": "",
+            "BENIFICIARY_NAME": "",
+            "ACCOUNT_NO": "",
+            "ACCOUNT_NAME": "",
+            "BANK_CURRENCY": "",
+            "ACCOUNT_TYPE": "",
+            "LOCAL_SALES_TAX_NO": "",
+            "COMMERCIAL_SALES_TAX_NO": "",
+            "PAN_NO": "",
+            "GST_NO": "",
+            "MSME_CATEGORY": "",
+            "LST_NO":"",
+            "CST_NO":"",
+            "VENDOR_ACCOUNT_GROUP":"",
+            "DUE_DELI_NUM": "",
+            "APPROVER":""
+        }
+    },
+    "ATTACHMENTS": {
+        "attachments":[]
+    },
+    "SUBMISSION_INFORMATION": {
+        "APPROVER":"tEST"
+    }
+}
