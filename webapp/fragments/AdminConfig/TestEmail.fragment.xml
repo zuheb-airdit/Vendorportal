@@ -1,0 +1,44 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+    <Dialog
+        id="emailTestDialog"
+        title="Test Email"
+        class="sapUiResponsivePadding--header sapUiResponsivePadding--content sapUiResponsivePadding--footer"
+        afterClose="onDialogClose"
+    >
+        <content>
+            <VBox class="sapUiSmallMargin">
+                <!-- From Email -->
+                <Label text="From:*" />
+                <Input id="fromEmailInput" value="{emailConfigModel>/SENDER_EMAIL}" editable="false" />
+
+                <!-- To Email -->
+                <Label text="To:*" />
+                <Input id="toEmailInput" />
+
+                <!-- CC Email -->
+                <Label text="Cc:" />
+                <MultiInput id="ccEmailInput">
+                    <tokens>
+                        <Token text="example@example.com" />
+                    </tokens>
+                </MultiInput>
+
+                <!-- Subject -->
+                <Label text="Subject:*" />
+                <Input id="subjectInput" value="Test Email" />
+
+                <!-- Message -->
+                <Label text="Message:*" />
+                <TextArea id="messageInput" value="Test Message." rows="4" width="24rem"/>
+            </VBox>
+        </content>
+
+        <!-- Dialog Footer -->
+        <beginButton>
+            <Button text="Submit" type="Emphasized" press="onSubmitEmailPress" />
+        </beginButton>
+        <endButton>
+            <Button text="Close" press="onDialogClose" />
+        </endButton>
+    </Dialog>
+</core:FragmentDefinition>

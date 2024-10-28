@@ -1,0 +1,15 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+	<SelectDialog
+		title="Department"
+		items="{/DEPARTMENT}"
+		contentHeight="10rem"
+		search=".onValueHelpDialogSearch"
+		confirm=".onCloseofApprovalDepartmentDialog"
+		cancel=".onCloseofApprovalDepartmentDialog">
+		<StandardListItem
+			iconDensityAware="false"
+			iconInset="false"
+			title="{DESC}"
+			info="{CODE}" />
+	</SelectDialog>
+</core:FragmentDefinition>

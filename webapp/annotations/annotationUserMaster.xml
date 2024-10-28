@@ -24,9 +24,17 @@
                         <PropertyValue Property="Value" Path="USER_NAME"/>
                         <PropertyValue Property="Label" String="User Name"/>
                     </Record>
+                     <Record Type="UI.DataField">
+                        <PropertyValue Property="Value" Path="DEPARTMENT"/>
+                        <PropertyValue Property="Label" String="Department"/>
+                    </Record>
                     <Record Type="UI.DataField">
                         <PropertyValue Property="Value" Path="USER_ROLE"/>
                         <PropertyValue Property="Label" String="User Role"/>
+                    </Record>
+                     <Record Type="UI.DataField">
+                        <PropertyValue Property="Value" Path="GA"/>
+                        <PropertyValue Property="Label" String="GA Code"/>
                     </Record>
                     <Record Type="UI.DataField">
                         <PropertyValue Property="Value" Path="ACTIVE"/>
@@ -60,6 +68,7 @@
                     </Record>
                 </Annotation>
             </Annotations>
+          
         </Schema>
     </edmx:DataServices>
 </edmx:Edmx>

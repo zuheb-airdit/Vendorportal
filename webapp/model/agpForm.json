@@ -5,8 +5,11 @@
             "WEBSITE": "",
             "EMAIL": "",
             "VENDOR_ORGANISATION_NAME":"",
+            "VENDOR_ORGANISATION_NAME2":"",
             "CONTACT_PERSON":"",
-            "PRIORITY":""
+            "PRIORITY":"",
+            "REVIEWER_APPROVED":"",
+            "DEPARTMENT":""
         },
         "VENDOR_ADDRESS": {
             "STREET": "",
@@ -46,13 +49,18 @@
             "CST_NO":"",
             "VENDOR_ACCOUNT_GROUP":"",
             "DUE_DELI_NUM": "",
-            "APPROVER":""
+            "RISK_RATING":"",
+            "REVIEWER_USER_ID":"",
+            "MSME_NUM":"",
+            "MSME_TYPE":"",
+            "REG_DATE":""
+            
         }
     },
     "ATTACHMENTS": {
         "attachments":[]
     },
     "SUBMISSION_INFORMATION": {
-        "APPROVER":"tEST"
+        "Status":""
     }
 }

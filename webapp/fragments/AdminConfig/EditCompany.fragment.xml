@@ -1,0 +1,27 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+    <Dialog id="editCompanyCodeDialog" title="Edit Company Code" stretch="false">
+        <content>
+            <VBox class="sapUiMediumMargin">
+                <Label text="Company Code" />
+                <!-- Bind the value to the selected company code's data -->
+                <Input id="editCompanyCodeInput" value="{selectedCompanyCode>CODE}" placeholder="Edit Company Code" />
+
+                <Label text="Company Code Description" class="sapUiSmallMarginTop"/>
+                <!-- Bind the value to the selected company code's description -->
+                <Input id="editCompanyCodeDescInput" value="{selectedCompanyCode>DESCRIPTION}" placeholder="Edit Company Code Description" />
+
+                <Label text="Company" class="sapUiSmallMarginTop"/>
+                <!-- Bind the value to the selected company -->
+                <Input id="editCompanyInput" value="{selectedCompanyCode>COMPANY}" placeholder="Edit Company" />
+            </VBox>
+        </content>
+        <beginButton>
+            <!-- Save button for submitting changes -->
+            <Button text="Save" press="onEditCompanyCode" />
+        </beginButton>
+        <endButton>
+            <!-- Cancel button to close the dialog -->
+            <Button text="Cancel" press="onCancelDialog" />
+        </endButton>
+    </Dialog>
+</core:FragmentDefinition>

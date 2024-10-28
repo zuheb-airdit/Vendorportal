@@ -8,21 +8,24 @@
     displayBlock="true"
     xmlns="sap.m"
     xmlns:u="sap.ui.unified"
+    
 >
     <Page
         id="page"
-        title="Buyer Creation Form"
+        title="User Creation Form"
         showHeader="true"
         showNavButton="true"
         navButtonPress="onBackfromForm"
     >
+    
         <content>
+        
             <VBox
                 width="60rem"
                 class="sapUiTinyMarginBegin sapUiTinyMarginTop"
             >
                 <f:SimpleForm
-                    id="SimpleFormChangeColumn_oneGrousp234"
+                    id="idBasicDetails"
                     editable="true"
                     layout="ColumnLayout"
                     title="Vendor Information"
@@ -48,14 +51,55 @@
 
                         <Label text="Contact Person" />
                         <Input value="{agpFormData>CONTACT_PERSON}" />
+                        <Label text="Department" />
+                        <ComboBox
+                            id="idDepartmenht"
+                            showSecondaryValues="true"
+                            selectedKey="{agpFormData>DEPARTMENT}"
+                            visible="true"
+                            required="true"
+                            items="{
+        path: 'apprvlModel>/DEPARTMENT'
+    }"
+                        >
+                            <core:ListItem
+                                key="{apprvlModel>CODE}-{apprvlModel>DESC}"
+                                text="{apprvlModel>CODE} - {apprvlModel>DESC}"
+                            />
+                        </ComboBox>
+
+                        <Label text="Vendor Organisation Name2" />
+                        <Input
+                            value="{agpFormData>VENDOR_ORGANISATION_NAME2}"
+                            width="100%"
+                        >
+                            <layoutData>
+                                <l:GridData span="XL12 L12 M12 S12" />
+                            </layoutData>
+                        </Input>
 
                         <Label text="Priority" />
-                        <Input value="{agpFormData>PRIORITY}" />
+                        <!-- <Input value="{agpFormData>PRIORITY}" /> -->
+                        <ComboBox
+                            id="idPriority"
+                            selectedKey="{agpFormData>PRIORITY}"
+                            showSecondaryValues="true"
+                            items="{
+        path: '/VendorPriority'
+    }"
+                        >
+                            <items>
+                                <core:ListItem
+                                    key="{code} -{description}"
+                                    text="{code} - {description}"
+                                />
+                            </items>
+                        </ComboBox>
                     </f:content>
                 </f:SimpleForm>
 
                 <f:SimpleForm
-                    id="SimpleFormChangeColumn_oneGroup234"
+                    id="idAddressDetails"
                     editable="true"
                     layout="ColumnLayout"
                     title="Complete Office Address"
@@ -67,28 +111,37 @@
                 >
                     <f:content>
                         <Label
-                            text="Street"
+                            text="Street 3"
                             required="true"
                         />
-                        <Input value="{agpFormData>STREET}" required="true" />
-
+                        <Input
+                            value="{agpFormData>STREET3}"
+                            required="true"
+                        />
                         <Label
                             text="Street 2"
                             required="true"
                         />
-                        <Input value="{agpFormData>STREET2}" required="true" />
-
-                        <Label
-                            text="Street 3"
+                        <Input
+                            value="{agpFormData>STREET2}"
                             required="true"
                         />
-                        <Input value="{agpFormData>STREET3}" required="true" />
-
+                        <Label
+                            text="Street"
+                            required="true"
+                        />
+                        <Input
+                            value="{agpFormData>STREET}"
+                            required="true"
+                        />
                         <Label
                             text="City"
                             required="true"
                         />
-                        <Input value="{agpFormData>CITY}" required="true" />
+                        <Input
+                            value="{agpFormData>CITY}"
+                            required="true"
+                        />
 
                         <Label text="District" />
                         <Input value="{agpFormData>DISTRICT}" />
@@ -97,7 +150,11 @@
                             text="Pincode"
                             required="true"
                         />
-                        <Input value="{agpFormData>POSTAL_CODE}" maxLength="6" required="true" />
+                        <Input
+                            value="{agpFormData>POSTAL_CODE}"
+                            required="true"
+                            maxLength="6"
+                        />
 
                         <Label
                             text="State"
@@ -108,25 +165,24 @@
                             showSecondaryValues="true"
                             selectedKey="{agpFormData>STATE}"
                             required="true"
+                            id="idStateForm"
                         >
                             <core:ListItem
-                                key="{stateModel>name}"
-                                text="{stateModel>name}"
-                                additionalText="{stateModel>id}"
+                                key="{stateModel>name} -{stateModel>id}"
+                                text="{stateModel>name} - {stateModel>id}"
                             />
                         </ComboBox>
 
                         <Label text="Country" />
-                        <!-- <Input value="{agpFormData>COUNTRY}"></Input> -->
                         <ComboBox
+                            id="idCountry"
                             items="{path: '/Country',length:500}"
                             showSecondaryValues="true"
                             selectedKey="{agpFormData>COUNTRY}"
                         >
                             <core:ListItem
-                                key="{LANDX}"
-                                text="{LANDX}"
-                                additionalText="{LAND1}"
+                                key="{LANDX} -{LAND1}"
+                                text="{LANDX} - {LAND1}"
                             />
                         </ComboBox>
 
@@ -140,7 +196,7 @@
                             required="true"
                         />
 
-                        <Label text="Email Address for Payment" />
+                        <Label text="Email Address for Payment Advice" />
                         <Input
                             value="{agpFormData>EMAIL_PAYMENT}"
                             type="Email"
@@ -152,20 +208,20 @@
                         />
                         <Input
                             value="{agpFormData>TELEPHONE}"
-                            type="Number"
                             required="true"
+                            maxLength="15"
                         />
 
                         <Label text="Mobile Number (if any)" />
                         <Input
                             value="{agpFormData>CONTACT_NO}"
-                            type="Number"
+                            maxLength="10"
                         />
                     </f:content>
                 </f:SimpleForm>
 
                 <f:SimpleForm
-                    id="SimpleFormChangeColumn_oneGrokup234"
+                    id="idbankDetails"
                     editable="true"
                     layout="ColumnLayout"
                     title="Bank Details"
@@ -190,21 +246,17 @@
 
                         <Label text="Account Type" />
                         <ComboBox
+                            id="idAccountType"
                             showSecondaryValues="true"
                             selectedKey="{agpFormData>ACCOUNT_TYPE}"
+                            items="{
+        path: '/BankAccountType'
+    }"
                         >
                             <items>
-                                <core:Item
-                                    text="Savings"
-                                    key="Savings"
-                                />
-                                <core:Item
-                                    text="Current"
-                                    key="Current"
-                                />
-                                <core:Item
-                                    text="Fixed Deposit"
-                                    key="FixedDeposit"
+                                <core:ListItem
+                                    key="{code} -{description}"
+                                    text="{code} - {description}"
                                 />
                             </items>
                         </ComboBox>
@@ -212,7 +264,7 @@
                 </f:SimpleForm>
 
                 <f:SimpleForm
-                    id="SimpleFormChangeColumn_oneGrsoup234"
+                    id="idTaxDetails"
                     editable="true"
                     layout="ColumnLayout"
                     columnsM="2"
@@ -228,6 +280,50 @@
                         <Label text="CST No" />
                         <Input value="{agpFormData>CST_NO}" />
 
+                        <Label
+                            text="MSME Category (if applicable)&#x2003;&#x2003;&#x2003;Registration Date"
+                        />
+                        <ComboBox
+                            showSecondaryValues="true"
+                            selectedKey="{agpFormData>MSME_CATEGORY}"
+                            required="true"
+                            change="onMSMECategoryChange"
+                        >
+                            <items>
+                                <core:Item
+                                    text="Yes"
+                                    key="true"
+                                />
+                                <core:Item
+                                    text="No"
+                                    key="false"
+                                />
+                            </items>
+                            <layoutData>
+                                <l:GridData span="XL6 L6 M6 S6" />
+                            </layoutData>
+                        </ComboBox>
+                        <!-- <ComboBox
+                            showSecondaryValues="true"
+                            selectedKey="{agpFormData>MSME_CATEGORY}"
+                            required="true"
+                            change="onMSMECategoryChange"
+                        >
+                            <items>
+                                <core:Item
+                                    text="Yes"
+                                    key="true"
+                                />
+                                <core:Item
+                                    text="No"
+                                    key="false"
+                                />
+                            </items>
+                            <layoutData>
+                                <l:GridData span="XL6 L6 M6 S6" />
+                            </layoutData>
+                        </ComboBox> -->
+                        <DatePicker value="{agpFormData>REG_DATE}" />
                         <Label text="Due Diligence required" />
                         <CheckBox
                             id="dueDiligenceYes"
@@ -239,20 +335,25 @@
                             text="No"
                             select="onDueDiligenceSelect"
                         />
-
-                        <Label
-                            text="GST No"
+                        <Label text="Reviewer" />
+                        <!-- <Input value="{agpFormData>APPROVER}"/> -->
+                        <ComboBox
+                            id="idVendorEntity1"
+                            width="100%"
+                            selectedKey="{agpFormData>REVIEWER_USER_ID}"
                             required="true"
-                        />
-                        <Input
-                            value="{agpFormData>GST_NO}"
-                            maxLength="15"
-                            liveChange="onGstNumberChange"
-                            required="true"
-                        />
-
-                        <Label text="Approver" />
-                        <Input value="{agpFormData>APPROVER}" />
+                            showSecondaryValues="true"
+                            items="{
+                               path: 'apprvlModel>/REVIEWERUSERS',
+                               templateShareable: true
+                                }"
+                        >
+                            <core:ListItem
+                                key="{apprvlModel>USER_ID}"
+                                text="{apprvlModel>USER_ID}"
+                                additionalText="{apprvlModel>DEPARTMENT}"
+                            />
+                        </ComboBox>
 
                         <Label
                             text="PAN No"
@@ -266,32 +367,123 @@
                             required="true"
                         />
 
-                        <Label text="MSME Category (if applicable)" />
-                        <ComboBox
-                            showSecondaryValues="true"
-                            selectedKey="{agpFormData>MSME_CATEGORY}"
+                        <Label
+                            text="GST No"
+                            required="true"
+                        />
+                        <Input
+                            value="{agpFormData>GST_NO}"
+                            maxLength="15"
+                            liveChange="onGstNumberChange"
+                            required="true"
+                        />
+
+                        <Label
+                            text="MSME number :&#x2003;&#x2003;&#x2003;&#x2003;&#x2003;&#x2003;&#x2003;&#x2003;&#x2003;MSME Type"
+                        />
+
+                        <!-- Align the input fields side by side using GridData -->
+                        <Input
+                            id="idMSMEnum"
+                            value="{agpFormData>MSME_NO}"
+                            editable="false"
                         >
+                            <layoutData>
+                                <l:GridData span="XL6 L6 M6 S6" />
+                            </layoutData>
+                        </Input>
+
+                        <!-- <Input
+                            id="idMSMEType"
+                            value="{agpFormData>MSME_TYPE}"
+                            editable="false"
+                        >
+                            <layoutData>
+                                <l:GridData span="XL6 L6 M6 S6" />
+                            </layoutData>
+                        </Input> -->
+                        <ComboBox
+                            id="idMSMEType"
+                            selectedKey="{agpFormData>MSME_TYPE}"
+                            editable="false"
+                            showSecondaryValues="true"
+                            items="{
+        path: '/MSMEType'
+    }"
+                        >
+                            <layoutData>
+                                <l:GridData span="XL6 L6 M6 S6" />
+                                <!-- Applying the grid layout -->
+                            </layoutData>
                             <items>
-                                <core:Item
-                                    text="true"
-                                    key="true"
-                                />
-                                <core:Item
-                                    text="false"
-                                    key="false"
+                                <core:ListItem
+                                    key="{code} - {description}"
+                                    text="{code} - {description}"
                                 />
                             </items>
                         </ComboBox>
 
-                        <Label text="Due Diligence request number" />
+                        <!-- Add both labels to align on the same line -->
+
+                        <Label
+                            text="Due Diligence number:&#x2003;&#x2003;&#x2003;&#x2003;&#x2003;&#x2003;Risk Rating"
+                        />
+
+                        <!-- Align the input fields side by side using GridData -->
                         <Input
                             id="dueDiligenceRequestNumber"
                             value="{agpFormData>DUE_DELI_NUM}"
                             editable="false"
-                        />
+                        >
+                            <layoutData>
+                                <l:GridData span="XL6 L6 M6 S6" />
+                            </layoutData>
+                        </Input>
+
+                        <!-- <Input
+                            id="idRiskRating"
+                            value="{agpFormData>RISK_RATING}"
+                            editable="false"
+                        >
+                            <layoutData>
+                                <l:GridData span="XL6 L6 M6 S6" />
+                            </layoutData>
+                        </Input> -->
+                        <ComboBox
+                            id="idRiskRating"
+                            editable="false"
+                            selectedKey="{agpFormData>RISK_RATING}"
+                            showSecondaryValues="true"
+                            items="{
+                               path: '/RiskRating'
+                            }"
+                        >
+                            <layoutData>
+                                <l:GridData span="XL6 L6 M6 S6" />
+                                <!-- Applying the grid layout -->
+                            </layoutData>
+                            <items>
+                                <core:ListItem
+                                    key="{code} - {description}"
+                                    text="{code} - {description}"
+                                />
+                            </items>
+                        </ComboBox>
 
                         <Label text="Vendor Account Group" />
-                       <Input value="{agpFormData>VENDOR_ACCOUNT_GROUP}" editable="false"> </Input>
+                        <ComboBox
+                            items="{path: 'stateModel>/entities',length:500}"
+                            showSecondaryValues="true"
+                            selectedKey="{agpFormData>VENDOR_ACCOUNT_GROUP}"
+                            change="onSelectVendorGroup"
+                            required="false"
+                            id="idVendorGroupTsype"
+                        >
+                            <core:ListItem
+                                key="{stateModel>id} - {stateModel>name}"
+                                text="{stateModel>id} - {stateModel>name}"
+                            />
+                        </ComboBox>
                     </f:content>
                 </f:SimpleForm>
 
@@ -305,37 +497,61 @@
 			            path: 'attachmModel>/documents'
 		                 }"
                 >
+                    <headerToolbar>
+                        <Toolbar>
+                            <Title text="Required Documents" />
+                            <ToolbarSpacer />
+                            <Button
+                                text="ABAC"
+                                icon="sap-icon://download"
+                                press="onDownloadAbacForm"
+                            />
+                            <Button
+                                text="Add"
+                                press="onAddDocuments"
+                            />
+                            <Button
+                                icon="sap-icon://decline"
+                                press="onRemoveOtherDoc"
+                                id="idDeclinse"
+                                class="sapUiTinyMarginBegin"
+                            />
+                        </Toolbar>
+                    </headerToolbar>
+
                     <columns>
-                        <Column hAlign="Begin">
+                        <Column
+                            hAlign="Begin"
+                            width="15rem"
+                        >
                             <Text text="Attachments Type" />
                         </Column>
                         <Column
                             hAlign="Begin"
-                            width="35rem"
+                            width="25rem"
                         >
                             <Text text="Upload" />
                         </Column>
                         <Column hAlign="Begin">
                             <Text text="Preview" />
                         </Column>
+                        <Column hAlign="Begin">
+                            <Text text="Comments" />
+                        </Column>
                     </columns>
                     <items>
-                     <!-- REGISTERED_MAIL: item.REGISTERED_MAIL,
-                                            DESCRIPTION: item.DESCRIPTION,
-                                            IMAGEURL: item.IMAGEURL,
-                                            IMAGE_FILE_NAME: item.IMAGE_FILE_NAME -->
-                        <ColumnListItem vAlign="Middle">
+                        <!-- <ColumnListItem vAlign="Middle">
                             <cells>
-                                <Text text="{attachmModel>IMAGE_FILE_NAME}"  />
+                                <Text text="{attachmModel>doc}" />
                                 <HBox>
                                     <u:FileUploader
-                                        name="{attachmModel>IMAGE_FILE_NAME}"
+                                        name="{attachmModel>doc}"
                                         uploadUrl="upload/"
                                         tooltip="Upload your file to the local server"
                                         uploadComplete="handleUploadComplete"
                                         visible="true"
                                         change="testFuntion"
-                                        value="{attachmModel>DESCRIPTION}"
+                                        maximumFileSize="4"
                                     />
                                 </HBox>
                                 <Button
@@ -345,11 +561,106 @@
                                     <customData>
                                         <core:CustomData
                                             key="customData"
-                                            value="{attachmModel>DESCRIPTION}"
+                                            value="{attachmModel>doc}"
                                             writeToDom="false"
                                         />
                                     </customData>
                                 </Button>
+                            </cells>
+                        </ColumnListItem> -->
+                        <ColumnListItem vAlign="Middle">
+                            <cells>
+                                <Text text="{attachmModel>IMAGE_FILE_NAME}" />
+                                <HBox>
+                                    <u:FileUploader
+                                        name="{attachmModel>IMAGE_FILE_NAME}"
+                                        value="{attachmModel>DESCRIPTION}"
+                                        uploadUrl="upload/"
+                                        tooltip="Upload your file to the local server"
+                                        uploadComplete="handleUploadComplete"
+                                        visible="true"
+                                        change="testFuntion"
+                                    />
+                                </HBox>
+                                <!-- <HBox>
+                                    <Button
+                                        text="Preview1"
+                                        press="handleOpenAttachment"
+                                        visible="{= (${agpFormData>/SUBMISSION_INFORMATION/Status}) === 7}"
+                                    >
+                                        <customData>
+                                            <core:CustomData
+                                                key="customData"
+                                                value="{attachmModel>DESCRIPTION}"
+                                                writeToDom="false"
+                                            />
+                                        </customData>
+                                    </Button>
+                                     <Button
+                                        text="Preview2"
+                                        press="handleOpenAttachment"
+                                        visible="{= (${agpFormData>/SUBMISSION_INFORMATION/Status}) === 20}"
+                                    >
+                                        <customData>
+                                            <core:CustomData
+                                                key="customData"
+                                                value="{attachmModel>DESCRIPTION}"
+                                                writeToDom="false"
+                                            />
+                                        </customData>
+                                    </Button>
+                                    <Button
+                                        text="Download"
+                                        visible="{= (${agpFormData>/SUBMISSION_INFORMATION/Status}) === 0}"
+                                        press="onDownloadDocs"
+                                    >
+                                        <customData>
+                                            <core:CustomData
+                                                key="customData"
+                                                value="{attachmModel>IMAGEURL}"
+                                                writeToDom="false"
+                                            />
+                                        </customData>
+                                    </Button>
+                                </HBox> -->
+                                <HBox>
+                                    <!-- Preview Button: Visible when Status is 7 or 20 -->
+                                    <Button
+                                        text="Preview"
+                                        press="handleOpenAttachment"
+                                    >
+                                        <customData>
+                                            <core:CustomData
+                                                key="customData1"
+                                                value="{attachmModel>IMAGE_FILE_NAME}"
+                                                writeToDom="false"
+                                            />
+                                            <!-- Second custom data entry -->
+                                            <core:CustomData
+                                                key="customData2"
+                                                value="{attachmModel>IMAGEURL}"
+                                                writeToDom="false"
+                                            />
+                                        </customData>
+                                    </Button>
+
+                                    <!-- Download Button: Visible when Status is 20 -->
+                                    <!-- <Button
+                                        text="Download"
+                                        visible="{= ${agpFormData>/SUBMISSION_INFORMATION/Status} === 20 }"
+                                        press="onDownloadDocs"
+                                    >
+                                        <customData>
+                                            <core:CustomData
+                                                key="customData"
+                                                value="{attachmModel>IMAGEURL}"
+                                                writeToDom="false"
+                                            />
+                                        </customData>
+                                    </Button> -->
+                                </HBox>
+
+                                <Input value="{attachmModel>COMMENTS}" />
                             </cells>
                         </ColumnListItem>
                     </items>

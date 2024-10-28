@@ -15,7 +15,7 @@
         showFooter="true"
     >
         
-        <f:DynamicPage id="dynamicPageId">
+        <f:DynamicPage id="dynamicfPageId">
         <f:title>
             <f:DynamicPageTitle>
                 <f:heading>
@@ -52,19 +52,21 @@
         <VBox>
            <smartTable:SmartTable
             entitySet="RequestInfoWithoutFilter"
-            id="idSmartTableReqManagementInvitedd"
+            id="idSmartTableReqManagementWork"
             showRowCount="true"
             tableType="ResponsiveTable"
             enableAutoBinding="true"
-            enableAutoColumnWidth="false"
+            enableAutoColumnWidth="true"
             enableCopy="false"
             beforeRebindTable="onBeforrebindWorkflpw"
+             
+             class="marginZero"
         >
             <smartTable:customToolbar>
                 <OverflowToolbar design="Transparent">
                     <SearchField
                         placeholder="Search Here..."
-                        search="onSearchReqmanagement"
+                        search="onSearchRequestNoWorkflow"
                         width="20rem"
                     />
                     <ToolbarSpacer />
@@ -80,9 +82,11 @@
                 selectionChange="selectionChangeHandlerWorkflow"
                 id="idInvitedTableds"
                 mode="SingleSelectLeft"
+                growing="true"
+                growingThreshold="10"
             >
                 <columns>
-                    <Column>
+                    <Column width="10rem">
                         <customData>
                             <core:CustomData
                                 key="p13nData"
@@ -95,7 +99,7 @@
                         />
                     </Column>
                     
-                    <Column>
+                    <Column hAlign="Center">
                         <customData>
                             <core:CustomData
                                 key="p13nData"

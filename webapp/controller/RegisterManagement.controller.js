@@ -41,6 +41,10 @@ sap.ui.define([
             onObjectMatchedS: function () {
                 this.byId("idSmartTableRegisterMangement").rebindTable();
             },
+            // formatReqType: function(reqType){
+            //     debugger;
+            //     return reqType == "Create Supplier" ? "Create Vendor": ""
+            // },
             // onRebindSmartTableRegisterManagement: function (oEvent) {
             //     var filterStatus4 = new sap.ui.model.Filter("STATUS", "EQ", "6");
             //     var filterStatus5 = new sap.ui.model.Filter("STATUS", "EQ", "9");
@@ -66,16 +70,16 @@ sap.ui.define([
                     case 6:
                         return `Form in Progress`
                     case 9:
-                        return 'Send back'
+                        return `Send Back - ${role}`
                 }
             },
 
             indicationFormat: function (status) {
                 switch (status) {
                     case 6:
-                        return "Indication15"
+                        return "Indication18"
                     case 9:
-                        return "Indication13"
+                        return "Indication12"
                 }
             },
 
@@ -99,6 +103,10 @@ sap.ui.define([
                     aFilters.push(new sap.ui.model.Filter("REQUEST_NO", sap.ui.model.FilterOperator.EQ, req));
                 }
                 oBinding.filter(aFilters);
+            },
+
+            onMenuAction: function(oEvent){
+              debugger;
             }
         });
     });

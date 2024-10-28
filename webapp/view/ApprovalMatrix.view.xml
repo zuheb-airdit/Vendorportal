@@ -5,422 +5,84 @@
     xmlns:l="sap.ui.layout"
     xmlns:smartTable='sap.ui.comp.smarttable'
     xmlns:smartFilterBar="sap.ui.comp.smartfilterbar"
-    xmlns:f="sap.f"
-    displayBlock="true"
     xmlns="sap.m"
+    xmlns:f="sap.f"
 >
-    <Page
-        id="pageApproval"
-        showHeader="false"
-        showFooter="true"
-    >
-        <content>
-            <!-- first splitter -->
-            <l:Splitter
-                height="100%"
-                resize=".onSplitterResize"
-            >
-                <VBox
-                    width="100%"
-                    id="box1"
+    <f:DynamicPage>
+        <f:title>
+            <f:DynamicPageTitle>
+                <f:heading>
+                    <HBox>
+                        <Text text="Registration Approval" />
+                    </HBox>
+                </f:heading>
+            </f:DynamicPageTitle>
+        </f:title>
+        <f:header>
+            <f:DynamicPageHeader>
+                <smartFilterBar:SmartFilterBar
+                    id="smartFilterBarApproval"
+                    entitySet="CompanyCodeType"
                 >
-                    <layoutData>
-                        <l:SplitterLayoutData size="auto" />
-                    </layoutData>
-                    <f:DynamicPage
-                        id="dynamicPageIdApprovalfirst"
-                        headerExpanded="true"
-                    >
-                        <f:title>
-                            <f:DynamicPageTitle>
-                                <f:heading>
-                                    <HBox>
-                                        <Text
-                                            text="Approval Matrix"
-                                            class="sapUiTinyMarginTop sapUiTinyMarginBegin metroStyleFont"
-                                        />
-                                    </HBox>
-                                </f:heading>
-                            </f:DynamicPageTitle>
-                        </f:title>
-                        <f:header>
-                            <f:DynamicPageHeader>
-                                <smartFilterBar:SmartFilterBar
-                                    id="smartFilterBarApproval"
-                                    entitySet="CompanyCodeType"
-                                >
-                                    <smartFilterBar:controlConfiguration>
-                                        <smartFilterBar:ControlConfiguration
-                                            key="APPR_TYPE"
-                                            visibleInAdvancedArea="true"
-                                            index="0"
-                                            label="Approval Type"
-                                            controlType="dropDownList"
-                                        />
-                                        <smartFilterBar:ControlConfiguration
-                                            key="COMPANY_CODE"
-                                            visibleInAdvancedArea="true"
-                                            index="1"
-                                            label="Company Code"
-                                        />
-                                    </smartFilterBar:controlConfiguration>
-                                </smartFilterBar:SmartFilterBar>
-                            </f:DynamicPageHeader>
-                        </f:header>
-                        <f:content>
-                            <smartTable:SmartTable
-                                entitySet="CompanyCodeType"
-                                id="idSmartTablAppr"
-                                smartFilterId="smartFilterBarApproval"
-                                showRowCount="true"
-                                tableType="ResponsiveTable"
-                                enableAutoBinding="true"
-                                header="Company Details"
-                                demandPopin="true"
-                                enableAutoColumnWidth="true"
-                                enableCopy="false"
-                            >
-                                <smartTable:customToolbar>
-                                    <OverflowToolbar design="Transparent">
-                                        <ToolbarSpacer />
-                                        <Button
-                                            id="idCreateApproval"
-                                            text="Create"
-                                            press="onCreateApproval"
-                                        />
-                                        <Button
-                                            id="idDeleteApproval"
-                                            text="Delete"
-                                            press="onDeleteApprovalMatrix"
-                                            enabled="false"
-                                        />
-                                    </OverflowToolbar>
-                                </smartTable:customToolbar>
-                                <Table
-                                    id="idApprovalTable"
-                                    mode="SingleSelectLeft"
-                                    selectionChange="onSlectionofRow"
-                                >
-                                    <columns />
-                                    <items>
-                                        <ColumnListItem
-                                            vAlign="Middle"
-                                            type="Navigation"
-                                            press="onPressRowApprovalHierarchy"
-                                        />
-                                    </items>
-                                </Table>
-                            </smartTable:SmartTable>
-                        </f:content>
-                        <!-- DynamicPage Footer -->
-                        <f:footer />
-                    </f:DynamicPage>
-                </VBox>
-
-                <!-- //second splitter -->
-
-                <VBox
-                    width="100%"
-                    id="box2"
-                    fitContainer="true"
-                >
-                    <layoutData>
-                        <l:SplitterLayoutData size="0px" />
-                    </layoutData>
-                    <f:DynamicPage id="dynamicPageIdApproval">
-                        <f:title>
-                            <f:DynamicPageTitle>
-                                <f:heading>
-                                    <HBox>
-                                        <Text
-                                            id="idText"
-                                            text="New Company"
-                                            class="sapUiTinyMarginTop sapUiTinyMarginBegin text-head"
-                                        />
-                                    </HBox>
-                                </f:heading>
-                                <f:navigationActions>
-                                    <Button
-                                        id="idSubBtn"
-                                        text="Submit"
-                                        press="onSubmitApprovalEntity"
-                                        class="sapUiLargeMarginBegin"
-                                        type="Success"
-                                    />
-                                    <Button
-                                        id="idSubmtUpdate"
-                                        text="Update"
-                                        press="onUpdateApprovalEntity"
-                                        class="sapUiLargeMarginBegin"
-                                        type="Success"
-                                        visible="false"
-                                    />
-                                    <Button
-                                        id="idEditApproval"
-                                        text="Edit"
-                                        press="onEditApprovalEntity"
-                                    />
-                                    <!-- <Button
-                                        icon="sap-icon://decline"
-                                        type="Transparent"
-                                        press="onCloseApprovalSplit"
-                                    /> -->
-                                    <Button
-                                        id="idDeclineBtn"
-                                        icon="sap-icon://decline"
-                                        class="sapUiSmallMargin"
-                                        press="onCloseApprovalSplit"
-                                        ariaHasPopup="Menu"
-                                        tooltip="Close"
-                                    >
-                                        <dependents>
-                                            <core:Fragment
-                                                fragmentName="com.air.vp.lnchpage.fragments.ApprovalMatrix.actionSheet"
-                                                type="XML"
-                                            />
-                                        </dependents>
-                                    </Button>
-                                </f:navigationActions>
-                            </f:DynamicPageTitle>
-                        </f:title>
-                        <f:header>
-                            <f:DynamicPageHeader>
-                                <!-- <l:Grid
-                    defaultSpan="L3 M3"
-                    class="sapUiMediumMarginTop sapUiMediumMarginBottom"
-                >
-                    <l:content>
-                        <Label
-                            text="Company Code"
-                            labelFor="idUserId"
+                    <smartFilterBar:controlConfiguration>
+                        <smartFilterBar:ControlConfiguration
+                            key="APPR_TYPE"
+                            visibleInAdvancedArea="true"
+                            index="0"
+                            label="Department"
+                            controlType="dropDownList"
                         />
-                        <Input
-                            id="idUserId"
-                            editable="true"
-                            valueHelpRequest="onValueHelpApprovalMatrix"
-                            showValueHelp="true"
-                            suggestionItems="{user-master>/CompanyCode}"
-                            suggestionItemSelected=".onSuggestionItemSelected"
-                        >
-                            <suggestionItems>
-                                <core:ListItem
-                                    key="{user-master>FIRST_NAME}"
-                                    text="{user-master>EMAIL}"
-                                    additionalText="{EMAIL}"
-                                />
-                            </suggestionItems>
-                        </Input>
-                        <Label text="Approval Type" />
-                        <MultiComboBox
-                            id="idCompoBoxReq"
-                            width="100%"
-                            showSecondaryValues="true"
-                            items="{
-                               path: '/ApprovalType',
-                               templateShareable: true
-                                }"
-                        >
-                            <core:ListItem
-                                key="{CODE}"
-                                text="{CODE}"
-                                additionalText="{DESC}"
-                            />
-                        </MultiComboBox>
-                    </l:content>
-                </l:Grid> -->
-                            </f:DynamicPageHeader>
-                        </f:header>
-                        <f:content>
-                            <VBox>
-                                <l:Grid
-                                    defaultSpan="L3 M3"
-                                    class="sapUiMediumMarginTop sapUiMediumMarginBottom"
-                                >
-                                    <l:content>
-                                        <Label
-                                            text="Company Code"
-                                            labelFor="idCompanyApproval"
-                                        />
-                                        <Input
-                                            id="idCompanyApproval"
-                                            editable="true"
-                                            valueHelpRequest="onValueHelpApprovalMatrix"
-                                            showValueHelp="true"
-                                            suggestionItems="{/CompanyCode}"
-                                            suggestionItemSelected=".onSuggestionItemSelected"
-                                        >
-                                            <suggestionItems>
-                                                <core:ListItem
-                                                    key="{BUKRS}"
-                                                    text="{BUKRS}"
-                                                    additionalText="{BUTXT}"
-                                                />
-                                            </suggestionItems>
-                                        </Input>
-                                        <Label text="Approval Type" />
-                                        <ComboBox
-                                            id="idCompoBoxReq"
-                                            width="100%"
-                                            showSecondaryValues="true"
-                                            selectionChange="onSelectofApproval"
-                                            items="{
-                               path: '/ApprovalType',
-                               templateShareable: true
-                                }"
-                                        >
-                                            <core:ListItem
-                                                key="{CODE}"
-                                                text="{CODE}"
-                                                additionalText="{DESC}"
-                                            />
-                                        </ComboBox>
-                                    </l:content>
-                                </l:Grid>
-                                <Table
-                                    id="idProductsTablse"
-                                    inset="false"
-                                    items="{
-			                        path: 'hierarchydata>/jsonObjects'
-                                            }"
-                                    mode="SingleSelectLeft"
-                                    selectionChange="onSelectionChange"
-                                >
-                                    <headerToolbar>
-                                        <OverflowToolbar>
-                                            <content>
-                                                <Title
-                                                    text="Hierarchy Approval"
-                                                    level="H2"
-                                                />
-                                                <ToolbarSpacer />
-                                                <Button
-                                                    id="idCreateMassRequest"
-                                                    text="Create"
-                                                    press="onPressCreateMassApprovalInputs"
-                                                    icon="sap-icon://create"
-                                                    enabled="false"
-                                                />
-                                                <Button
-                                                    id="idDeleteBtmApprovalRow"
-                                                    text="Delete"
-                                                    icon="sap-icon://delete"
-                                                    press="onPressDeleteSelectedRows"
-                                                    enabled="false"
-                                                />
-                                            </content>
-                                        </OverflowToolbar>
-                                    </headerToolbar>
-                                    <columns>
-                                        <Column hAlign="Begin">
-                                            <Text text="Approval Level" />
-                                        </Column>
-                                        <Column hAlign="Begin">
-                                            <Text text="Role" />
-                                        </Column>
-                                        <Column hAlign="Begin">
-                                            <Text text="User" />
-                                        </Column>
-                                        <Column hAlign="Center">
-                                            <Text text="Approve" />
-                                        </Column>
-                                        <Column hAlign="Center">
-                                            <Text text="Reject" />
-                                        </Column>
-                                        <Column hAlign="Center">
-                                            <Text text="Send Back" />
-                                        </Column>
-                                        <Column hAlign="Center">
-                                            <Text text="Edit" />
-                                        </Column>
-                                        <!-- <Column hAlign="Center">
-                                            <Text text="Re-Assign" />
-                                        </Column> -->
-                                    </columns>
-                                    <items>
-                                        <ColumnListItem vAlign="Middle">
-                                            <cells>
-                                                <Text
-                                                    text="{hierarchydata>approvalLevel}"
-                                                />
-                                                <Input
-                                                    editable="{hierarchydata>editable}"
-                                                    valueHelpRequest="onValueHelpRoleApproval"
-                                                    showValueHelp="true"
-                                                    suggestionItems="{/UserRole}"
-                                                    suggestionItemSelected=".onSuggestionItemSelected"
-                                                    value="{hierarchydata>role}"
-                                                >
-                                                    <suggestionItems>
-                                                        <core:ListItem
-                                                            key="{hierarchydata>role}"
-                                                            text="{hierarchydata>role}"
-                                                        />
-                                                    </suggestionItems>
-                                                </Input>
-                                                <Input
-                                                    editable="{hierarchydata>editable}"
-                                                    valueHelpRequest="onValueHelpUserDetails"
-                                                    showValueHelp="true"
-                                                    suggestionItems="{FilteredUser>/results}"
-                                                    suggestionItemSelected=".onSuggestionItemSelected"
-                                                    value="{hierarchydata>user}"
-                                                >
-                                                    <suggestionItems>
-                                                        <core:ListItem
-                                                            key="{hierarchydata>user}"
-                                                            text="{hierarchydata>user}"
-                                                        />
-                                                    </suggestionItems>
-                                                </Input>
-                                                <CheckBox
-                                                    visible="{hierarchydata>checkboxVisible}"
-                                                    selected="{hierarchydata>approveCheckboxVisible}"
-                                                    editable="{hierarchydata>editablechk}"
-                                                />
-                                                <CheckBox
-                                                    visible="{hierarchydata>checkboxVisible}"
-                                                    selected="{hierarchydata>rejectCheckboxVisible}"
-                                                    editable="{hierarchydata>editablechk}"
-                                                />
-                                                <CheckBox
-                                                    visible="{hierarchydata>checkboxVisible}"
-                                                    selected="{hierarchydata>sendBackCheckboxVisible}"
-                                                    editable="{hierarchydata>editablechk}"
-                                                />
-                                                <CheckBox
-                                                    visible="{hierarchydata>checkboxVisible}"
-                                                    selected="{hierarchydata>editCheckboxVisible}"
-                                                    editable="{hierarchydata>editablechk}"
-                                                />
-                                                <!-- <HBox>
-                                                    <CheckBox
-                                                        visible="{hierarchydata>checkboxVisible}"
-                                                        selected="{hierarchydata>editCheckboxVisible}"
-                                                        editable="{hierarchydata>editablechk}"
-                                                    />
-                                                    <Button
-                                                        id="idAddMdmBtn"
-                                                        icon="sap-icon://add"
-                                                        type="Transparent"
-                                                        visible="{hierarchydata>mdmBtn}"
-                                                        press="onAddMdmUsers"
-                                                    />
-                                                </HBox> -->
-                                            </cells>
-                                        </ColumnListItem>
-                                    </items>
-                                </Table>
-                            </VBox>
-                        </f:content>
-
-                        <f:footer>
-                            <OverflowToolbar>
-                                <Button text="test" />
-                            </OverflowToolbar>
-                        </f:footer>
-                    </f:DynamicPage>
-                </VBox>
-            </l:Splitter>
-        </content>
-    </Page>
+                        <!-- <smartFilterBar:ControlConfiguration
+                                    key="COMPANY_CODE"
+                                    visibleInAdvancedArea="true"
+                                    index="1"
+                                    label="Company Code"
+                                /> -->
+                    </smartFilterBar:controlConfiguration>
+                </smartFilterBar:SmartFilterBar>
+            </f:DynamicPageHeader>
+        </f:header>
+        <f:content>
+            <smartTable:SmartTable
+                entitySet="CompanyCodeType"
+                id="idSmartTablAppr"
+                smartFilterId="smartFilterBarApproval"
+                showRowCount="true"
+                tableType="ResponsiveTable"
+                enableAutoBinding="true"
+                header="Approval Hierarchy"
+                demandPopin="true"
+                enableAutoColumnWidth="false"
+                enableCopy="false"
+            >
+                <smartTable:customToolbar>
+                    <OverflowToolbar design="Transparent">
+                        <ToolbarSpacer />
+                        <Button
+                            id="idCreateApproval"
+                            text="Create"
+                            press="onCreateApproval"
+                        />
+                        <Button
+                            id="idDeleteApproval"
+                            text="Delete"
+                            press="onDeleteApprovalMatrix"
+                            enabled="false"
+                        />
+                    </OverflowToolbar>
+                </smartTable:customToolbar>
+                <Table
+                    id="idApprovalTable"
+                    mode="SingleSelectLeft"
+                    selectionChange="onSlectionofRow"
+                    
+                >
+                    <columns />
+                    <items>
+                        <ColumnListItem vAlign="Middle" />
+                    </items>
+                </Table>
+            </smartTable:SmartTable>
+        </f:content>
+    </f:DynamicPage>
 </mvc:View>

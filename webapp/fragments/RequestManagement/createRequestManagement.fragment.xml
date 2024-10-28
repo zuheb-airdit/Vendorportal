@@ -30,27 +30,24 @@
                         >
                             <core:ListItem
                                 key="Create Supplier"
-                                text="Empanelment Filled by Supplier"
+                                text="Empanelment form to be filled by Supplier"
                             />
-                            <core:ListItem
-                                key="Create Buyer"
-                                text="Empanelment Filled by Buyer"
-                            />
+                          
                         </ComboBox>
-                        <Label text="Company" />
+                        <Label text="Department" />
                         <ComboBox
                             id="idVendorEntity"
                             width="100%"
                             showSecondaryValues="true"
                             items="{
-                               path: 'user-master>/CompanyCode',
+                               path: 'userModel>/UserMasterDept',
                                templateShareable: true
                                 }"
                         >
                             <core:ListItem
-                                key="{user-master>BUKRS}"
-                                text="{user-master>BUKRS}"
-                                additionalText="{user-master>BUTXT}"
+                                key="{userModel>Department}-{userModel>Dept_Desc}"
+                                text="{userModel>Department} - {userModel>Dept_Desc}"
+                                
                             />
                         </ComboBox>
                         <!-- <Label text="Vendor Name" />

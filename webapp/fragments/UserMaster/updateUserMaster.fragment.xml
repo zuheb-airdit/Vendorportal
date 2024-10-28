@@ -40,7 +40,7 @@
                                 />
                             </suggestionItems>
                         </Input>
-                        <Label text="Company Code" />
+                        <!-- <Label text="Company Code" />
                         <MultiComboBox
                             id="idUserEditEntity"
                             width="100%"
@@ -55,7 +55,7 @@
                                 text="{user-master>BUKRS}"
                                 additionalText="{user-master>BUTXT}"
                             />
-                        </MultiComboBox>
+                        </MultiComboBox> -->
                         <Label text="User Name" />
                         <Input
                             id="idUserEditName"
@@ -63,7 +63,7 @@
                             editable="false"
                         />
                         <Label text="Role" />
-                        <MultiComboBox
+                        <ComboBox
                             id="idEditUserRole"
                             showSecondaryValues="true"
                             width="100%"
@@ -79,7 +79,54 @@
                                     additionalText="{user-master>DESCRIPTION}"
                                 />
                             </items>
-                        </MultiComboBox>
+                        </ComboBox>
+                         <Label text="Department"></Label>
+                         <ComboBox
+                            id="idDepartmentEdit"
+                            width="100%"
+                            showSecondaryValues="true"
+                            items="{
+                               path: '/UserMasterDept',
+                               templateShareable: true
+                                }"
+                        >
+                            <core:ListItem
+                                key="{Department}"
+                                text="{Department}"
+                            />
+                        </ComboBox>
+                           <Label text="GA Code"></Label>
+                         <ComboBox
+                            id="idGaEdit"
+                            width="100%"
+                            showSecondaryValues="true"
+                            items="{
+                               path: '/GeographicalAreaMASTER',
+                               templateShareable: true
+                                }"
+                        >
+                            <core:ListItem
+                                key="{GA_Code}"
+                                text="{GA_Code}"
+                                additionalText="{GA_Description}"
+                            />
+                        </ComboBox>
+                         <Label text="Company Code"></Label>
+                         <ComboBox
+                            id="idUserEditEntity"
+                            width="100%"
+                            showSecondaryValues="true"
+                            items="{
+                               path: '/CompanyCode',
+                               templateShareable: true
+                                }"
+                        >
+                            <core:ListItem
+                                key="{BUKRS}"
+                                text="{BUKRS}"
+                                additionalText="{BUTXT}"
+                            />
+                        </ComboBox>
                     </l:content>
                 </l:Grid>
                 <!-- <Label
@@ -137,7 +184,7 @@
                 press="onSumbitUserMasterEdit"
                 icon="sap-icon://accept"
                 type="Accept"
-                id="idSubmitBtn"
+                id="idSubmitBtns"
             />
             <Button
                 id="idCancelBtn"

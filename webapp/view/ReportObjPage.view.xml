@@ -1,0 +1,781 @@
+<mvc:View
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.uxap"
+    xmlns:m="sap.m"
+    xmlns:forms="sap.ui.layout.form"
+    xmlns:core="sap.ui.core"
+    xmlns:f="sap.ui.layout.form"
+    xmlns:l="sap.ui.layout"
+    xmlns:upload="sap.m.upload"
+    controllerName="com.air.vp.lnchpage.controller.ReportObjPage"
+    height="100%"
+>
+    <m:Page showHeader="false">
+        <m:content>
+            <ObjectPageLayout
+                id="ObjectPageLayoust"
+                showTitleInHeaderContent="true"
+                upperCaseAnchorBar="false"
+            >
+                <headerTitle>
+                    <ObjectPageDynamicHeaderTitle>
+                        <expandedHeading>
+                            <m:HBox>
+                                <m:Button
+                                    icon="sap-icon://nav-back"
+                                    press="onNavBack"
+                                    class="sapUiTinyMarginEnd sapUiTinyMarginBottom"
+                                />
+                                <m:Title
+                                    text="{requestInfo>/REQUEST_NO}"
+                                    wrapping="true"
+                                    id="idReqTsitle"
+                                    class="usermasterColo"
+                                />
+                            </m:HBox>
+                        </expandedHeading>
+                        <expandedContent>
+                            <m:HBox>
+                                <m:Label
+                                    text="Request Type :"
+                                    class="sapUiTinyMarginEnd"
+                                />
+                                <m:Text
+                                    text="{requestInfo>/REQUEST_TYPE}"
+                                    class="labelSize"
+                                />
+                                <!-- <m:Input value="{requestInfo>/REQUEST_TYPE}" visible="{requestInfo>/editable}" /> -->
+                            </m:HBox>
+                        </expandedContent>
+                        <snappedHeading>
+                            <m:HBox>
+                                <m:VBox>
+                                    <m:Title
+                                        text="{requestInfo>/REQUEST_NO}"
+                                        wrapping="true"
+                                        class="usermasterColo"
+                                    />
+                                    <m:Label text="Request Type:" />
+                                    <m:Text
+                                        text="{requestInfo>/REQUEST_TYPE}"
+                                        class="labelSize"
+                                    />
+                                </m:VBox>
+                            </m:HBox>
+                        </snappedHeading>
+
+                        <actions>
+                            <m:Button
+                                id="isdEditBtn"
+                                text="Edit"
+                                type="Emphasized"
+                                visible="false"
+                                press="onEditPress"
+                            />
+                        </actions>
+                    </ObjectPageDynamicHeaderTitle>
+                </headerTitle>
+
+                <headerContent>
+                    <m:FlexBox
+                        wrap="Wrap"
+                        fitContainer="true"
+                    >
+                        <m:VBox
+                            class="sapUiLargeMarginEnd sapUiSmallMarginBottom"
+                        >
+                            <m:HBox class="sapUiTinyMarginBottom">
+                                <m:Label
+                                    text="Department:"
+                                    class="sapUiSmallMarginEnd"
+                                />
+                                <m:Text
+                                    text="{requestInfo>/DEPARTMENT}"
+                                    class="labelSize"
+                                />
+                            </m:HBox>
+                        </m:VBox>
+
+                        <m:VBox
+                            class="sapUiLargeMarginEnd sapUiSmallMarginBottom"
+                        >
+                            <m:HBox class="sapUiTinyMarginBottom">
+                                <m:Label
+                                    text="Created By:"
+                                    class="sapUiSmallMarginEnd"
+                                />
+                                <m:Text
+                                    text="{requestInfo>/REQUESTER_ID}"
+                                    class="labelSize"
+                                />
+                            </m:HBox>
+                        </m:VBox>
+
+                        <m:VBox
+                            class="sapUiLargeMarginEnd sapUiSmallMarginBottom"
+                        >
+                            <m:HBox class="sapUiTinyMarginBottom">
+                                <m:Label
+                                    text="Created On:"
+                                    class="sapUiSmallMarginEnd"
+                                />
+                                <m:Text
+                                    text="{path: 'requestInfo>/CREATED_ON', formatter: '.formatter.createdOnAndByFormatter'}"
+                                    class="labelSize"
+                                />
+                            </m:HBox>
+                        </m:VBox>
+                    </m:FlexBox>
+                </headerContent>
+
+                <sections>
+                    <ObjectPageSection
+                        titleUppercase="false"
+                        title="General Information"
+                    >
+                        <subSections>
+                            <ObjectPageSubSection
+                                title="Vendor Information"
+                                titleUppercase="false"
+                            >
+                                <blocks>
+                                    <m:VBox class="sapUiSmallMargin">
+                                        <m:HBox>
+                                            <!-- Vendor Organisation Name -->
+                                            <m:Label
+                                                text="Vendor Organisation Name :"
+                                                width="11rem"
+                                            />
+                                            <m:Text
+                                                text="{requestInfo>/VENDOR_ORGANISATION_NAME}"
+                                                width="13rem"
+                                                visible="{= !${requestInfo>/editable} }"
+                                            />
+                                            <m:Input
+                                                value="{requestInfo>/VENDOR_ORGANISATION_NAME}"
+                                                width="13rem"
+                                                visible="{requestInfo>/editable}"
+                                            />
+                                            <m:VBox width="2rem" />
+                                            <!-- Vendor Organisation Name 2 -->
+                                            <m:Label
+                                                text="Vendor Organisation Name 2 :"
+                                                width="12rem"
+                                            />
+                                            <m:Text
+                                                text="{requestInfo>/VENDOR_ORGANISATION_NAME2}"
+                                                width="13rem"
+                                                visible="{= !${requestInfo>/editable} }"
+                                            />
+                                            <m:Input
+                                                value="{requestInfo>/VENDOR_ORGANISATION_NAME2}"
+                                                width="13rem"
+                                                visible="{requestInfo>/editable}"
+                                            />
+                                        </m:HBox>
+
+                                        <m:HBox>
+                                            <!-- Contact Person -->
+                                            <m:Label
+                                                text="Contact Person :"
+                                                width="11rem"
+                                            />
+                                            <m:Text
+                                                text="{requestInfo>/CONTACT_PERSON}"
+                                                width="13rem"
+                                                visible="{= !${requestInfo>/editable} }"
+                                            />
+                                            <m:Input
+                                                value="{requestInfo>/CONTACT_PERSON}"
+                                                width="13rem"
+                                                visible="{requestInfo>/editable}"
+                                            />
+                                            <m:VBox width="2rem" />
+                                            <!-- Priority -->
+                                            <m:Label
+                                                text="Priority :"
+                                                width="12rem"
+                                            />
+                                            <m:Text
+                                                text="{requestInfo>/PRIORITY}"
+                                                width="13rem"
+                                                visible="{= !${requestInfo>/editable} }"
+                                            />
+                                            <m:Input
+                                                value="{requestInfo>/PRIORITY}"
+                                                width="13rem"
+                                                visible="{requestInfo>/editable}"
+                                            />
+                                        </m:HBox>
+
+                                        <m:HBox>
+                                            <!-- Department -->
+                                            <m:Label
+                                                text="Department :"
+                                                width="11rem"
+                                            />
+                                            <m:Text
+                                                text="{requestInfo>/DEPARTMENT}"
+                                                width="13rem"
+                                                visible="{= !${requestInfo>/editable} }"
+                                            />
+                                            <m:Input
+                                                value="{requestInfo>/DEPARTMENT}"
+                                                width="13rem"
+                                                visible="{requestInfo>/editable}"
+                                            />
+                                        </m:HBox>
+                                    </m:VBox>
+                                </blocks>
+                            </ObjectPageSubSection>
+
+                            <ObjectPageSubSection
+                                title="Vendor Address"
+                                titleUppercase="false"
+                            >
+                                <blocks>
+                                    <m:VBox class="sapUiSmallMargin">
+                                        <m:HBox>
+                                            <!-- Street -->
+                                            <m:Label
+                                                text="Street:  "
+                                                width="10rem"
+                                            />
+                                            <m:Text
+                                                text="{requestInfo>/TO_ADDRESS/results/0/STREET1}"
+                                                width="13rem"
+                                                visible="{= !${requestInfo>/editable} }"
+                                            />
+                                            <m:Input
+                                                value="{requestInfo>/TO_ADDRESS/results/0/STREET1}"
+                                                width="13rem"
+                                                visible="{requestInfo>/editable}"
+                                            />
+                                            <m:VBox width="2rem" />
+                                            <!-- Street2 -->
+                                            <m:Label
+                                                text="Street2:"
+                                                width="10rem"
+                                            />
+                                            <m:Text
+                                                text="{requestInfo>/TO_ADDRESS/results/0/STREET2}"
+                                                width="13rem"
+                                                visible="{= !${requestInfo>/editable} }"
+                                            />
+                                            <m:Input
+                                                value="{requestInfo>/TO_ADDRESS/results/0/STREET2}"
+                                                width="13rem"
+                                                visible="{requestInfo>/editable}"
+                                            />
+                                        </m:HBox>
+
+                                        <!-- Street3 and City -->
+                                        <m:HBox>
+                                            <m:Label
+                                                text="Street3:"
+                                                width="10rem"
+                                            />
+                                            <m:Text
+                                                text="{requestInfo>/TO_ADDRESS/results/0/STREET3}"
+                                                width="13rem"
+                                                visible="{= !${requestInfo>/editable} }"
+                                            />
+                                            <m:Input
+                                                value="{requestInfo>/TO_ADDRESS/results/0/STREET3}"
+                                                width="13rem"
+                                                visible="{requestInfo>/editable}"
+                                            />
+                                            <m:VBox width="2rem" />
+                                            <m:Label
+                                                text="City:"
+                                                width="10rem"
+                                            />
+                                            <m:Text
+                                                text="{requestInfo>/TO_ADDRESS/results/0/CITY}"
+                                                width="13rem"
+                                                visible="{= !${requestInfo>/editable} }"
+                                            />
+                                            <m:Input
+                                                value="{requestInfo>/TO_ADDRESS/results/0/CITY}"
+                                                width="13rem"
+                                                visible="{requestInfo>/editable}"
+                                            />
+                                        </m:HBox>
+
+                                        <!-- District and Pincode -->
+                                        <m:HBox>
+                                            <m:Label
+                                                text="District:"
+                                                width="10rem"
+                                            />
+                                            <m:Text
+                                                text="{requestInfo>/TO_ADDRESS/results/0/DISTRICT}"
+                                                width="13rem"
+                                                visible="{= !${requestInfo>/editable} }"
+                                            />
+                                            <m:Input
+                                                value="{requestInfo>/TO_ADDRESS/results/0/DISTRICT}"
+                                                width="13rem"
+                                                visible="{requestInfo>/editable}"
+                                            />
+                                            <m:VBox width="2rem" />
+                                            <m:Label
+                                                text="Pincode:"
+                                                width="10rem"
+                                            />
+                                            <m:Text
+                                                text="{requestInfo>/TO_ADDRESS/results/0/PINCODE}"
+                                                width="13rem"
+                                                visible="{= !${requestInfo>/editable} }"
+                                            />
+                                            <m:Input
+                                                value="{requestInfo>/TO_ADDRESS/results/0/PINCODE}"
+                                                visible="{requestInfo>/editable}"
+                                            />
+                                        </m:HBox>
+
+                                        <!-- State and Country -->
+                                        <m:HBox>
+                                            <m:Label
+                                                text="State:"
+                                                width="10rem"
+                                            />
+                                            <m:Text
+                                                text="{requestInfo>/TO_ADDRESS/results/0/STATE}"
+                                                width="13rem"
+                                                visible="{= !${requestInfo>/editable} }"
+                                            />
+                                            <m:Input
+                                                value="{requestInfo>/TO_ADDRESS/results/0/STATE}"
+                                                width="13rem"
+                                                visible="{requestInfo>/editable}"
+                                            />
+                                            <m:VBox width="2rem" />
+                                            <m:Label
+                                                text="Country:"
+                                                width="10rem"
+                                            />
+                                            <m:Text
+                                                text="{requestInfo>/TO_ADDRESS/results/0/COUNTRY}"
+                                                width="13rem"
+                                                visible="{= !${requestInfo>/editable} }"
+                                            />
+                                            <m:Input
+                                                value="{requestInfo>/TO_ADDRESS/results/0/COUNTRY}"
+                                                width="13rem"
+                                                visible="{requestInfo>/editable}"
+                                            />
+                                        </m:HBox>
+
+                                        <!-- Email and Email (Payment) -->
+                                        <m:HBox>
+                                            <m:Label
+                                                text="Email:"
+                                                width="10rem"
+                                            />
+                                            <m:Text
+                                                text="{requestInfo>/TO_ADDRESS/results/0/EMAIL}"
+                                                width="13rem"
+                                                visible="{= !${requestInfo>/editable} }"
+                                            />
+                                            <m:Input
+                                                value="{requestInfo>/TO_ADDRESS/results/0/EMAIL}"
+                                                width="13rem"
+                                                visible="{requestInfo>/editable}"
+                                            />
+                                            <m:VBox width="2rem" />
+                                            <m:Label
+                                                text="Email(Payment):"
+                                                width="10rem"
+                                            />
+                                            <m:Text
+                                                text="{requestInfo>/TO_ADDRESS/results/0/EMAIL_ADDRESS_FOR_PAYMENT}"
+                                                width="13rem"
+                                                visible="{= !${requestInfo>/editable} }"
+                                            />
+                                            <m:Input
+                                                value="{requestInfo>/TO_ADDRESS/results/0/EMAIL_ADDRESS_FOR_PAYMENT}"
+                                                width="13rem"
+                                                visible="{requestInfo>/editable}"
+                                            />
+                                        </m:HBox>
+
+                                        <!-- Telephone and Mobile Number -->
+                                        <m:HBox>
+                                            <m:Label
+                                                text="Telephone No:"
+                                                width="10rem"
+                                            />
+                                            <m:Text
+                                                text="{requestInfo>/TO_ADDRESS/results/0/CONTACT_TELECODE}"
+                                                width="13rem"
+                                                visible="{= !${requestInfo>/editable} }"
+                                            />
+                                            <m:Input
+                                                value="{requestInfo>/TO_ADDRESS/results/0/CONTACT_TELECODE}"
+                                                width="13rem"
+                                                visible="{requestInfo>/editable}"
+                                            />
+                                            <m:VBox width="2rem" />
+                                            <m:Label
+                                                text="Mobile Number:"
+                                                width="10rem"
+                                            />
+                                            <m:Text
+                                                text="{requestInfo>/TO_ADDRESS/results/0/CONTACT_NO}"
+                                                width="13rem"
+                                                visible="{= !${requestInfo>/editable} }"
+                                            />
+                                            <m:Input
+                                                value="{requestInfo>/TO_ADDRESS/results/0/CONTACT_NO}"
+                                                width="13rem"
+                                                visible="{requestInfo>/editable}"
+                                            />
+                                        </m:HBox>
+                                    </m:VBox>
+                                </blocks>
+                            </ObjectPageSubSection>
+                        </subSections>
+                    </ObjectPageSection>
+
+                    <!-- Financial Information Section -->
+                    <ObjectPageSection
+                        titleUppercase="false"
+                        title="Financial Information"
+                    >
+                        <subSections>
+                            <ObjectPageSubSection
+                                titleUppercase="false"
+                                title="Financial Information"
+                            >
+                                <blocks>
+                                    <m:VBox class="sapUiSmallMargin">
+                                        <!-- Account Information -->
+                                        <m:HBox>
+                                            <m:Label
+                                                text="Account Number:"
+                                                width="10rem"
+                                            />
+                                            <m:Text
+                                                text="{requestInfo>/TO_BANKS/results/0/ACCOUNT_NO}"
+                                                width="13rem"
+                                                visible="{= !${requestInfo>/editable} }"
+                                            />
+                                            <m:Input
+                                                value="{requestInfo>/TO_BANKS/results/0/ACCOUNT_NO}"
+                                                width="13rem"
+                                                visible="{requestInfo>/editable}"
+                                            />
+                                            <m:VBox width="2rem" />
+                                            <m:Label
+                                                text="IFSC Code:"
+                                                width="10rem"
+                                            />
+                                            <m:Text
+                                                text="{requestInfo>/TO_BANKS/results/0/IFSC}"
+                                                width="13rem"
+                                                visible="{= !${requestInfo>/editable} }"
+                                            />
+                                            <m:Input
+                                                value="{requestInfo>/TO_BANKS/results/0/IFSC}"
+                                                width="13rem"
+                                                visible="{requestInfo>/editable}"
+                                            />
+                                        </m:HBox>
+
+                                        <!-- Branch and Bank Name -->
+                                        <m:HBox>
+                                            <m:Label
+                                                text="Branch:"
+                                                width="10rem"
+                                            />
+                                            <m:Text
+                                                text="{requestInfo>/TO_BANKS/results/0/BRANCH_NAME}"
+                                                width="13rem"
+                                                visible="{= !${requestInfo>/editable} }"
+                                            />
+                                            <m:Input
+                                                value="{requestInfo>/TO_BANKS/results/0/BRANCH_NAME}"
+                                                width="13rem"
+                                                visible="{requestInfo>/editable}"
+                                            />
+                                            <m:VBox width="2rem" />
+                                            <m:Label
+                                                text="Bank Name:"
+                                                width="10rem"
+                                            />
+                                            <m:Text
+                                                text="{requestInfo>/TO_BANKS/results/0/BANK_NAME}"
+                                                width="13rem"
+                                                visible="{= !${requestInfo>/editable} }"
+                                            />
+                                            <m:Input
+                                                value="{requestInfo>/TO_BANKS/results/0/BANK_NAME}"
+                                                width="13rem"
+                                                visible="{requestInfo>/editable}"
+                                            />
+                                        </m:HBox>
+
+                                        <!-- LST Number and GST Number -->
+                                        <m:HBox>
+                                            <m:Label
+                                                text="LST No:"
+                                                width="10rem"
+                                            />
+                                            <m:Text
+                                                text="{requestInfo>/LST_NO}"
+                                                width="13rem"
+                                                visible="{= !${requestInfo>/editable} }"
+                                            />
+                                            <m:Input
+                                                value="{requestInfo>/LST_NO}"
+                                                width="13rem"
+                                                visible="{requestInfo>/editable}"
+                                            />
+                                            <m:VBox width="2rem" />
+                                            <m:Label
+                                                text="GST No:"
+                                                width="10rem"
+                                            />
+                                            <m:Text
+                                                text="{requestInfo>/GST_NO}"
+                                                width="13rem"
+                                                visible="{= !${requestInfo>/editable} }"
+                                            />
+                                            <m:Input
+                                                value="{requestInfo>/GST_NO}"
+                                                width="13rem"
+                                                visible="{requestInfo>/editable}"
+                                            />
+                                        </m:HBox>
+
+                                        <!-- PAN Number and Vendor Account Group -->
+                                        <m:HBox>
+                                            <m:Label
+                                                text="PAN No:"
+                                                width="10rem"
+                                            />
+                                            <m:Text
+                                                text="{requestInfo>/PAN_NO}"
+                                                width="13rem"
+                                                visible="{= !${requestInfo>/editable} }"
+                                            />
+                                            <m:Input
+                                                value="{requestInfo>/PAN_NO}"
+                                                width="13rem"
+                                                visible="{requestInfo>/editable}"
+                                            />
+                                            <m:VBox width="2rem" />
+                                            <m:Label
+                                                text="Vendor Account Group:"
+                                                width="10rem"
+                                            />
+                                            <m:Text
+                                                text="{requestInfo>/VENDOR_ACCOUNT_GROUP}"
+                                                width="13rem"
+                                                visible="{= !${requestInfo>/editable} }"
+                                            />
+                                            <m:Input
+                                                value="{requestInfo>/VENDOR_ACCOUNT_GROUP}"
+                                                width="13rem"
+                                                visible="{requestInfo>/editable}"
+                                            />
+                                        </m:HBox>
+
+                                        <!-- MSME Number and Category -->
+                                        <m:HBox>
+                                            <m:Label
+                                                text="MSME Category:"
+                                                width="10rem"
+                                            />
+                                            <m:Text
+                                                text="{requestInfo>/MSME_CATEGORY}"
+                                                width="13rem"
+                                                visible="{= !${requestInfo>/editable} }"
+                                            />
+                                            <m:Input
+                                                value="{requestInfo>/MSME_CATEGORY}"
+                                                width="13rem"
+                                                visible="{requestInfo>/editable}"
+                                            />
+                                            <m:VBox width="2rem" />
+                                            <m:Label
+                                                text="MSME Number:"
+                                                width="10rem"
+                                            />
+                                            <m:Text
+                                                text="{requestInfo>/MSME_NUMBER}"
+                                                width="13rem"
+                                                visible="{= !${requestInfo>/editable} }"
+                                            />
+                                            <m:Input
+                                                value="{requestInfo>/MSME_NUMBER}"
+                                                width="13rem"
+                                                visible="{requestInfo>/editable}"
+                                            />
+                                        </m:HBox>
+
+                                        <!-- Due Diligence Number and Risk Rating -->
+                                        <m:HBox>
+                                            <m:Label
+                                                text="Due Diligence Number:"
+                                                width="10rem"
+                                            />
+                                            <m:Text
+                                                text="{requestInfo>/DUE_DILI_NUM}"
+                                                width="13rem"
+                                                visible="{= !${requestInfo>/editable} }"
+                                            />
+                                            <m:Input
+                                                value="{requestInfo>/DUE_DILI_NUM}"
+                                                width="13rem"
+                                                visible="{requestInfo>/editable}"
+                                            />
+                                            <m:VBox width="2rem" />
+                                            <m:Label
+                                                text="Risk Rating:"
+                                                width="10rem"
+                                            />
+                                            <m:Text
+                                                text="{requestInfo>/RISK_RATING}"
+                                                width="13rem"
+                                                visible="{= !${requestInfo>/editable} }"
+                                            />
+                                            <m:Input
+                                                value="{requestInfo>/RISK_RATING}"
+                                                width="13rem"
+                                                visible="{requestInfo>/editable}"
+                                            />
+                                        </m:HBox>
+
+                                        <!-- Reviewer -->
+                                        <m:HBox>
+                                            <m:Label
+                                                text="Reviewer:"
+                                                width="10rem"
+                                            />
+                                            <m:Text
+                                                text="{requestInfo>/REVIEWER_USER_ID}"
+                                                width="13rem"
+                                                visible="{= !${requestInfo>/editable} }"
+                                            />
+                                            <m:Input
+                                                value="{requestInfo>/REVIEWER_USER_ID}"
+                                                width="13rem"
+                                                visible="{requestInfo>/editable}"
+                                            />
+                                        </m:HBox>
+                                    </m:VBox>
+                                </blocks>
+                            </ObjectPageSubSection>
+                        </subSections>
+                    </ObjectPageSection>
+
+                    <!-- Attachments Section -->
+                    <ObjectPageSection
+                        titleUppercase="false"
+                        title="Attachments"
+                        importance="Medium"
+                    >
+                        <subSections>
+                            <ObjectPageSubSection
+                                title="Attachments"
+                                titleUppercase="false"
+                            >
+                                <blocks>
+                                    <m:Table
+                                        inset="false"
+                                        items="{path:'requestInfo>/TO_ATTACHMENTS/results'}"
+                                    >
+                                        <m:columns>
+                                            <m:Column>
+                                                <m:Text text="Name" />
+                                            </m:Column>
+                                            <m:Column>
+                                                <m:Text text="Download" />
+                                            </m:Column>
+                                        </m:columns>
+                                        <m:items>
+                                            <m:ColumnListItem vAlign="Middle">
+                                                <m:cells>
+                                                    <m:Text
+                                                        text="{requestInfo>DESCRIPTION}"
+                                                    />
+                                                    <m:Button
+                                                        press="onPreviewAttachment"
+                                                        icon="sap-icon://download"
+                                                    >
+                                                        <m:customData>
+                                                            <core:CustomData
+                                                                key="customData"
+                                                                value="{requestInfo>IMAGEURL}"
+                                                                writeToDom="false"
+                                                            />
+                                                        </m:customData>
+                                                    </m:Button>
+                                                </m:cells>
+                                            </m:ColumnListItem>
+                                        </m:items>
+                                    </m:Table>
+                                </blocks>
+                            </ObjectPageSubSection>
+                        </subSections>
+                    </ObjectPageSection>
+                </sections>
+            </ObjectPageLayout>
+        </m:content>
+
+        <m:footer>
+            <m:OverflowToolbar id="otbFosoter">
+                <m:ToolbarSpacer />
+                <m:Button
+                    id="idAccesptBtn"
+                    enabled="true"
+                    type="Accept"
+                    text="Accept"
+                    press="onSubmitRequestForm"
+                    visible="false"
+                >
+                    <m:layoutData>
+                        <m:OverflowToolbarLayoutData priority="NeverOverflow" />
+                    </m:layoutData>
+                </m:Button>
+                <m:Button
+                    id="idRejectsBtn"
+                    enabled="true"
+                    type="Reject"
+                    text="Reject"
+                    press="onRejectRegistration"
+                    visible="false"
+                >
+                    <m:layoutData>
+                        <m:OverflowToolbarLayoutData priority="NeverOverflow" />
+                    </m:layoutData>
+                </m:Button>
+                <m:Button
+                    id="idSendBsackBtn"
+                    enabled="true"
+                    type="Reject"
+                    text="Send Back"
+                    press="onSendBackRegistration"
+                    visible="false"
+                >
+                    <m:layoutData>
+                        <m:OverflowToolbarLayoutData priority="NeverOverflow" />
+                    </m:layoutData>
+                </m:Button>
+                <m:Button
+                    id="idSubsmitBtn"
+                    type="Attention"
+                    text="Submit"
+                    press="onSubmitEditRegistration"
+                    visible="false"
+                >
+                    <m:layoutData>
+                        <m:OverflowToolbarLayoutData priority="NeverOverflow" />
+                    </m:layoutData>
+                </m:Button>
+            </m:OverflowToolbar>
+        </m:footer>
+    </m:Page>
+</mvc:View>

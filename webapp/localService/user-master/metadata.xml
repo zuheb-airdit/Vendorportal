@@ -18,6 +18,9 @@
                 <EntitySet Name="CompanyCode" EntityType="userMasterService.CompanyCode"/>
                 <EntitySet Name="UserRole" EntityType="userMasterService.UserRole"/>
                 <EntitySet Name="MasterVMUserEntity" EntityType="userMasterService.MasterVMUserEntity"/>
+                <FunctionImport Name="CreateVMUser" ReturnType="Edm.String" m:HttpMethod="POST">
+                    <Parameter Name="userData" Type="userMasterService.VMUsers" Mode="In" Nullable="true"/>
+                </FunctionImport>
                 <AssociationSet Name="VMUsers_TO_USER_ROLE" Association="userMasterService.VMUsers_TO_USER_ROLE">
                     <End Role="VMUsers" EntitySet="VMUsers"/>
                     <End Role="UserRole" EntitySet="UserRole"/>
@@ -37,10 +40,9 @@
             </EntityContainer>
             <EntityType Name="IasUsers">
                 <Key>
-                    <PropertyRef Name="USER_ID"/>
                     <PropertyRef Name="EMAIL"/>
                 </Key>
-                <Property Name="USER_ID" Type="Edm.String" MaxLength="50" Nullable="false"/>
+                <Property Name="USER_ID" Type="Edm.String" MaxLength="50"/>
                 <Property Name="STATUS" Type="Edm.String" MaxLength="50"/>
                 <Property Name="LOGIN" Type="Edm.String" MaxLength="50"/>
                 <Property Name="EMAIL" Type="Edm.String" MaxLength="150" Nullable="false"/>
@@ -49,6 +51,7 @@
                 <Property Name="COMPANY_CODE" Type="Edm.String" MaxLength="100"/>
                 <Property Name="EMP_NO" Type="Edm.String" MaxLength="100"/>
                 <Property Name="MOBILE_NO" Type="Edm.String" MaxLength="15"/>
+                <Property Name="PASSWORD" Type="Edm.String" MaxLength="50"/>
             </EntityType>
             <EntityType Name="IasUsersF4Help">
                 <Key>
@@ -59,15 +62,16 @@
             </EntityType>
             <EntityType Name="VMUsers">
                 <Key>
-                    <PropertyRef Name="SR_NO"/>
                     <PropertyRef Name="EMAIL"/>
                 </Key>
-                <Property Name="SR_NO" Type="Edm.Int32" Nullable="false"/>
+                <Property Name="SR_NO" Type="Edm.Int32"/>
                 <Property Name="USER_ID" Type="Edm.String" MaxLength="50"/>
+                <Property Name="DEPARTMENT" Type="Edm.String"/>
                 <Property Name="USER_ROLE" Type="Edm.String" MaxLength="50"/>
                 <Property Name="USER_NAME" Type="Edm.String" MaxLength="500"/>
                 <Property Name="EMAIL" Type="Edm.String" MaxLength="150" Nullable="false"/>
                 <Property Name="COMPANY_CODE" Type="Edm.String" MaxLength="500"/>
+                <Property Name="COMPANY_DESC" Type="Edm.String" MaxLength="100"/>
                 <Property Name="EMP_NO" Type="Edm.String" MaxLength="100"/>
                 <Property Name="CREATED_ON" Type="Edm.DateTimeOffset" Precision="7"/>
                 <Property Name="UPDATED_ON" Type="Edm.DateTimeOffset" Precision="7"/>
@@ -94,14 +98,12 @@
             </EntityType>
             <EntityType Name="MasterVMUserEntity">
                 <Key>
-                    <PropertyRef Name="USER_ID"/>
-                    <PropertyRef Name="USER_ROLE"/>
-                    <PropertyRef Name="COMPANY_CODE"/>
+                    <PropertyRef Name="EMAIL"/>
                 </Key>
-                <Property Name="USER_ID" Type="Edm.String" MaxLength="50" Nullable="false"/>
-                <Property Name="USER_ROLE" Type="Edm.String" MaxLength="50" Nullable="false"/>
-                <Property Name="COMPANY_CODE" Type="Edm.String" MaxLength="50" Nullable="false"/>
-                <Property Name="EMAIL" Type="Edm.String" MaxLength="150"/>
+                <Property Name="USER_ID" Type="Edm.String" MaxLength="50"/>
+                <Property Name="USER_ROLE" Type="Edm.String" MaxLength="50"/>
+                <Property Name="COMPANY_CODE" Type="Edm.String" MaxLength="50"/>
+                <Property Name="EMAIL" Type="Edm.String" MaxLength="150" Nullable="false"/>
                 <Property Name="COMPANY_DESC" Type="Edm.String" MaxLength="100"/>
                 <NavigationProperty Name="TO_ROLE" Relationship="userMasterService.MasterVMUserEntity_TO_ROLE" FromRole="MasterVMUserEntity" ToRole="UserRole"/>
             </EntityType>

@@ -1,0 +1,94 @@
+<core:FragmentDefinition
+    xmlns="sap.m"
+    xmlns:l="sap.ui.layout"
+    xmlns:f="sap.ui.layout.form"
+    xmlns:u="sap.ui.unified"
+    xmlns:core="sap.ui.core"
+>
+    <Dialog
+        title="{navigationApps>/role}"
+        showHeader="false"
+        contentHeight="auto"
+        verticalScrolling='false'
+    >
+        <content>
+            <Toolbar>
+            <Title text="Profile Info - {navigationApps>/role}"></Title>
+                <ToolbarSpacer />
+               
+            </Toolbar>
+            <VBox
+                alignItems="Center"
+                class="sapUiTinyMarginTop"
+            >
+                <!-- <Avatar
+                    id='userAvatarEditProfile'
+                    class="sapUiSmallMarginTop"
+                    src="{lpadData>/imageurl}"
+                    displaySize="XL"
+                    showBorder="true"
+                    press="onAvatarProfile"
+                    badgeIcon="sap-icon://edit"
+                />
+                <u:FileUploader
+                    id="fileUploaderEditProfile"
+                    name="fileUploaderEditProfile"
+                    uploadUrl="your_upload_url"
+                    uploadComplete="onUploadComplete"
+                    change="onFileSelectionChangeEditProfile"
+                    class="hideUploader"
+                />
+                <Button
+                    press='onResetImageProfile'
+                    id='resetImage'
+                    text="Reset Image"
+                    visible="false"
+                    class='sapUiTinyMarginTop sapUiTinyMarginBottom'
+                /> -->
+            </VBox>
+            <VBox>
+                <f:SimpleForm
+                    editable="true"
+                    layout="ResponsiveGridLayout"
+                    labelSpanXL="3"
+                    labelSpanL="3"
+                    labelSpanM="3"
+                    labelSpanS="12"
+                    adjustLabelSpan="false"
+                    emptySpanXL="4"
+                    emptySpanL="4"
+                    emptySpanM="4"
+                    emptySpanS="0"
+                    columnsXL="1"
+                    columnsL="1"
+                    columnsM="1"
+                    singleContainerFullSize="false"
+                >
+                    <f:content>
+                        <Label text="Email" />
+                        <Input
+                            value="{navigationApps>/email}"
+                            id="Emailid"
+                            enabled="false"
+                        />
+                        <Label text="Role" />
+                        <Input
+                            value="{navigationApps>/role}"
+                            id="Role"
+                            enabled="false"
+                        />
+                       
+                    </f:content>
+                </f:SimpleForm>
+            </VBox>
+        </content>
+        <endButton>
+            <Button
+                text="Close"
+                type="Ghost"
+                class="customSegmentedBtn"
+                press="onCancelProfileView"
+            />
+        </endButton>
+    </Dialog>
+</core:FragmentDefinition>

@@ -37,6 +37,47 @@ sap.ui.define([
                 sap.ui.loader.config({
                     paths: {"pratham":"/app"}
                 });
+                var oModel = this.getModel("registration-manage");
+                debugger;
+                oModel.read("/UserAttributes", {
+                    success: function (oData) {
+                        debugger;
+                        var lpadData = {
+                            name: oData.results[0].name,
+                            email: oData.results[0].email,
+                            imageurl: oData.results[0].imageurl,
+                            phone: oData.results[0].phone,
+                            role: oData.results[0].role,
+                            departmentName: oData.results[0].departmentName,
+                            selectedKey: oData.results[0].roles[0].appId || "",
+                            navigation: oData.results[0].roles || [],
+                            fixedNavigation: [
+                                {
+                                    description: "Setting",
+                                    icon: "sap-icon://action-settings"
+                                },
+                                {
+                                    description: "Support",
+                                    icon: "sap-icon://headset"
+                                },
+                                {
+                                    description: "Help Documents",
+                                    icon: "sap-icon://learning-assistant"
+                                }
+                            ]
+                        };
+                        var lpadModel = new sap.ui.model.json.JSONModel(lpadData);
+                        this.setModel(lpadModel, "lpadData");
+                        this.userData = lpadData;
+                        // enable routing
+                        this.getRouter().initialize();
+                    }.bind(this),
+                    error: function (oError) {
+                        console.log("Error fetching roles:", oError);
+                        // enable routing
+                        this.getRouter().initialize();
+                    }.bind(this),
+                });
             }
         });
     }

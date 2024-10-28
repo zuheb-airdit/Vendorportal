@@ -43,6 +43,7 @@ server:
           - path: v2/odata/v4/user-master
             url: https://agp-cgd-india-private-limited-qcm-development-vogmi7cl-3f7273e0.cfapps.in30.hana.ondemand.com
             destination: VendorManagement
+            authenticationType: OAuth2JWTBearer
           - path: v2/odata/v4/request-process
             url: https://agp-cgd-india-private-limited-qcm-development-vogmi7cl-3f7273e0.cfapps.in30.hana.ondemand.com
             destination: VendorManagement
@@ -56,6 +57,14 @@ server:
             client: '120'
             destination: AGP_DEV_S4D
             authenticationType: BasicAuthentication
+          - path: v2/odata/v4/zapi-business-partnersample/
+            url: https://agp-cgd-india-private-limited-qcm-development-vogmi7cl-3f7273e0.cfapps.in30.hana.ondemand.com
+            destination: VendorManagement
+            authenticationType: OAuth2JWTBearer
+          - path: v2/odata/v4/vendor
+            url: https://agp-cgd-india-private-limited-qcm-development-vogmi7cl-3f7273e0.cfapps.in30.hana.ondemand.com
+            destination: VendorManagement
+            authenticationType: OAuth2JWTBearer
     - name: fiori-tools-preview
       afterMiddleware: fiori-tools-appreload
       configuration:

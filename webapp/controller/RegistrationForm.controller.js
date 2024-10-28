@@ -12,12 +12,28 @@ sap.ui.define([
                 this._Router = this.getOwnerComponent().getRouter();
                 let model = this.getOwnerComponent().getModel("registration-manage")
                 this.getView().setModel(model)
-                this._Router.getRoute("RegisterFormPage").attachPatternMatched(function (oEvent) {
+                let model2 = this.getOwnerComponent().getModel()
+                this.getView().setModel(model2,"apprvlModel")
+                var attchmentModel = new JSONModel();
+                this.getView().setModel(attchmentModel, "attachmModel");
+            //     let model1 = this.getOwnerComponent().getModel("request-process");
+            //    model1.read("/REVIEWERUSERS",{
+            //     success: function(res){
+            //         debugger;
+            //     },
+            //     error: function(err){
+            //         debugger;
+            //     }
+            //    })
+                this._Router.getRoute("RegisterFormPageWithId").attachPatternMatched(function (oEvent) {
                     let oDataModel = this.getOwnerComponent().getModel('agpFormData')
-                    this._Email = oEvent.getParameter("arguments").Email;
-                    var attchmentModel = new JSONModel();
-                    this.getView().setModel(attchmentModel, "attachmModel");
+                    debugger;
+                    this._Email = oEvent.getParameter("arguments").email;
+                    debugger;
+                    // var attchmentModel = new JSONModel();
+                    // this.getView().setModel(attchmentModel, "attachmModel");
                     let req = oEvent.getParameter("arguments").id;
+                    this.Request = oEvent.getParameter("arguments").id;
                     oDataModel.setProperty('/GENERAL_INFORMATION/VENDOR_ADDRESS/EMAIL', this._Email)
                     model.read(`/RequestInfo(${req})`, {
                         success: function (res) {
@@ -25,22 +41,31 @@ sap.ui.define([
                             let aFilters = [
                                 new Filter("accountGroupCode", "EQ", res.VENDOR_ACCOUNT_GROUP)
                             ];
-                            oDataModel.setProperty('/FINANCIAL_INFORMATION/PRIMARY_BANK_DETAILS/VENDOR_ACCOUNT_GROUP', res.VENDOR_ACCOUNT_GROUP)
                             this.status = res.STATUS
-                            if (this.status === 9) {
+                            oDataModel.setProperty('/FINANCIAL_INFORMATION/PRIMARY_BANK_DETAILS/VENDOR_ACCOUNT_GROUP', res.VENDOR_ACCOUNT_GROUP)
+                            oDataModel.setProperty('/SUBMISSION_INFORMATION/Status', res.STATUS)
+
+                            this.status = res.STATUS
+                            if (this.status === 20 || this.status === 7) {
+                                this.byId("idDepartmenht").setValue(res.DEPARTMENT)
+                                this.byId("idVendorGroupTsype").setValue(res.VENDOR_ACCOUNT_GROUP)
+                                this.byId("idCountry").setValue(res.TO_ADDRESS.results[0].COUNTRY)
+                                this.byId("idStateForm").setValue(res.TO_ADDRESS.results[0].STATE)
+                                this.byId("idVendorGroupTsype").setEnabled(false)
                                 let oDataModel = this.getOwnerComponent().getModel('agpFormData');
                                 let docmodel = this.getView().getModel("attachmModel");
-
+                                docmodel.setProperty("/status",res.STATUS)
                                 // Map the response data to your model structure
                                 let mappedData = {
                                     GENERAL_INFORMATION: {
                                         VENDOR_INFORMATION: {
-                                            VENDOR_NAME: res.VENDOR_ORGANISATION_NAME,
-                                            WEBSITE: "",
                                             EMAIL: res.EMAIL,
                                             VENDOR_ORGANISATION_NAME: res.VENDOR_ORGANISATION_NAME,
+                                            VENDOR_ORGANISATION_NAME2: res.VENDOR_ORGANISATION_NAME2,
                                             CONTACT_PERSON: res.CONTACT_PERSON,
-                                            PRIORITY: res.PRIORITY
+                                            PRIORITY: res.PRIORITY,
+                                            REVIEWER_APPROVED:res.REVIEWER_APPROVED,
+                                            DEPARTMENT:res.DEPARTMENT
                                         },
                                         VENDOR_ADDRESS: {
                                             STREET: res.TO_ADDRESS.results[0].STREET1,
@@ -79,7 +104,10 @@ sap.ui.define([
                                             CST_NO: res.CST_NO,
                                             VENDOR_ACCOUNT_GROUP: res.VENDOR_ACCOUNT_GROUP,
                                             DUE_DELI_NUM: res.DUE_DELI_NUM,
-                                            APPROVER: res.APPROVER
+                                            REVIEWER_USER_ID: res.REVIEWER_USER_ID,
+                                            MSME_NO: res.MSME_NO,
+                                            MSME_TYPE: res.MSME_TYPE,
+                                            RISK_RATING: res.RISK_RATING
                                         }
                                     },
                                     ATTACHMENTS: {
@@ -87,7 +115,8 @@ sap.ui.define([
                                             REGISTERED_MAIL: item.REGISTERED_MAIL,
                                             DESCRIPTION: item.DESCRIPTION,
                                             IMAGEURL: item.IMAGEURL,
-                                            IMAGE_FILE_NAME: item.IMAGE_FILE_NAME
+                                            IMAGE_FILE_NAME: item.IMAGE_FILE_NAME,
+                                            COMMENTS:item.COMMENTS
                                         }))
                                     }
                                 };
@@ -95,7 +124,7 @@ sap.ui.define([
                                 // Set the mapped data to the model
                                 debugger
                                 oDataModel.setData(mappedData);
-                                
+
                                 // Reset the attachment model
                                 // model.read("/VendorAccountGroupAttachments", {
                                 //     filters: aFilters,
@@ -108,62 +137,72 @@ sap.ui.define([
                                 //         let dataArray = res.map((item) => {
                                 //             return {
                                 //                 doc: item,
-                                                
+
                                 //             }
                                 //         });
-                
+
                                 //         // Check if Due Diligence Yes is selected
                                 //         if (bDueDiligenceSelected) {
                                 //             dataArray.push({ doc: "MSME" });
                                 //         }
-                
+
                                 //         var attchmentModels = this.getView().getModel("attachmModel");
                                 //         attchmentModels.setData({ documents: dataArray })
                                 //         this.getView().setBusy(false)
                                 //         debugger;
                                 //     }.bind(this),
                                 //     error: function (oError) {
-                
+
                                 //     }
                                 // });
+                                var attchmentModels = this.getView().getModel("attachmModel");
+                                attchmentModels.setData({ documents: res.TO_ATTACHMENTS.results })
+                                this.docslength = res.TO_ATTACHMENTS.results.length;
+                                this.getView().setBusy(false)
 
-                            }
-                            model.read("/VendorAccountGroupAttachments", {
-                                filters: aFilters,
-                                success: function (oData) {
-                                    this.getView().setBusy(true)
-                                    let oDueDiligenceYes = this.byId("dueDiligenceYes");
-                                    let bDueDiligenceSelected = oDueDiligenceYes.getSelected();
-                                    debugger;
-                                    let res = oData.results[0].requisiteDocuments.split(",");
-                                    let dataArray = res.map((item) => {
-                                        return {
-                                            REGISTERED_MAIL: this._Email,
-                                            DESCRIPTION: item,
-                                            IMAGEURL: "",
-                                            IMAGE_FILE_NAME: item
-                                        }
-                                    });
-            
-                                    // Check if Due Diligence Yes is selected
-                                    if (bDueDiligenceSelected) {
-                                        dataArray.push({ 
-                                            REGISTERED_MAIL: this._Email,
-                                            DESCRIPTION: "MSME",
-                                            IMAGEURL: "",
-                                            IMAGE_FILE_NAME: "MSME"
+                            }else if(res.STATUS == 2){
+                                model.read("/VendorAccountGroupAttachments", {
+                                    filters: aFilters,
+                                    success: function (oData) {
+                                        this.getView().setBusy(true)
+                                        let oDueDiligenceYes = this.byId("dueDiligenceYes");
+                                        let bDueDiligenceSelected = oDueDiligenceYes.getSelected();
+                                        debugger;
+                                        let res = oData.results[0].requisiteDocuments.split(",");
+                                        this.docslength = res.length
+                                        let dataArray = res.map((item) => {
+                                            return {
+                                                REGISTERED_MAIL: this._Email,
+                                                DESCRIPTION: "",
+                                                IMAGEURL: "",
+                                                IMAGE_FILE_NAME: item,
+                                                COMMENTS:""
+                                            }
                                         });
+    
+                                        // Check if Due Diligence Yes is selected
+                                        if (bDueDiligenceSelected) {
+                                            dataArray.push({
+                                                REGISTERED_MAIL: this._Email,
+                                                DESCRIPTION: "",
+                                                IMAGEURL: "",
+                                                IMAGE_FILE_NAME: "MSME",
+                                                COMMENTS:""
+                                            });
+                                        }
+    
+                                        var attchmentModels = this.getView().getModel("attachmModel");
+                                        attchmentModels.setData({ documents: dataArray })
+                                        this.getView().setBusy(false)
+                                        debugger;
+                                    }.bind(this),
+                                    error: function (oError) {
+    
                                     }
-            
-                                    var attchmentModels = this.getView().getModel("attachmModel");
-                                    attchmentModels.setData({ documents: dataArray })
-                                    this.getView().setBusy(false)
-                                    debugger;
-                                }.bind(this),
-                                error: function (oError) {
-            
-                                }
-                            });
+                                });
+                            }
+                          
+                           
                         }.bind(this),
                         error: function (res) {
                             debugger;
@@ -233,6 +272,22 @@ sap.ui.define([
                 }.bind(this);
                 oReader.readAsDataURL(oFile);
             },
+            onDepartmentChange: function (oEvent) {
+                debugger;
+                var oComboBox = this.byId("idDepartmenht");
+                var oSelectedItem = oComboBox.getSelectedItem();
+                
+                if (oSelectedItem) {
+                    var sText = oSelectedItem.getText(); // Get the text value
+                    var sAdditionalText = oSelectedItem.getAdditionalText(); // Get the additionalText value
+            
+                    var sCombinedValue = sText + " - " + sAdditionalText;
+            
+                    // Set the combined value as the display value of the ComboBox
+                    oComboBox.setValue(sCombinedValue);
+                }
+            },
+            
             // onSelectionChange:function(oEvent){
             //     let oAttachmentData = {
             //         name: oEvent.getSource().getProperty('name'),
@@ -307,9 +362,10 @@ sap.ui.define([
                     // fileName: oEvent.getParameter("files")[0].name,
                     // url: '',
                     REGESTERED_MAIL: this._Email,
-                    DESCRIPTION: oEvent.getSource().getProperty('name'),
+                    DESCRIPTION: oEvent.getParameter("files")[0].name,
                     IMAGEURL: "",
-                    IMAGE_FILE_NAME: oEvent.getParameter("files")[0].name,
+                    IMAGE_FILE_NAME:  oEvent.getSource().getProperty('name'),
+                    COMMENTS:""
                 }
                 debugger
                 let oModel = this.getOwnerComponent().getModel('agpFormData')
@@ -334,36 +390,52 @@ sap.ui.define([
 
 
             handleOpenAttachment: function (oEvent) {
-                let base64URL = oEvent.getSource().data("customData"); // Your base64 URL
-                let oModel = this.getOwnerComponent().getModel('agpFormData');
-                let arr = oModel.getData().ATTACHMENTS.attachments;
-                let res = arr.find(attachment => attachment.DESCRIPTION === base64URL);
-                debugger
-                this.convertBlobUrlToBase64(res.IMAGEURL).then(function(base64String) {
-                    console.log("Base64 String:", base64String);
-                    // You can now use the base64String as needed
-                }).catch(function(error) {
-                    console.error("Error converting Blob URL to Base64:", error);
-                });
-                // var byteCharacters = atob(res.IMAGEURL);
-                // var byteNumbers = new Array(byteCharacters.length);
-                // for (var i = 0; i < byteCharacters.length; i++) {
-                //     byteNumbers[i] = byteCharacters.charCodeAt(i);
-                // }
-                // var byteArray = new Uint8Array(byteNumbers);
-
-                // // Create a blob from the byte array
-                // var blob = new Blob([byteArray], { type: 'application/pdf' });
-
-                // // Create an object URL from the blob
-                // var objectURL = URL.createObjectURL(blob);
-
-                // // Open the object URL in a new tab
-                // window.open(objectURL);
-            },
-            handleFormSubmit: function (oEvent) {
-                let validation = this._validateForm();
+                debugger;
+                if(this.status == 7 || this.status == 20){
+                   let url  = oEvent.getSource().data("customData2");
+                   window.open(url)
+                }else{
+                    let base64URL = oEvent.getSource().data("customData1"); // Your base64 URL
+                    // let description1 = oEvent.getSource().data("customData2"); // Your base64 URL
+                    debugger;
+                    let oModel = this.getOwnerComponent().getModel('agpFormData');
+                    let arr = oModel.getData().ATTACHMENTS.attachments;
+                    let res = arr.find(attachment => attachment.IMAGE_FILE_NAME === base64URL);
+                    debugger
+                    // this.convertBlobUrlToBase64(res.IMAGEURL).then(function(base64String) {
+                    //     console.log("Base64 String:", base64String);
+                    //     // You can now use the base64String as needed
+                    // }).catch(function(error) {
+                    //     console.error("Error converting Blob URL to Base64:", error);
+                    // });
+                    var byteCharacters = atob(res.IMAGEURL);
+                    var byteNumbers = new Array(byteCharacters.length);
+                    for (var i = 0; i < byteCharacters.length; i++) {
+                        
+                        byteNumbers[i] = byteCharacters.charCodeAt(i);
+                    }
+                    var byteArray = new Uint8Array(byteNumbers);
+    
+                    // Create a blob from the byte array
+                    var blob = new Blob([byteArray], { type: 'application/pdf' });
+    
+                    // Create an object URL from the blob
+                    var objectURL = URL.createObjectURL(blob);
+    
+                    // Open the object URL in a new tab
+                    window.open(objectURL);
+                }
                
+            },
+
+            onDownloadDocs: function(oEvent){
+                let base64URL = oEvent.getSource().data("customData");
+                window.open(base64URL)
+            },
+
+            handleFormSubmit: function (oEvent) {
+                // let validation = this._validateForm();
+                let validation = true;
                 debugger;
                 if (validation == true) {
                     this.getOwnerComponent().getRouter().navTo(`Login${this._Email}`)
@@ -373,19 +445,19 @@ sap.ui.define([
                     this.getView().setBusy(true);
                     let docmodel = this.getView().getModel("attachmModel");
                     let requiredDocuments = docmodel.getData().documents;
-                    let arrReq = requiredDocuments.map((doc) => doc.DESCRIPTION)
-
-
-
-                    //PREPARING PAYLOAD
+                    let arrReq = requiredDocuments.map((doc) => doc.IMAGE_FILE_NAME)
                     let aReqHeader = [];
                     let aAddressData = [];
                     let aBankData = [];
                     let attachment = [];
-
+                  let regid = oData.GENERAL_INFORMATION.VENDOR_ADDRESS.EMAIL
+                     debugger;
                     let oReqHeader = {
-                        "REGISTERED_ID": this._Email,
+                        "REGISTERED_ID": this._Email == undefined ? regid : this._Email,
                         "VENDOR_ORGANISATION_NAME": oData.GENERAL_INFORMATION.VENDOR_INFORMATION.VENDOR_ORGANISATION_NAME,
+                        // "REQUESTER_ID":"vaibhavdesai510@gmail.com",
+                        "DEPARTMENT": oData.GENERAL_INFORMATION.VENDOR_INFORMATION.DEPARTMENT,
+                        "VENDOR_ORGANISATION_NAME2": oData.GENERAL_INFORMATION.VENDOR_INFORMATION.VENDOR_ORGANISATION_NAME2,
                         "CONTACT_PERSON": oData.GENERAL_INFORMATION.VENDOR_INFORMATION.CONTACT_PERSON,
                         "PRIORITY": oData.GENERAL_INFORMATION.VENDOR_INFORMATION.PRIORITY,
                         "PAN_NO": oData.FINANCIAL_INFORMATION.PRIMARY_BANK_DETAILS.PAN_NO,
@@ -397,9 +469,15 @@ sap.ui.define([
                         "VENDOR_ACCOUNT_GROUP": oData.FINANCIAL_INFORMATION.PRIMARY_BANK_DETAILS.VENDOR_ACCOUNT_GROUP,
                         "DUE_DILIGANCE": false,
                         "DUE_DILIGANCE_REQ_NO": oData.FINANCIAL_INFORMATION.PRIMARY_BANK_DETAILS.DUE_DELI_NUM,
-                        "APPROVER": oData.FINANCIAL_INFORMATION.PRIMARY_BANK_DETAILS.APPROVER
-
+                        "REVIEWER_USER_ID": oData.FINANCIAL_INFORMATION.PRIMARY_BANK_DETAILS.REVIEWER_USER_ID,
+                        "RISK_RATING":oData.FINANCIAL_INFORMATION.PRIMARY_BANK_DETAILS.RISK_RATING,
+                        "MSME_TYPE":oData.FINANCIAL_INFORMATION.PRIMARY_BANK_DETAILS.MSME_TYPE,
+                        "REVIEWER_APPROVED":oData.GENERAL_INFORMATION.VENDOR_INFORMATION.REVIEWER_APPROVED == "" ? false: oData.GENERAL_INFORMATION.VENDOR_INFORMATION.REVIEWER_APPROVED,
+                        "RISK_RATING":oData.FINANCIAL_INFORMATION.PRIMARY_BANK_DETAILS.RISK_RATING,
+                        "MSME_NO": oData.FINANCIAL_INFORMATION.PRIMARY_BANK_DETAILS.MSME_NUM
+                        // "REG_DATE":oData.FINANCIAL_INFORMATION.PRIMARY_BANK_DETAILS.REG_DATE
                     }
+                    debugger;
 
                     let oAddressData = {
                         "STREET1": oData.GENERAL_INFORMATION.VENDOR_ADDRESS.STREET,
@@ -428,35 +506,60 @@ sap.ui.define([
                     let AllAttachemnts = [];
                     oData.ATTACHMENTS.attachments.map((item) => {
                         let oCompanyProfile = {
-                            REGESTERED_MAIL: item.REGESTERED_MAIL,
+                            REGESTERED_MAIL: this._Email == undefined ? regid : this._Email,
                             DESCRIPTION: item.DESCRIPTION,
                             IMAGEURL: item.IMAGEURL,
-                            IMAGE_FILE_NAME: item.IMAGE_FILE_NAME
+                            IMAGE_FILE_NAME: item.IMAGE_FILE_NAME,
+                            COMMENT : item.COMMENT
                         }
                         AllAttachemnts.push(oCompanyProfile)
                     })
                     debugger
-                    let arr = AllAttachemnts.map(obj => obj.DESCRIPTION)
+                    let arr = AllAttachemnts.map(obj => obj.IMAGE_FILE_NAME)
 
                     let missingDocuments = arrReq.filter(doc => !arr.includes(doc));
+                    let isAbacFormPresent = missingDocuments.map(doc => doc.trim()).includes('ABAC Form');
+                    debugger;
+                    let abacComment = requiredDocuments[0].COMMENTS;
+                    oReqHeader.ABAC_COMMENT = abacComment;
+
+                    // Check if ABAC form is missing and comment is provided
+                    if (isAbacFormPresent && abacComment) {
+                        debugger;
+                        missingDocuments = missingDocuments.filter(item => item.trim() !== 'ABAC Form');
+                        // Remove "ABAC Form" from missing documents if the comment exists
+                        // missingDocuments = missingDocuments.filter(doc => doc !== "AABAC Form");
+                    }
 
                     if (missingDocuments.length > 0) {
                         this.getView().setBusy(false);
-                        return sap.m.MessageBox.error("Please upload all required documents: " + missingDocuments.join(", "));
+                        return sap.m.MessageBox.error(`Please upload all required documents: ${missingDocuments.join(", ")}\nNote-If ABAC is not Uploaded Kindly Fill Comment.`);
                     }
+                    
+
+                    // if (missingDocuments.length > 0) {
+                    //     this.getView().setBusy(false);
+                    //     return sap.m.MessageBox.error("Please upload all required documents: " + missingDocuments.join(", "));
+                    // }
                     aReqHeader.push(oReqHeader)
                     aAddressData.push(oAddressData)
                     aBankData.push(oBankData)
 
+                     
+
                     const oPayload = {
-                        action: this.status == 6 ? "CREATE" : "EDIT",
+
+                        action: this.status === 20 ? "EDIT" : (this.status === 7 ? "EDIT_NOTIFY" : "CREATE"),
                         stepNo: 1,
                         reqHeader: aReqHeader,
                         addressData: aAddressData,
                         bankData: aBankData,
-                        CompanyProfile: AllAttachemnts,
-                    }
+                        CompanyProfile: AllAttachemnts
+                    };
 
+                    if(this.status == 20 || this.status == 7){
+                        oPayload.REQUEST_NO = parseFloat(this.Request)
+                    }
                     debugger;
 
                     oModel.create('/PostRegData', oPayload, {
@@ -511,7 +614,7 @@ sap.ui.define([
                                     docmodel.setData({
                                         documents: []
                                     });
-                                    this.getOwnerComponent().getRouter().navTo("RegisterManagement")
+                                    this.getOwnerComponent().getRouter().navTo("Request")
 
                                 }.bind(this)
                             })
@@ -532,46 +635,148 @@ sap.ui.define([
 
             },
 
+            // onDueDiligenceSelect: function (oEvent) {
+            //     debugger;
+            //     var sSelectedCheckBoxId = oEvent.getSource().getId();
+            //     var oDueDiligenceYes = this.byId("dueDiligenceYes");
+            //     var oDueDiligenceNo = this.byId("dueDiligenceNo");
+            //     var oInput = this.byId("dueDiligenceRequestNumber");
+            //     var oInput2 = this.byId("idRiskRating");
+            //     let attachmentModel = this.getView().getModel("attachmModel");
+            //     let isYesSelected = oDueDiligenceYes.getSelected();
+            //     let isNoSelected = oDueDiligenceNo.getSelected();
+
+            //     // Ensure at least one checkbox is selected
+            //     if (!isYesSelected && !isNoSelected) {
+            //         // If both are deselected, revert the action
+            //         if (sSelectedCheckBoxId === oDueDiligenceYes.getId()) {
+            //             oDueDiligenceYes.setSelected(true); // Re-select Yes if Yes was clicked
+            //         } else if (sSelectedCheckBoxId === oDueDiligenceNo.getId()) {
+            //             oDueDiligenceNo.setSelected(true); // Re-select No if No was clicked
+            //         }
+            //         // Show a message or warning that at least one must be selected
+            //         sap.m.MessageToast.show("Please select either Yes or No.");
+            //         return;
+            //     }
+
+            //     if (sSelectedCheckBoxId === oDueDiligenceYes.getId() && isYesSelected) {
+            //         oDueDiligenceNo.setSelected(false);
+            //         oInput.setEditable(true);
+            //         oInput2.setEditable(true);
+
+            //         if (attachmentModel) {
+            //             let res = attachmentModel.getData().documents;
+            //             let msmeDoc = res?.find(doc => doc.IMAGE_FILE_NAME === 'MSME');
+            //             if (!msmeDoc) {
+            //                 res.push({
+            //                     REGISTERED_MAIL: this._Email,
+            //                     DESCRIPTION: "MSME",
+            //                     IMAGEURL: "",
+            //                     IMAGE_FILE_NAME: "MSME"
+            //                 });
+            //                 attachmentModel.refresh();
+            //             }
+            //         }
+            //     } else if (sSelectedCheckBoxId === oDueDiligenceNo.getId() && isNoSelected) {
+            //         oDueDiligenceYes.setSelected(false);
+            //         oInput.setEditable(false);
+            //         oInput2.setEditable(false);
+            //         if (attachmentModel) {
+            //             let res = attachmentModel.getData().documents;
+            //             let msmeDocIndex = res.findIndex(doc => doc.IMAGE_FILE_NAME === 'MSME');
+            //             if (msmeDocIndex !== -1) {
+            //                 res.splice(msmeDocIndex, 1);
+            //                 attachmentModel.refresh();
+            //             }
+            //         }
+            //     }
+            // },
             onDueDiligenceSelect: function (oEvent) {
                 debugger;
                 var sSelectedCheckBoxId = oEvent.getSource().getId();
                 var oDueDiligenceYes = this.byId("dueDiligenceYes");
                 var oDueDiligenceNo = this.byId("dueDiligenceNo");
                 var oInput = this.byId("dueDiligenceRequestNumber");
+                var oInput2 = this.byId("idRiskRating");
                 let attachmentModel = this.getView().getModel("attachmModel");
                 let isYesSelected = oDueDiligenceYes.getSelected();
                 let isNoSelected = oDueDiligenceNo.getSelected();
-
-                // Ensure only one checkbox is selected at a time
+            
+                // Ensure at least one checkbox is selected
+                if (!isYesSelected && !isNoSelected) {
+                    // If both are deselected, revert the action
+                    if (sSelectedCheckBoxId === oDueDiligenceYes.getId()) {
+                        oDueDiligenceYes.setSelected(true); // Re-select Yes if Yes was clicked
+                    } else if (sSelectedCheckBoxId === oDueDiligenceNo.getId()) {
+                        oDueDiligenceNo.setSelected(true); // Re-select No if No was clicked
+                    }
+                    // Show a message or warning that at least one must be selected
+                    sap.m.MessageToast.show("Please select either Yes or No.");
+                    return;
+                }
+            
                 if (sSelectedCheckBoxId === oDueDiligenceYes.getId() && isYesSelected) {
                     oDueDiligenceNo.setSelected(false);
-                    oInput.setEditable(true); // Make input editable if Yes is selected
-
+                    oInput.setEditable(true);
+                    oInput2.setEditable(true);
+            
                     if (attachmentModel) {
-                        let res = attachmentModel.getData().documents;
-                        let msmeDoc = res.find(doc => doc.doc === 'MSME');
+                        let data = attachmentModel.getData();
+                        let res = data.documents || []; // Safely check if `documents` exists, if not assign an empty array
+            
+                        let msmeDoc = res.find(doc => doc.IMAGE_FILE_NAME === 'MSME');
                         if (!msmeDoc) {
                             res.push({
                                 REGISTERED_MAIL: this._Email,
-                                DESCRIPTION: "MSME",
+                                DESCRIPTION: "",
                                 IMAGEURL: "",
                                 IMAGE_FILE_NAME: "MSME"
                             });
+                            // Set the data back in case `documents` didn't exist before
+                            attachmentModel.setData({ ...data, documents: res });
                             attachmentModel.refresh();
                         }
                     }
                 } else if (sSelectedCheckBoxId === oDueDiligenceNo.getId() && isNoSelected) {
                     oDueDiligenceYes.setSelected(false);
-                    oInput.setEditable(false); // Make input non-editable if No is selected
-
+                    oInput.setEditable(false);
+                    oInput2.setEditable(false);
+                    
                     if (attachmentModel) {
-                        let res = attachmentModel.getData().documents;
-                        let msmeDocIndex = res.findIndex(doc => doc.DESCRIPTION === 'MSME');
+                        let data = attachmentModel.getData();
+                        let res = data.documents || []; // Safely check if `documents` exists, if not assign an empty array
+            
+                        let msmeDocIndex = res.findIndex(doc => doc.IMAGE_FILE_NAME === 'MSME');
                         if (msmeDocIndex !== -1) {
                             res.splice(msmeDocIndex, 1);
+                            // Set the data back in case `documents` didn't exist before
+                            attachmentModel.setData({ ...data, documents: res });
                             attachmentModel.refresh();
                         }
                     }
+                }
+            },
+            
+            onMSMECategoryChange: function (oEvent) {
+                debugger;
+                var sSelectedKey = oEvent.getSource().getSelectedKey();
+                var oMSMEType = this.byId("idMSMEType");
+                var oMSMEnum = this.byId("idMSMEnum");
+                // Ensure either Yes or No is selected
+                if (!sSelectedKey) {
+                    // If the selection is cleared, revert to a default option, e.g., "No"
+                    oEvent.getSource().setSelectedKey("false"); // Default to "No"
+                    sap.m.MessageToast.show("Please select either Yes or No.");
+                    sSelectedKey = "false"; // Set sSelectedKey to No
+                }
+
+                // Show/hide elements based on the selection
+                if (sSelectedKey === "true") {
+                    oMSMEType.setEditable(true);
+                    oMSMEnum.setEditable(true);
+                } else if (sSelectedKey === "false") {
+                    oMSMEType.setEditable(false);
+                    oMSMEnum.setEditable(false);
                 }
             },
 
@@ -691,58 +896,124 @@ sap.ui.define([
                     console.error('Error generating PDF:', error);
                 });
             },
+            // onSelectVendorGroup: function (oEvent) {
+            //     debugger;
+            //     let oDueDiligenceYes = this.byId("dueDiligenceYes");
+            //     let bDueDiligenceSelected = oDueDiligenceYes.getSelected();
+            //     var sSelectedKey = oEvent.mParameters.value;
+            //     let oModel = this.getOwnerComponent().getModel("registration-manage");
+            //     var aFilters = [
+            //         new Filter("accountGroupCode", "EQ", sSelectedKey)
+            //     ];
+            //     oModel.read("/VendorAccountGroupAttachments", {
+            //         filters: aFilters,
+            //         success: function (oData) {
+            //             this.getView().setBusy(true)
+            //             let oDueDiligenceYes = this.byId("dueDiligenceYes");
+            //             let bDueDiligenceSelected = oDueDiligenceYes.getSelected();
+            //             debugger;
+            //             let res = oData.results[0].requisiteDocuments.split(",");
+            //             this.docslength = res.length
+            //             let dataArray = res.map((item) => {
+            //                 return {
+            //                     REGISTERED_MAIL: "",
+            //                     DESCRIPTION: item,
+            //                     IMAGEURL: "",
+            //                     IMAGE_FILE_NAME: item
+            //                 }
+            //             });
+
+            //             // Check if Due Diligence Yes is selected
+            //             if (bDueDiligenceSelected) {
+            //                 dataArray.push({ doc: "MSME" });
+            //             }
+
+            //             var attchmentModels = this.getView().getModel("attachmModel");
+            //             attchmentModels.setData({ documents: dataArray })
+            //             this.getView().setBusy(false)
+            //             debugger;
+            //         }.bind(this),
+            //         error: function (oError) {
+
+            //         }
+            //     });
+            // },
+
             onSelectVendorGroup: function (oEvent) {
                 debugger;
                 let oDueDiligenceYes = this.byId("dueDiligenceYes");
                 let bDueDiligenceSelected = oDueDiligenceYes.getSelected();
-                var sSelectedKey = oEvent.mParameters.value;
+                let sSelectedKey = oEvent.getParameter("value"); // Use getParameter instead of mParameters.value
                 let oModel = this.getOwnerComponent().getModel("registration-manage");
+                let fil = sSelectedKey.split("-")[0].trim();
+                // Set busy before reading the data
+                this.getView().setBusy(true);
+            
                 var aFilters = [
-                    new Filter("accountGroupCode", "EQ", sSelectedKey)
+                    new sap.ui.model.Filter("accountGroupCode", "EQ", fil)
                 ];
-
+            
                 oModel.read("/VendorAccountGroupAttachments", {
                     filters: aFilters,
                     success: function (oData) {
-                        this.getView().setBusy(true)
-                        let oDueDiligenceYes = this.byId("dueDiligenceYes");
-                        let bDueDiligenceSelected = oDueDiligenceYes.getSelected();
                         debugger;
-                        let res = oData.results[0].requisiteDocuments.split(",");
-                        let dataArray = res.map((item) => {
-                            return {
-                                REGISTERED_MAIL: "",
-                                DESCRIPTION: item,
-                                IMAGEURL: "",
-                                IMAGE_FILE_NAME: item
+            
+                        if (oData && oData.results && oData.results.length > 0) {
+                            let res = oData.results[0].requisiteDocuments.split(",");
+                            this.docslength = res.length;
+            
+                            let dataArray = res.map((item) => {
+                                return {
+                                    REGISTERED_MAIL: "", // Assuming email will be populated later
+                                    DESCRIPTION: "",
+                                    IMAGEURL: "",
+                                    IMAGE_FILE_NAME: item
+                                };
+                            });
+            
+                            // Check if Due Diligence Yes is selected and push MSME doc if true
+                            if (bDueDiligenceSelected) {
+                                dataArray.push({
+                                    REGISTERED_MAIL: "", // Assuming email will be populated later
+                                    DESCRIPTION: "",
+                                    IMAGEURL: "",
+                                    IMAGE_FILE_NAME: "MSME"
+                                });
                             }
-                        });
-
-                        // Check if Due Diligence Yes is selected
-                        if (bDueDiligenceSelected) {
-                            dataArray.push({ doc: "MSME" });
+            
+                            // Get the attachment model and set the new data
+                            let attachmentModel = this.getView().getModel("attachmModel");
+            
+                            if (attachmentModel) {
+                                attachmentModel.setData({ documents: dataArray });
+                                attachmentModel.refresh(); // Refresh the model to reflect the new data
+                            }
                         }
-
-                        var attchmentModels = this.getView().getModel("attachmModel");
-                        attchmentModels.setData({ documents: dataArray })
-                        this.getView().setBusy(false)
+            
+                        // Stop busy indicator after data is processed
+                        this.getView().setBusy(false);
                         debugger;
-                    }.bind(this),
+                    }.bind(this), // Bind context to maintain 'this'
+                    
                     error: function (oError) {
-
-                    }
+                        // Handle error here
+                        sap.m.MessageToast.show("Error fetching vendor group attachments.");
+                        
+                        // Stop busy indicator even in case of error
+                        this.getView().setBusy(false);
+                    }.bind(this)
                 });
             },
-
+            
             _validateForm: function () {
                 var isValid = true;
 
                 // Collect all the required inputs from all forms
                 var aForms = [
-                    this.byId("SimpleFormChangeColumn_oneGrousp234"),
-                    this.byId("SimpleFormChangeColumn_oneGroup234"),
-                    this.byId("SimpleFormChangeColumn_oneGrokup234"),
-                    this.byId("SimpleFormChangeColumn_oneGrsoup234")
+                    this.byId("idBasicDetails"),
+                    this.byId("idAddressDetails"),
+                    this.byId("idbankDetails"),
+                    this.byId("idTaxDetails")
                 ];
 
                 aForms.forEach(function (oForm) {
@@ -765,8 +1036,12 @@ sap.ui.define([
                 return isValid;
             },
 
+            isEditable: function(department){
+                return !department;
+            },
+
             onBackfromForm: function () {
-                this
+                
                 let oDataModel = this.getOwnerComponent().getModel('agpFormData');
                 oDataModel.setData({
                     GENERAL_INFORMATION: {
@@ -810,30 +1085,105 @@ sap.ui.define([
                         attachments: []
                     }
                 });
-                this.getOwnerComponent().getRouter().navTo("RegisterManagement")
+                let arr = [];
+                var attchmentModels = this.getView().getModel("attachmModel");
+                attchmentModels.setData({ documents: arr })
+                this.getOwnerComponent().getRouter().navTo("Request")
+            },
+            setImageFileName: function(){
+             console.log("sdjdsjhsdhsdjh")
             },
 
-            convertBlobUrlToBase64: function(blobUrl) {
-                return new Promise(function(resolve, reject) {
+            convertBlobUrlToBase64: function (blobUrl) {
+                return new Promise(function (resolve, reject) {
                     fetch(blobUrl)
-                        .then(function(response) {
+                        .then(function (response) {
                             return response.blob(); // Fetch the Blob from the URL
                         })
-                        .then(function(blob) {
+                        .then(function (blob) {
                             var reader = new FileReader();
-                            reader.onloadend = function() {
+                            reader.onloadend = function () {
                                 var base64data = reader.result.split(",")[1]; // Extract the base64 part from Data URL
                                 resolve(base64data); // Resolve the promise with the Base64 string
                             };
-                            reader.onerror = function(error) {
+                            reader.onerror = function (error) {
                                 reject(error); // Reject the promise in case of an error
                             };
                             reader.readAsDataURL(blob); // Read the Blob as Data URL
                         })
-                        .catch(function(error) {
+                        .catch(function (error) {
                             reject(error); // Handle fetch errors
                         });
                 });
+            },
+
+            onAddDocuments: function (oEvent) {
+                debugger;
+                var attchmentModels = this.getView().getModel("attachmModel");
+                let data = attchmentModels.getData();
+                let file = {
+                    REGISTERED_MAIL: "",
+                    DESCRIPTION: "Other",
+                    IMAGEURL: "",
+                    IMAGE_FILE_NAME: "Other"
+                }
+                data.documents.push(file);
+                attchmentModels.setData(data)
+            },
+
+            // onRemoveOtherDoc: function (oEvent) {
+            //     debugger;
+
+               
+
+            // },
+            onRemoveOtherDoc: function (oEvent) {
+                debugger;
+
+                // Get the model and data
+                var attachmentModels = this.getView().getModel("attachmModel");
+                var data = attachmentModels.getData();
+                let length = data.documents.length;
+                if (length > this.docslength) {
+
+                    data.documents.pop();
+                    attachmentModels.setData(data);
+                }
+
+
+            },
+            onDownloadAbacForm: function () {
+                debugger;
+                // let url = "https://agp-cgd-india-private-limited-qcm-development-vogmi7cl-3f7273e0.cfapps.in30.hana.ondemand.com/odata/v4/registration-manage/downloadABAC"
+
+                // // Use jQuery.ajax() to make a POST request for the file download
+                // $.ajax({
+                //     url: url,
+                //     type: "POST", // POST method for downloading the form
+                //     xhrFields: {
+                //         responseType: 'blob' // Set response type to 'blob' for binary data
+                //     },
+                //     success: function(blob, status, xhr) {
+                //         debugger;
+                //         // Get the filename from the response headers, if available
+                //         let filename = xhr.getResponseHeader("Content-Disposition")?.split("filename=")[1] || "abac_form.pdf";
+
+                //         // Create a download link
+                //         let link = document.createElement("a");
+                //         let url = window.URL.createObjectURL(blob);
+                //         link.href = url;
+                //         link.download = filename; // Set the file name
+                //         document.body.appendChild(link);
+                //         link.click();
+                //         document.body.removeChild(link);
+                //         window.URL.revokeObjectURL(url); // Clean up URL object
+                //     },
+                //     error: function(err) {
+                //         debugger;
+                //         console.error("Error during form download", err);
+                //     }
+                // });
+                window.open("https://agpcgpdevqa.blob.core.windows.net/qam-files/ABAC_Declaration%20(1)_compressed.pdf")
             }
 
         });

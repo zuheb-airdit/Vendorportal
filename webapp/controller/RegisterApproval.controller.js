@@ -21,21 +21,26 @@ sap.ui.define([
                         'REQUEST_NO': { min: 2, max: 2, gap: 1, truncateLabel: false },
                         'VENDOR_NAME1': { min: 2, max: 7, gap: 1, truncateLabel: false },
                         'REGISTERED_ID': { min: 2, max: 13, gap: 1, truncateLabel: false },
-                        'SUPPL_TYPE': { min: 2, max: 6, gap: 1, truncateLabel: false },
-                        "SUPPL_TYPE_DESC": { min: 2, max: 6, gap: 1, truncateLabel: false },
                         'STATUS': { min: 2, max: 8, gap: 1, truncateLabel: false },
-                        "BP_TYPE_CODE": { min: 2, max: 6, gap: 1, truncateLabel: false }
+                        "DEPARTMENT":{ min: 4, max: 5, gap: 1, truncateLabel: false }
                     }
                 };
                 this.oSmartTable = this.getView().byId('idSmartTableApprovalRegister');
-                this.oSmartTable.setCustomizeConfig(customizeConfig);
+                this.oSmartTable1 = this.getView().byId('idSmartTableApprovalRegisterApproval');
 
+                this.oSmartTable.setCustomizeConfig(customizeConfig);
+                this.oSmartTable1.setCustomizeConfig(customizeConfig)
 
 
             },
 
             onObjectMatchedS: function(){
                this.byId("idSmartTableApprovalRegister").rebindTable();
+            },
+
+            formatReqType: function(reqType){
+                debugger;
+                return reqType
             },
 
             selectionChangeHandlerRregister: function (oEvent) {
@@ -83,7 +88,7 @@ sap.ui.define([
                     and: false
                 });
                 debugger
-                oEvent.getParameter("bindingParams").filters.push(combinedFilter);
+                oEvent.getParameter("bindingParams").filters.push(filterStatus4);
             },
 
             statusFormatter: function (status, role) {
@@ -104,6 +109,11 @@ sap.ui.define([
                     default:
                         return "Registration Completed"
                 }
+            },
+
+            colorFormatter: function(reqType){
+                debugger;
+                return  reqType == "Create Supplier" ? "Indication05": "Indication04"
             },
 
             formatRequestInfo: function (sValue, reqType) {

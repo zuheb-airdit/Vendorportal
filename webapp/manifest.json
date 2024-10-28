@@ -129,6 +129,42 @@
                 "settings": {
                     "localUri": "annotations/annotationInvoiceUpload.xml"
                 }
+            },
+            "zapi-business-partnersample": {
+                "uri": "v2/odata/v4/zapi-business-partnersample/",
+                "type": "OData",
+                "settings": {
+                    "annotations": [
+                        "annotationSupplier"
+                    ],
+                    "localUri": "localService/zapi-business-partnersample/metadata.xml",
+                    "odataVersion": "2.0"
+                }
+            },
+            "vendor": {
+                "uri": "v2/odata/v4/vendor",
+                "type": "OData",
+                "settings": {
+                    "annotations": [
+                        "annotationVendor"
+                    ],
+                    "localUri": "localService/vendor/metadata.xml",
+                    "odataVersion": "2.0"
+                }
+            },
+            "annotationVendor": {
+                "type": "ODataAnnotation",
+                "uri": "annotations/annotationVendor.xml",
+                "settings": {
+                    "localUri": "annotations/annotationVendor.xml"
+                }
+            },
+            "annotationSupplier": {
+                "type": "ODataAnnotation",
+                "uri": "annotations/annotationSupplier.xml",
+                "settings": {
+                    "localUri": "annotations/annotationSupplier.xml"
+                }
             }
         }
     },
@@ -189,6 +225,7 @@
                     "defaultBindingMode": "TwoWay",
                     "defaultCountMode": "Inline",
                     "refreshAfterChange": false,
+                    "useBatch": false,
                     "metadataUrlParams": {
                         "sap-value-list": "none"
                     }
@@ -209,6 +246,7 @@
                     "defaultBindingMode": "TwoWay",
                     "defaultCountMode": "Inline",
                     "refreshAfterChange": false,
+                    "useBatch": false,
                     "metadataUrlParams": {
                         "sap-value-list": "none"
                     }
@@ -221,6 +259,7 @@
                     "defaultBindingMode": "TwoWay",
                     "defaultCountMode": "Inline",
                     "refreshAfterChange": false,
+                    "useBatch": false,
                     "metadataUrlParams": {
                         "sap-value-list": "none"
                     }
@@ -233,6 +272,7 @@
                     "defaultBindingMode": "TwoWay",
                     "defaultCountMode": "Inline",
                     "refreshAfterChange": false,
+                    "useBatch": false,
                     "metadataUrlParams": {
                         "sap-value-list": "none"
                     }
@@ -240,6 +280,31 @@
             },
             "API_PURCHASEORDER_PROCESS_SRV": {
                 "dataSource": "API_PURCHASEORDER_PROCESS_SRV",
+                "preload": true,
+                "settings": {
+                    "defaultBindingMode": "TwoWay",
+                    "defaultCountMode": "Inline",
+                    "refreshAfterChange": false,
+                    "useBatch": false,
+                    "metadataUrlParams": {
+                        "sap-value-list": "none"
+                    }
+                }
+            },
+            "zapi-business-partnersample": {
+                "dataSource": "zapi-business-partnersample",
+                "preload": true,
+                "settings": {
+                    "defaultBindingMode": "TwoWay",
+                    "defaultCountMode": "Inline",
+                    "refreshAfterChange": false,
+                    "metadataUrlParams": {
+                        "sap-value-list": "none"
+                    }
+                }
+            },
+            "vendor": {
+                "dataSource": "vendor",
                 "preload": true,
                 "settings": {
                     "defaultBindingMode": "TwoWay",
@@ -266,7 +331,10 @@
                 "viewPath": "com.air.vp.lnchpage.view",
                 "controlAggregation": "pages",
                 "controlId": "app",
-                "clearControlAggregation": false
+                "clearControlAggregation": false,
+                "bypassed": {
+                    "target": "TARGETNOTFOUND"
+                }
             },
             "routes": [
                 {
@@ -295,6 +363,13 @@
                     "pattern": "Administrator/Workflow",
                     "target": [
                         "TargetWorkFlow"
+                    ]
+                },
+                {
+                    "name": "Routerequests",
+                    "pattern": "Administrator/Requests",
+                    "target": [
+                        "TargetRequest"
                     ]
                 },
                 {
@@ -331,6 +406,11 @@
                     "target": "RegisterObjPage"
                 },
                 {
+                    "pattern": "Report/{id}",
+                    "name": "ReportObjPage",
+                    "target": "ReportObjPage"
+                },
+                {
                     "name": "RegisterManagement",
                     "pattern": "RegisterManagement",
                     "target": [
@@ -338,8 +418,15 @@
                     ]
                 },
                 {
+                    "name": "RegisterFormPageWithId",
+                    "pattern": "Request/RegisterForm/{id}/{email}",
+                    "target": [
+                        "TargetRegisterFormPage"
+                    ]
+                },
+                {
                     "name": "RegisterFormPage",
-                    "pattern": "RegisterForm/{id}/{Email}",
+                    "pattern": "Request/RegisterForm",
                     "target": [
                         "TargetRegisterFormPage"
                     ]
@@ -357,6 +444,30 @@
                     "target": [
                         "TargetInvoiceUploadDetails"
                     ]
+                },
+                {
+                    "name": "emailconfig",
+                    "pattern": "emailconfig",
+                    "target": [
+                        "Targetemailconfig"
+                    ]
+                },
+                {
+                    "name": "RouteSupplier",
+                    "pattern": "RouteSupplier",
+                    "target": [
+                        "TargetRouteSupplier"
+                    ]
+                },
+                {
+                    "pattern": "SupplierReportObject/{id}",
+                    "name": "SupplierReportObject",
+                    "target": "SupplierReportObject"
+                },
+                {
+                    "pattern": "RegisterApprovalApproved",
+                    "name": "RegisterApprovalApproved",
+                    "target": "RegisterApprovalApproved"
                 }
             ],
             "targets": {
@@ -392,6 +503,14 @@
                     "viewId": "ApprovalMatrix",
                     "viewName": "ApprovalMatrix"
                 },
+                "TargetRequest": {
+                    "viewType": "XML",
+                    "transition": "slide",
+                    "clearControlAggregation": false,
+                    "viewLevel": 1,
+                    "viewId": "VendorRequest",
+                    "viewName": "VendorRequest"
+                },
                 "TargetRequestManagement": {
                     "viewType": "XML",
                     "transition": "slide",
@@ -423,6 +542,14 @@
                     "viewLevel": 1,
                     "viewId": "RegisterApprovalObj",
                     "viewName": "RegisterApprovalObj"
+                },
+                "ReportObjPage": {
+                    "viewType": "XML",
+                    "transition": "slide",
+                    "clearControlAggregation": false,
+                    "viewLevel": 1,
+                    "viewId": "ReportObjPage",
+                    "viewName": "ReportObjPage"
                 },
                 "TargetRegisterManagement": {
                     "viewType": "XML",
@@ -463,6 +590,46 @@
                     "viewLevel": 1,
                     "viewId": "Workflow",
                     "viewName": "Workflow"
+                },
+                "TARGETNOTFOUND": {
+                    "viewType": "XML",
+                    "transition": "slide",
+                    "clearControlAggregation": false,
+                    "viewLevel": 1,
+                    "viewId": "NotFound",
+                    "viewName": "NotFound"
+                },
+                "Targetemailconfig": {
+                    "viewType": "XML",
+                    "transition": "slide",
+                    "clearControlAggregation": false,
+                    "viewLevel": 1,
+                    "viewId": "EmailConfig",
+                    "viewName": "EmailConfig"
+                },
+                "TargetRouteSupplier": {
+                    "viewType": "XML",
+                    "transition": "slide",
+                    "clearControlAggregation": false,
+                    "viewLevel": 1,
+                    "viewId": "SuppliersList",
+                    "viewName": "SuppliersList"
+                },
+                "SupplierReportObject": {
+                    "viewType": "XML",
+                    "transition": "slide",
+                    "clearControlAggregation": false,
+                    "viewLevel": 1,
+                    "viewId": "SupplierReportObject",
+                    "viewName": "SupplierReportObject"
+                },
+                "RegisterApprovalApproved": {
+                    "viewType": "XML",
+                    "transition": "slide",
+                    "clearControlAggregation": false,
+                    "viewLevel": 1,
+                    "viewId": "RegisterApprovalPending",
+                    "viewName": "RegisterApprovalPending"
                 }
             }
         },

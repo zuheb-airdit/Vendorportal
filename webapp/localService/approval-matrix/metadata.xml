@@ -14,9 +14,10 @@
             <EntityContainer Name="EntityContainer" m:IsDefaultEntityContainer="true">
                 <EntitySet Name="CompanyCodeType" EntityType="approvalMatrixService.CompanyCodeType"/>
                 <EntitySet Name="ApprovalHierarchy" EntityType="approvalMatrixService.ApprovalHierarchy"/>
-                <EntitySet Name="ApprovalType" EntityType="approvalMatrixService.ApprovalType"/>
                 <EntitySet Name="CompanyCode" EntityType="approvalMatrixService.CompanyCode"/>
                 <EntitySet Name="VMUsers" EntityType="approvalMatrixService.VMUsers"/>
+                <EntitySet Name="REVIEWERUSERS" EntityType="approvalMatrixService.REVIEWERUSERS"/>
+                <EntitySet Name="DEPARTMENT" EntityType="approvalMatrixService.DEPARTMENT"/>
                 <EntitySet Name="VMUserCompanyCodeMaster" EntityType="approvalMatrixService.VMUserCompanyCodeMaster"/>
                 <EntitySet Name="MasterStatus" EntityType="approvalMatrixService.MasterStatus"/>
                 <EntitySet Name="UserRole" EntityType="approvalMatrixService.UserRole"/>
@@ -32,7 +33,7 @@
                 </AssociationSet>
                 <AssociationSet Name="CompanyCodeType_TO_APPR_TYPE" Association="approvalMatrixService.CompanyCodeType_TO_APPR_TYPE">
                     <End Role="CompanyCodeType" EntitySet="CompanyCodeType"/>
-                    <End Role="ApprovalType" EntitySet="ApprovalType"/>
+                    <End Role="DEPARTMENT" EntitySet="DEPARTMENT"/>
                 </AssociationSet>
                 <AssociationSet Name="ApprovalHierarchy_TO_COMPANY_CODE" Association="approvalMatrixService.ApprovalHierarchy_TO_COMPANY_CODE">
                     <End Role="ApprovalHierarchy" EntitySet="ApprovalHierarchy"/>
@@ -48,7 +49,7 @@
                 </AssociationSet>
                 <AssociationSet Name="ApprovalHierarchy_TO_APPR_TYPE" Association="approvalMatrixService.ApprovalHierarchy_TO_APPR_TYPE">
                     <End Role="ApprovalHierarchy" EntitySet="ApprovalHierarchy"/>
-                    <End Role="ApprovalType" EntitySet="ApprovalType"/>
+                    <End Role="DEPARTMENT" EntitySet="DEPARTMENT"/>
                 </AssociationSet>
                 <AssociationSet Name="VMUsers_TO_USER_ROLE" Association="approvalMatrixService.VMUsers_TO_USER_ROLE">
                     <End Role="VMUsers" EntitySet="VMUsers"/>
@@ -60,6 +61,18 @@
                 </AssociationSet>
                 <AssociationSet Name="VMUsers_TO_USER_ENTITIES" Association="approvalMatrixService.VMUsers_TO_USER_ENTITIES">
                     <End Role="VMUsers" EntitySet="VMUsers"/>
+                    <End Role="VMUserCompanyCodeMaster" EntitySet="VMUserCompanyCodeMaster"/>
+                </AssociationSet>
+                <AssociationSet Name="REVIEWERUSERS_TO_USER_ROLE" Association="approvalMatrixService.REVIEWERUSERS_TO_USER_ROLE">
+                    <End Role="REVIEWERUSERS" EntitySet="REVIEWERUSERS"/>
+                    <End Role="UserRole" EntitySet="UserRole"/>
+                </AssociationSet>
+                <AssociationSet Name="REVIEWERUSERS_TO_COMPANY_CODE" Association="approvalMatrixService.REVIEWERUSERS_TO_COMPANY_CODE">
+                    <End Role="REVIEWERUSERS" EntitySet="REVIEWERUSERS"/>
+                    <End Role="CompanyCode" EntitySet="CompanyCode"/>
+                </AssociationSet>
+                <AssociationSet Name="REVIEWERUSERS_TO_USER_ENTITIES" Association="approvalMatrixService.REVIEWERUSERS_TO_USER_ENTITIES">
+                    <End Role="REVIEWERUSERS" EntitySet="REVIEWERUSERS"/>
                     <End Role="VMUserCompanyCodeMaster" EntitySet="VMUserCompanyCodeMaster"/>
                 </AssociationSet>
                 <AssociationSet Name="VMUserCompanyCodeMaster_TO_COMPANY" Association="approvalMatrixService.VMUserCompanyCodeMaster_TO_COMPANY">
@@ -78,9 +91,11 @@
                 </Key>
                 <Property Name="APPR_TYPE" Type="Edm.String" MaxLength="10" Nullable="false"/>
                 <Property Name="COMPANY_CODE" Type="Edm.String" MaxLength="10" Nullable="false"/>
+                <Property Name="APPROVER" Type="Edm.String"/>
+                <Property Name="MDM" Type="Edm.String"/>
                 <NavigationProperty Name="TO_COMPANY_CODE" Relationship="approvalMatrixService.CompanyCodeType_TO_COMPANY_CODE" FromRole="CompanyCodeType" ToRole="CompanyCode"/>
                 <NavigationProperty Name="TO_HIERARCHY" Relationship="approvalMatrixService.ApprovalHierarchy_TO_COMPANY_TYPE" FromRole="CompanyCodeType" ToRole="ApprovalHierarchy"/>
-                <NavigationProperty Name="TO_APPR_TYPE" Relationship="approvalMatrixService.CompanyCodeType_TO_APPR_TYPE" FromRole="CompanyCodeType" ToRole="ApprovalType"/>
+                <NavigationProperty Name="TO_APPR_TYPE" Relationship="approvalMatrixService.CompanyCodeType_TO_APPR_TYPE" FromRole="CompanyCodeType" ToRole="DEPARTMENT"/>
             </EntityType>
             <EntityType Name="ApprovalHierarchy">
                 <Key>
@@ -89,7 +104,10 @@
                     <PropertyRef Name="USER_ID"/>
                 </Key>
                 <Property Name="APPR_TYPE" Type="Edm.String" MaxLength="10" Nullable="false"/>
-                <Property Name="COMPANY_CODE" Type="Edm.String" MaxLength="20" Nullable="false"/>
+                <Property Name="COMPANY_CODE" Type="Edm.String" MaxLength="200" Nullable="false"/>
+                <Property Name="APPROVER" Type="Edm.String"/>
+                <Property Name="MDM" Type="Edm.String"/>
+                <Property Name="GA" Type="Edm.String"/>
                 <Property Name="USER_ID" Type="Edm.String" MaxLength="1000" Nullable="false"/>
                 <Property Name="APPROVER_LEVEL" Type="Edm.Int32"/>
                 <Property Name="USER_ROLE" Type="Edm.String" MaxLength="10"/>
@@ -100,19 +118,13 @@
                 <NavigationProperty Name="TO_COMPANY_CODE" Relationship="approvalMatrixService.ApprovalHierarchy_TO_COMPANY_CODE" FromRole="ApprovalHierarchy" ToRole="CompanyCode"/>
                 <NavigationProperty Name="TO_ROLE" Relationship="approvalMatrixService.ApprovalHierarchy_TO_ROLE" FromRole="ApprovalHierarchy" ToRole="UserRole"/>
                 <NavigationProperty Name="TO_COMPANY_TYPE" Relationship="approvalMatrixService.ApprovalHierarchy_TO_COMPANY_TYPE" FromRole="ApprovalHierarchy" ToRole="CompanyCodeType"/>
-                <NavigationProperty Name="TO_APPR_TYPE" Relationship="approvalMatrixService.ApprovalHierarchy_TO_APPR_TYPE" FromRole="ApprovalHierarchy" ToRole="ApprovalType"/>
-            </EntityType>
-            <EntityType Name="ApprovalType">
-                <Key>
-                    <PropertyRef Name="CODE"/>
-                </Key>
-                <Property Name="CODE" Type="Edm.String" MaxLength="10" Nullable="false"/>
-                <Property Name="DESC" Type="Edm.String" MaxLength="50"/>
+                <NavigationProperty Name="TO_APPR_TYPE" Relationship="approvalMatrixService.ApprovalHierarchy_TO_APPR_TYPE" FromRole="ApprovalHierarchy" ToRole="DEPARTMENT"/>
             </EntityType>
             <EntityType Name="CompanyCode">
                 <Key>
                     <PropertyRef Name="BUKRS"/>
                 </Key>
+                <Property Name="Company" Type="Edm.String"/>
                 <Property Name="BUKRS" Type="Edm.String" MaxLength="4" Nullable="false"/>
                 <Property Name="BUTXT" Type="Edm.String" MaxLength="50"/>
                 <Property Name="ORT01" Type="Edm.String" MaxLength="25"/>
@@ -124,9 +136,11 @@
                 </Key>
                 <Property Name="SR_NO" Type="Edm.Int32"/>
                 <Property Name="USER_ID" Type="Edm.String" MaxLength="50"/>
+                <Property Name="DEPARTMENT" Type="Edm.String"/>
                 <Property Name="USER_ROLE" Type="Edm.String" MaxLength="50"/>
                 <Property Name="USER_NAME" Type="Edm.String" MaxLength="500"/>
                 <Property Name="EMAIL" Type="Edm.String" MaxLength="150" Nullable="false"/>
+                <Property Name="GA" Type="Edm.String"/>
                 <Property Name="COMPANY_CODE" Type="Edm.String" MaxLength="500"/>
                 <Property Name="COMPANY_DESC" Type="Edm.String" MaxLength="100"/>
                 <Property Name="EMP_NO" Type="Edm.String" MaxLength="100"/>
@@ -136,6 +150,34 @@
                 <NavigationProperty Name="TO_USER_ROLE" Relationship="approvalMatrixService.VMUsers_TO_USER_ROLE" FromRole="VMUsers" ToRole="UserRole"/>
                 <NavigationProperty Name="TO_COMPANY_CODE" Relationship="approvalMatrixService.VMUsers_TO_COMPANY_CODE" FromRole="VMUsers" ToRole="CompanyCode"/>
                 <NavigationProperty Name="TO_USER_ENTITIES" Relationship="approvalMatrixService.VMUsers_TO_USER_ENTITIES" FromRole="VMUsers" ToRole="VMUserCompanyCodeMaster"/>
+            </EntityType>
+            <EntityType Name="REVIEWERUSERS">
+                <Key>
+                    <PropertyRef Name="EMAIL"/>
+                </Key>
+                <Property Name="SR_NO" Type="Edm.Int32"/>
+                <Property Name="USER_ID" Type="Edm.String" MaxLength="50"/>
+                <Property Name="DEPARTMENT" Type="Edm.String"/>
+                <Property Name="USER_ROLE" Type="Edm.String" MaxLength="50"/>
+                <Property Name="USER_NAME" Type="Edm.String" MaxLength="500"/>
+                <Property Name="EMAIL" Type="Edm.String" MaxLength="150" Nullable="false"/>
+                <Property Name="GA" Type="Edm.String"/>
+                <Property Name="COMPANY_CODE" Type="Edm.String" MaxLength="500"/>
+                <Property Name="COMPANY_DESC" Type="Edm.String" MaxLength="100"/>
+                <Property Name="EMP_NO" Type="Edm.String" MaxLength="100"/>
+                <Property Name="CREATED_ON" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="UPDATED_ON" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="ACTIVE" Type="Edm.String" MaxLength="1"/>
+                <NavigationProperty Name="TO_USER_ROLE" Relationship="approvalMatrixService.REVIEWERUSERS_TO_USER_ROLE" FromRole="REVIEWERUSERS" ToRole="UserRole"/>
+                <NavigationProperty Name="TO_COMPANY_CODE" Relationship="approvalMatrixService.REVIEWERUSERS_TO_COMPANY_CODE" FromRole="REVIEWERUSERS" ToRole="CompanyCode"/>
+                <NavigationProperty Name="TO_USER_ENTITIES" Relationship="approvalMatrixService.REVIEWERUSERS_TO_USER_ENTITIES" FromRole="REVIEWERUSERS" ToRole="VMUserCompanyCodeMaster"/>
+            </EntityType>
+            <EntityType Name="DEPARTMENT">
+                <Key>
+                    <PropertyRef Name="CODE"/>
+                </Key>
+                <Property Name="CODE" Type="Edm.String" MaxLength="10" Nullable="false"/>
+                <Property Name="DESC" Type="Edm.String" MaxLength="50"/>
             </EntityType>
             <EntityType Name="VMUserCompanyCodeMaster">
                 <Key>
@@ -177,9 +219,9 @@
             </Association>
             <Association Name="CompanyCodeType_TO_APPR_TYPE">
                 <End Role="CompanyCodeType" Type="approvalMatrixService.CompanyCodeType" Multiplicity="*"/>
-                <End Role="ApprovalType" Type="approvalMatrixService.ApprovalType" Multiplicity="0..1"/>
+                <End Role="DEPARTMENT" Type="approvalMatrixService.DEPARTMENT" Multiplicity="0..1"/>
                 <ReferentialConstraint>
-                    <Principal Role="ApprovalType">
+                    <Principal Role="DEPARTMENT">
                         <PropertyRef Name="CODE"/>
                     </Principal>
                     <Dependent Role="CompanyCodeType">
@@ -229,9 +271,9 @@
             </Association>
             <Association Name="ApprovalHierarchy_TO_APPR_TYPE">
                 <End Role="ApprovalHierarchy" Type="approvalMatrixService.ApprovalHierarchy" Multiplicity="*"/>
-                <End Role="ApprovalType" Type="approvalMatrixService.ApprovalType" Multiplicity="0..1"/>
+                <End Role="DEPARTMENT" Type="approvalMatrixService.DEPARTMENT" Multiplicity="0..1"/>
                 <ReferentialConstraint>
-                    <Principal Role="ApprovalType">
+                    <Principal Role="DEPARTMENT">
                         <PropertyRef Name="CODE"/>
                     </Principal>
                     <Dependent Role="ApprovalHierarchy">
@@ -265,6 +307,34 @@
             </Association>
             <Association Name="VMUsers_TO_USER_ENTITIES">
                 <End Role="VMUsers" Type="approvalMatrixService.VMUsers" Multiplicity="*"/>
+                <End Role="VMUserCompanyCodeMaster" Type="approvalMatrixService.VMUserCompanyCodeMaster" Multiplicity="*"/>
+            </Association>
+            <Association Name="REVIEWERUSERS_TO_USER_ROLE">
+                <End Role="REVIEWERUSERS" Type="approvalMatrixService.REVIEWERUSERS" Multiplicity="*"/>
+                <End Role="UserRole" Type="approvalMatrixService.UserRole" Multiplicity="0..1"/>
+                <ReferentialConstraint>
+                    <Principal Role="UserRole">
+                        <PropertyRef Name="CODE"/>
+                    </Principal>
+                    <Dependent Role="REVIEWERUSERS">
+                        <PropertyRef Name="USER_ROLE"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="REVIEWERUSERS_TO_COMPANY_CODE">
+                <End Role="REVIEWERUSERS" Type="approvalMatrixService.REVIEWERUSERS" Multiplicity="*"/>
+                <End Role="CompanyCode" Type="approvalMatrixService.CompanyCode" Multiplicity="0..1"/>
+                <ReferentialConstraint>
+                    <Principal Role="CompanyCode">
+                        <PropertyRef Name="BUKRS"/>
+                    </Principal>
+                    <Dependent Role="REVIEWERUSERS">
+                        <PropertyRef Name="COMPANY_CODE"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="REVIEWERUSERS_TO_USER_ENTITIES">
+                <End Role="REVIEWERUSERS" Type="approvalMatrixService.REVIEWERUSERS" Multiplicity="*"/>
                 <End Role="VMUserCompanyCodeMaster" Type="approvalMatrixService.VMUserCompanyCodeMaster" Multiplicity="*"/>
             </Association>
             <Association Name="VMUserCompanyCodeMaster_TO_COMPANY">

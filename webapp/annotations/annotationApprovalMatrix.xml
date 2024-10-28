@@ -16,22 +16,35 @@
         <Annotations Target="SAP.CompanyCodeType">
         <Annotation Term="UI.LineItem" >
             <Collection>
+            <Record Type="UI.DataField">
+                    <PropertyValue Property="Value" Path="GA"/>
+                    <PropertyValue Property="Label" String="GA Code"/>
+                </Record> 
+             <Record Type="UI.DataField">
+                    <PropertyValue Property="Value" Path="APPR_TYPE"/>
+                    <PropertyValue Property="Label" String="Department"/>
+                </Record>
+                  <Record Type="UI.DataField">
+                    <PropertyValue Property="Value" Path="TO_APPR_TYPE/DESC"/>
+                    <PropertyValue Property="Label" String="Department Description"/>
+                    
+                </Record>
                 <Record Type="UI.DataField">
                     <PropertyValue Property="Value" Path="COMPANY_CODE"/>
-                    <PropertyValue Property="Label" String="Company code"/>
+                    <PropertyValue Property="Label" String="Reviewer"/>
                 </Record>
-                <Record Type="UI.DataField">
-                    <PropertyValue Property="Value" Path="APPR_TYPE"/>
-                    <PropertyValue Property="Label" String="Approval Type"/>
-                </Record>
-                <Record Type="UI.DataField">
-                    <PropertyValue Property="Value" Path="TO_APPR_TYPE/DESC"/>
-                    <PropertyValue Property="Label" String="Approval Description"/>
-                </Record>
+               
+              
                  <Record Type="UI.DataField">
-                    <PropertyValue Property="Value" Path="TO_COMPANY_CODE/BUTXT"/>
-                    <PropertyValue Property="Label" String="Company Name"/>
-                </Record>
+                    <PropertyValue Property="Value" Path="APPROVER"/>
+                    <PropertyValue Property="Label" String="Approver"/>
+                </Record> 
+                 <Record Type="UI.DataField">
+                    <PropertyValue Property="Value" Path="MDM"/>
+                    <PropertyValue Property="Label" String="MDM"/>
+                </Record> 
+                 
+                
                 
             </Collection>
         </Annotation>
@@ -65,7 +78,7 @@
          </Annotation> -->
             <Annotation Term="Common.ValueList">
                 <Record Type="Common.ValueListType">
-                    <PropertyValue Property="CollectionPath" String="ApprovalType"/>
+                    <PropertyValue Property="CollectionPath" String="DEPARTMENT"/>
                     <PropertyValue Property="Parameters">
                         <Collection>
                             <Record Type="Common.ValueListParameterInOut">

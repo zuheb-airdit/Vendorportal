@@ -1,0 +1,153 @@
+<core:FragmentDefinition
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:upload="sap.m.upload"
+    xmlns:form="sap.ui.comp.smartform"
+    xmlns:sf="sap.ui.comp.smartfield"
+    xmlns:l="sap.ui.layout"
+>
+    <Dialog
+        title="Create Hierarchy"
+        contentWidth="50%"
+        titleAlignment="Start"
+    >
+        <content>
+            <VBox>
+                <l:Grid
+                    defaultSpan="L3 M3"
+                    class="sapUiMediumMarginTop sapUiMediumMarginBottom"
+                >
+                    <l:content>
+                        <Label
+                            text="Department"
+                            labelFor="idUserId"
+                        />
+                        <Input
+                            id="idDepartments"
+                            editable="true"
+                            valueHelpRequest="onValueHelpClicked"
+                            showValueHelp="true"
+                            suggestionItems="{user-master>/IasUsers}"
+                            suggestionItemSelected=".onSuggestionItemSelected"
+                            required="true"
+                        >
+                            <suggestionItems>
+                                <core:ListItem
+                                    key="{user-master>FIRST_NAME}"
+                                    text="{user-master>EMAIL}"
+                                    additionalText="{EMAIL}"
+                                />
+                            </suggestionItems>
+                        </Input>
+                        <!-- <Label text="Company Code" labelFor="idUserEntity" />
+                        <MultiComboBox
+                            id="idUserEntity"
+                            required="true"
+                            width="100%"
+                            showSecondaryValues="true"
+                            items="{
+                               path: 'user-master>/CompanyCode',
+                               templateShareable: true
+                                }"
+                        >
+                            <core:ListItem
+                                key="{user-master>BUKRS}"
+                                text="{user-master>BUKRS}"
+                                additionalText="{user-master>BUTXT}"
+                            />
+                        </MultiComboBox> -->
+                        <Label
+                            text="Reviewer"
+                            labelFor="idUserName"
+                        />
+                        <ComboBox
+                            id="idReviewer"
+                            width="100%"
+                            showSecondaryValues="true"
+                            items="{
+                               path: 'reviewrModel>/Reviewer',
+                               templateShareable: true
+                                }"
+                        >
+                            <core:ListItem
+                                key="{reviewrModel>USER_ID}"
+                                text="{reviewrModel>USER_ID}"
+                            />
+                        </ComboBox>
+                        <Label
+                            text="Approver"
+                            labelFor="idUserRole"
+                        />
+                        <ComboBox
+                            id="idApprover"
+                            required="true"
+                            showSecondaryValues="true"
+                            width="100%"
+                            items="{
+        path: 'ApproverModel>/Approver', 
+        templateShareable: true
+    }"
+                        >
+                            <core:Item
+                                text="{ApproverModel>USER_ID}"
+                                key="{ApproverModel>USER_ID}"
+                            />
+                        </ComboBox>
+
+                        <Label text="MDM" />
+                        <ComboBox
+                            id="idMDM"
+                            required="true"
+                            showSecondaryValues="true"
+                            width="100%"
+                            items="{
+        path: 'MdmModel>/Mdm', 
+        templateShareable: true
+    }"
+                        >
+                            <core:Item
+                                text="{MdmModel>USER_ID}"
+                                key="{MdmModel>USER_ID}"
+                            />
+                        </ComboBox>
+                        <Label text="GA Type"></Label>
+                         <ComboBox
+                            id="idGAType"
+                            required="true"
+                            showSecondaryValues="true"
+                            width="100%"
+                            items="{
+        path: 'userModel>/GeographicalAreaMASTER', 
+        templateShareable: true
+    }"
+                        >
+                            <items>
+                                <core:ListItem
+                                    text="{userModel>GA_Code}"
+                                    key="{userModel>GA_Code}"
+                                    additionalText="{userModel>GA_Description}"
+                                />
+                            </items>
+                        </ComboBox>
+                    </l:content>
+                </l:Grid>
+            </VBox>
+        </content>
+        <buttons>
+            <Button
+                text="Submit"
+                press="onSubmitApproval"
+                icon="sap-icon://accept"
+                type="Accept"
+                id="idSubCxreateBtn"
+            />
+            <Button
+                id="idCancelCrexateBtn"
+                press="onCloseApprovalfrag"
+                text="Cancel"
+                type="Reject"
+                icon="sap-icon://cancel"
+            />
+        </buttons>
+    </Dialog>
+</core:FragmentDefinition>

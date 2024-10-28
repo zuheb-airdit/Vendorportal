@@ -1,0 +1,347 @@
+<mvc:View
+    xmlns:smarttable="sap.ui.comp.smarttable"
+    controllerName="com.air.vp.lnchpage.controller.EmailConfig"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:core="sap.ui.core"
+    xmlns:smartTable='sap.ui.comp.smarttable'
+    xmlns:smartFilterBar="sap.ui.comp.smartfilterbar"
+    displayBlock="true"
+    xmlns:sf="sap.ui.layout.form"
+    xmlns:l="sap.ui.layout"
+    xmlns="sap.m"
+>
+    <Page
+        title="Admin Configuration"
+        showHeader="true"
+        navButtonPress="onNavPress"
+        showNavButton="true"
+    >
+        <content>
+            <IconTabBar
+                id="test"
+                expanded="{device>/isNoPhone}"
+                select="onIconTabBarSelectEmail"
+                class="sapUiMediumMarginTop"
+            >
+                <items>
+                    <IconTabFilter
+                        icon="sap-icon://email"
+                        key="email"
+                        iconColor="NonInteractive"
+                        text="Email Configuration"
+                    >
+                        <sf:SimpleForm
+                            id="idEmailConfigForm"
+                            editable="true"
+                            layout="ColumnLayout"
+                            columnsM="2"
+                            columnsL="2"
+                            columnsXL="2"
+                            objectBindings="{ path: 'emailConfigModel>/results' }"
+                        >
+                            <!-- Toolbar -->
+                            <Toolbar>
+                                <Title
+                                    text="SMTP Configuration"
+                                    level="H2"
+                                />
+                                <ToolbarSpacer />
+                                <!-- Spacer to push buttons to the right -->
+                                <Button
+                                    text="Test Email"
+                                    type="Emphasized"
+                                    press="onTestEmailPress"
+                                />
+                                <Button
+                                    id="submitButton"
+                                    text="Submit"
+                                    press="onSubmitPress"
+                                    visible="false"
+                                />
+                                <Button
+                                    id="editButton"
+                                    text="Edit"
+                                    press="onEditPress"
+                                />
+                            </Toolbar>
+                            <sf:content>
+                                <!-- Host Name -->
+                                <Label
+                                    text="Host Name*"
+                                    required="true"
+                                />
+                                <Input
+                                    id="hostNameInput"
+                                    value="{emailConfigModel>/HOST}"
+                                    width="100%"
+                                    editable="false"
+                                    required="true"
+                                >
+                                    <layoutData>
+                                        <l:GridData span="XL12 L12 M12 S12" />
+                                    </layoutData>
+                                </Input>
+
+                                <!-- Port -->
+                                <Label
+                                    text="Port*"
+                                    required="true"
+                                />
+                                <Input
+                                    id="portInput"
+                                    value="{emailConfigModel>/PORT}"
+                                    width="100%"
+                                    editable="false"
+                                    required="true"
+                                >
+                                    <layoutData>
+                                        <l:GridData span="XL12 L12 M12 S12" />
+                                    </layoutData>
+                                </Input>
+
+                                <!-- Security -->
+                                <Label
+                                    text="Security*"
+                                    required="true"
+                                />
+                                <Input
+                                    id="securityInput"
+                                    value="{emailConfigModel>/SECURE}"
+                                    width="100%"
+                                    editable="false"
+                                    required="true"
+                                />
+
+                                <!-- User Name -->
+                                <Label
+                                    text="User Name*"
+                                    required="true"
+                                />
+                                <Input
+                                    id="userNameInput"
+                                    value="{emailConfigModel>/USERNAME}"
+                                    width="100%"
+                                    editable="false"
+                                    required="true"
+                                >
+                                    <layoutData>
+                                        <l:GridData span="XL12 L12 M12 S12" />
+                                    </layoutData>
+                                </Input>
+
+                                <!-- Password -->
+                                <Label
+                                    text="Password*"
+                                    required="true"
+                                />
+                                <Input
+                                    id="passwordInput"
+                                    type="Password"
+                                    value="{emailConfigModel>/PASSWORD}"
+                                    width="100%"
+                                    editable="false"
+                                    required="true"
+                                >
+                                    <layoutData>
+                                        <l:GridData span="XL12 L12 M12 S12" />
+                                    </layoutData>
+                                </Input>
+
+                                <!-- Sender ID -->
+                                <Label
+                                    text="Sender ID*"
+                                    required="true"
+                                />
+                                <Input
+                                    id="senderEmailInput"
+                                    value="{emailConfigModel>/SENDER_EMAIL}"
+                                    width="100%"
+                                    editable="false"
+                                    required="true"
+                                >
+                                    <layoutData>
+                                        <l:GridData span="XL12 L12 M12 S12" />
+                                    </layoutData>
+                                </Input>
+                            </sf:content>
+                        </sf:SimpleForm>
+
+                        <!-- Footer -->
+                    </IconTabFilter>
+
+                    <IconTabFilter
+                        icon="sap-icon://table-chart"
+                        key="InProgress"
+                        iconColor="Neutral"
+                        text="Masters"
+                        class="sapUiTinyMarginBegin"
+                    >
+                        <VBox>
+                            <sf:SimpleForm
+                                id="idDepartmentConfigForm"
+                                editable="true"
+                                layout="ColumnLayout"
+                                columnsM="2"
+                                columnsL="2"
+                                columnsXL="2"
+                            >
+                                <!-- Toolbar -->
+
+                                <sf:content>
+                                    <!-- Host Name -->
+                                    <Label
+                                        text="Master Table"
+                                        required="true"
+                                    />
+
+                                    <Select
+                                        id="selectControl"
+                                        change="onComboBoxChangeMaster"
+                                    >
+                                        <core:Item
+                                            key=""
+                                            text="Select an option"
+                                        />
+
+                                        <core:Item
+                                            key="userRole"
+                                            text="User Role"
+                                        />
+                                        <core:Item
+                                            key="department"
+                                            text="Department"
+                                        />
+                                        <core:Item
+                                            key="gaType"
+                                            text="GA Type"
+                                        />
+                                        <core:Item
+                                            key="companyCode"
+                                            text="Company Code"
+                                        />
+                                    </Select>
+                                </sf:content>
+                            </sf:SimpleForm>
+                          <Table
+    id="idProductsTable"
+    class="sapUiMediumMarginTop"
+    inset="false"
+    items="{ path: 'mastJsonModel>/results' }">
+    <headerToolbar>
+        <OverflowToolbar>
+            <content>
+                <Title text="Items" level="H2" />
+                <ToolbarSpacer />
+
+                <!-- Add Search Field to the toolbar -->
+                <SearchField
+                    id="searchFieldS"
+                    width="20rem"
+                    search="onSearchProducts" />
+                
+                <Button icon="sap-icon://add" text="" press="onAddProduct" />
+            </content>
+        </OverflowToolbar>
+    </headerToolbar>
+
+    <columns>
+        <Column>
+            <Text text="Code" />
+        </Column>
+        <Column>
+            <Text text="Description" />
+        </Column>
+
+        <!-- Conditionally show Company column -->
+        <Column visible="{= ${mastJsonModel>/results/0/COMPANY} ? true : false }">
+            <Text text="Company" />
+        </Column>
+
+        <Column>
+            <Text text="Action" />
+        </Column>
+    </columns>
+
+    <items>
+        <ColumnListItem vAlign="Middle">
+            <cells>
+                <Text text="{mastJsonModel>CODE}" />
+                <Text text="{mastJsonModel>DESCRIPTION}" />
+                <Text text="{mastJsonModel>COMPANY}" visible="{= ${mastJsonModel>COMPANY} ? true : false }" />
+                <HBox>
+                    <Button text="" press="onDeleteFunction" icon="sap-icon://delete" />
+                    <Button text="" press="onEditFunction" class="sapUiTinyMarginBegin" icon="sap-icon://edit" />
+                </HBox>
+            </cells>
+        </ColumnListItem>
+    </items>
+</Table>
+
+                        </VBox>
+                    </IconTabFilter>
+                    <IconTabFilter
+                        icon="sap-icon://attachment"
+                        key="attachment"
+                        iconColor="Neutral"
+                        text="Account Group"
+                        class="sapUiTinyMarginBegin"
+                        tooltip="Account Group"
+                    >
+                      <Table
+    id="idAttachmentTable"
+    class="sapUiMediumMarginTop"
+    inset="false"
+    items="{ path: 'attachmentmodel>/results' }">
+    <headerToolbar>
+        <OverflowToolbar>
+            <content>
+                <Title text="Items" level="H2" />
+                <ToolbarSpacer />
+
+                <!-- Add Search Field to the toolbar -->
+                <SearchField
+                    id="searchFieldatt"
+                    width="20rem"
+                    search="onSearchAccountType" />
+
+                <Button icon="sap-icon://add" text="" press="onAddAccountType" />
+            </content>
+        </OverflowToolbar>
+    </headerToolbar>
+
+    <columns>
+        <Column>
+            <Text text="Account Group Code" />
+        </Column>
+         <Column>
+            <Text text="Description" />
+        </Column>
+        <Column width="30rem">
+            <Text text="Required Documents" />
+        </Column>
+        <Column>
+            <Text text="Action" />
+        </Column>
+    </columns>
+
+    <items>
+        <ColumnListItem vAlign="Middle">
+            <cells>
+                <Text text="{attachmentmodel>accountGroupCode}" />
+                 <Text text="{attachmentmodel>description}" />
+                <Text text="{attachmentmodel>requisiteDocuments}" />
+                <HBox>
+                    <Button text="" press="onDeleteAccountType" icon="sap-icon://delete" />
+                    <Button text="" press="onEditAccountType" class="sapUiTinyMarginBegin" icon="sap-icon://edit" />
+                </HBox>
+            </cells>
+        </ColumnListItem>
+    </items>
+</Table>
+
+                    </IconTabFilter>
+                </items>
+            </IconTabBar>
+        </content>
+    </Page>
+</mvc:View>

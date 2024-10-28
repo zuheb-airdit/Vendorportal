@@ -9,7 +9,7 @@
     xmlns:f="sap.f"
     xmlns="sap.m"
 >
-    <f:DynamicPage id="dynamicPageId">
+    <f:DynamicPage id="dynamicPahgeId">
         <f:title>
             <f:DynamicPageTitle>
                 <f:heading>
@@ -70,7 +70,8 @@
                 </smartTable:customToolbar>
                 <Table
                     selectionChange="selectionChangeHandlerRregister"
-                    
+                    growing="true"
+                    growingThreshold="10"
                 >
                     <columns>
                         <Column width="7rem">

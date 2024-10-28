@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="1.0" xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx" xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" xmlns:sap="http://www.sap.com/Protocols/SAPData">
+    <edmx:Reference Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Capabilities.V1.xml" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+        <edmx:Include Alias="Capabilities" Namespace="Org.OData.Capabilities.V1"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/Common.xml" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+        <edmx:Include Alias="Common" Namespace="com.sap.vocabularies.Common.v1"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Core.V1.xml" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+        <edmx:Include Alias="Core" Namespace="Org.OData.Core.V1"/>
+    </edmx:Reference>
+    <edmx:DataServices m:DataServiceVersion="2.0">
+        <Schema Namespace="ZAPI_BUSINESS_PARTNERSampleService" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+            <EntityContainer Name="EntityContainer" m:IsDefaultEntityContainer="true">
+                <EntitySet Name="Supplier" EntityType="ZAPI_BUSINESS_PARTNERSampleService.Supplier" sap:deletable="false" sap:label="Business Partner"/>
+                <EntitySet Name="InternalUser" EntityType="ZAPI_BUSINESS_PARTNERSampleService.InternalUser" sap:deletable="false" sap:label="Business Partner"/>
+                <EntitySet Name="A_BusinessPartnerAddress" EntityType="ZAPI_BUSINESS_PARTNERSampleService.A_BusinessPartnerAddress" sap:label="Address"/>
+                <EntitySet Name="A_BusinessPartnerBank" EntityType="ZAPI_BUSINESS_PARTNERSampleService.A_BusinessPartnerBank" sap:label="Bank"/>
+                <EntitySet Name="A_Supplier" EntityType="ZAPI_BUSINESS_PARTNERSampleService.A_Supplier" sap:creatable="false" sap:deletable="false" sap:label="Supplier"/>
+                <EntitySet Name="A_AddressEmailAddress" EntityType="ZAPI_BUSINESS_PARTNERSampleService.A_AddressEmailAddress" sap:label="Email Address"/>
+                <EntitySet Name="A_AddressPhoneNumber" EntityType="ZAPI_BUSINESS_PARTNERSampleService.A_AddressPhoneNumber" sap:label="Phone Number"/>
+                <EntitySet Name="A_BusinessPartnerContact" EntityType="ZAPI_BUSINESS_PARTNERSampleService.A_BusinessPartnerContact" sap:label="Contact"/>
+            </EntityContainer>
+            <EntityType Name="Supplier" sap:content-version="1" sap:label="Business Partner">
+                <Key>
+                    <PropertyRef Name="BusinessPartner"/>
+                </Key>
+                <Property Name="BusinessPartner" Type="Edm.String" Nullable="false"/>
+                <Property Name="BusinessPartnerFullName" Type="Edm.String" MaxLength="81" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="BusinessPartnerGrouping" Type="Edm.String" MaxLength="4" sap:display-format="UpperCase" sap:label="Grouping" sap:quickinfo="Business Partner Grouping"/>
+                <Property Name="CreationDate" Type="Edm.DateTime" sap:display-format="Date" sap:label="Created on" sap:quickinfo="Date on which the object was created" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="CreatedByUser" Type="Edm.String" MaxLength="12" sap:display-format="UpperCase" sap:label="Created by" sap:quickinfo="User who created the object" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="CorrespondenceLanguage" Type="Edm.String" MaxLength="2" sap:label="Correspondence lang." sap:quickinfo="Business Partner: Correspondence Language"/>
+                <Property Name="BusinessPartnerName" Type="Edm.String" MaxLength="81" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="BusinessPartnerUUID" Type="Edm.Guid" sap:label="BP GUID" sap:quickinfo="Business Partner GUID" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="IsNaturalPerson" Type="Edm.String" MaxLength="1" sap:display-format="UpperCase" sap:label="Natural Person" sap:quickinfo="Business Partner Is a Natural Person Under the Tax Laws"/>
+                <Property Name="Language" Type="Edm.String" MaxLength="2" sap:label="Language" sap:quickinfo="Business partner: Language"/>
+                <Property Name="businessPartnerDetails" Type="Edm.String"/>
+                <Property Name="addressDetails" Type="Edm.String"/>
+                <Property Name="bankDetails" Type="Edm.String"/>
+                <Property Name="supplierDetails" Type="Edm.String"/>
+                <Property Name="emailDetails" Type="Edm.String"/>
+                <Property Name="phoneDetails" Type="Edm.String"/>
+            </EntityType>
+            <EntityType Name="InternalUser" sap:content-version="1" sap:label="Business Partner">
+                <Key>
+                    <PropertyRef Name="BusinessPartner"/>
+                </Key>
+                <Property Name="BusinessPartner" Type="Edm.String" Nullable="false"/>
+                <Property Name="BusinessPartnerFullName" Type="Edm.String" MaxLength="81" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="BusinessPartnerGrouping" Type="Edm.String" MaxLength="4" sap:display-format="UpperCase" sap:label="Grouping" sap:quickinfo="Business Partner Grouping"/>
+                <Property Name="CreationDate" Type="Edm.DateTime" sap:display-format="Date" sap:label="Created on" sap:quickinfo="Date on which the object was created" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="CreatedByUser" Type="Edm.String" MaxLength="12" sap:display-format="UpperCase" sap:label="Created by" sap:quickinfo="User who created the object" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="CorrespondenceLanguage" Type="Edm.String" MaxLength="2" sap:label="Correspondence lang." sap:quickinfo="Business Partner: Correspondence Language"/>
+                <Property Name="BusinessPartnerName" Type="Edm.String" MaxLength="81" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="BusinessPartnerUUID" Type="Edm.Guid" sap:label="BP GUID" sap:quickinfo="Business Partner GUID" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="IsNaturalPerson" Type="Edm.String" MaxLength="1" sap:display-format="UpperCase" sap:label="Natural Person" sap:quickinfo="Business Partner Is a Natural Person Under the Tax Laws"/>
+                <Property Name="Language" Type="Edm.String" MaxLength="2" sap:label="Language" sap:quickinfo="Business partner: Language"/>
+            </EntityType>
+            <EntityType Name="A_BusinessPartnerAddress" sap:content-version="1" sap:label="Address">
+                <Key>
+                    <PropertyRef Name="BusinessPartner"/>
+                </Key>
+                <Property Name="BusinessPartner" Type="Edm.String" Nullable="false"/>
+                <Property Name="AddressID" Type="Edm.String" MaxLength="10" Nullable="false" sap:display-format="UpperCase" sap:label="Address Number"/>
+                <Property Name="CityName" Type="Edm.String" MaxLength="40" sap:label="City"/>
+                <Property Name="StreetName" Type="Edm.String" MaxLength="60" sap:label="Street"/>
+                <Property Name="StrSuppl1" Type="Edm.String" MaxLength="40" sap:label="Street 3"/>
+                <Property Name="StrSuppl2" Type="Edm.String" MaxLength="40" sap:label="Street 5"/>
+                <Property Name="PostalCode" Type="Edm.String" MaxLength="10" sap:display-format="UpperCase" sap:label="Postal Code" sap:quickinfo="City postal code"/>
+                <Property Name="Country" Type="Edm.String" MaxLength="3" sap:display-format="UpperCase" sap:label="Country Key"/>
+                <Property Name="Region" Type="Edm.String" MaxLength="3" sap:display-format="UpperCase" sap:label="Region" sap:quickinfo="Region (State, Province, County)"/>
+                <Property Name="District" Type="Edm.String" MaxLength="40" sap:label="District"/>
+            </EntityType>
+            <EntityType Name="A_BusinessPartnerBank" sap:content-version="1" sap:label="Bank">
+                <Key>
+                    <PropertyRef Name="BusinessPartner"/>
+                </Key>
+                <Property Name="BusinessPartner" Type="Edm.String" Nullable="false"/>
+                <Property Name="BankAccount" Type="Edm.String" MaxLength="18" sap:display-format="UpperCase" sap:label="Bank acct" sap:quickinfo="Bank Account Number"/>
+                <Property Name="BankName" Type="Edm.String" MaxLength="60" sap:label="Bank name" sap:quickinfo="Name of bank" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="BankCountryKey" Type="Edm.String" MaxLength="3" sap:display-format="UpperCase" sap:label="Bank Country" sap:quickinfo="Bank Country Key"/>
+                <Property Name="BankControlKey" Type="Edm.String" MaxLength="2" sap:display-format="UpperCase" sap:label="Bank Control Key"/>
+                <Property Name="IFSC" Type="Edm.String" MaxLength="15" sap:display-format="UpperCase" sap:label="Bank Key"/>
+            </EntityType>
+            <EntityType Name="A_Supplier" sap:content-version="1" sap:label="Supplier">
+                <Key>
+                    <PropertyRef Name="Supplier"/>
+                </Key>
+                <Property Name="Supplier" Type="Edm.String" Nullable="false"/>
+                <Property Name="SupplierName" Type="Edm.String" MaxLength="80" sap:label="Name of Supplier" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="SupplierAccountGroup" Type="Edm.String" MaxLength="4" sap:display-format="UpperCase" sap:label="Account group" sap:quickinfo="Vendor account group"/>
+                <Property Name="VATRegistration" Type="Edm.String" MaxLength="20" sap:display-format="UpperCase" sap:label="VAT Registration No." sap:quickinfo="VAT Registration Number"/>
+                <Property Name="SupplierLstNumber" Type="Edm.String" MaxLength="16" sap:display-format="UpperCase" sap:label="Tax Number 1" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="SupplierCstNumber" Type="Edm.String" MaxLength="11" sap:display-format="UpperCase" sap:label="Tax Number 2" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="PanNumber" Type="Edm.String" MaxLength="18" sap:display-format="UpperCase" sap:label="Tax Number 3" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="CreationDate" Type="Edm.DateTime" sap:display-format="Date" sap:label="Created on" sap:quickinfo="Date on which the Record Was Created" sap:creatable="false" sap:updatable="false"/>
+            </EntityType>
+            <EntityType Name="A_AddressEmailAddress" sap:content-version="1" sap:label="Email Address">
+                <Key>
+                    <PropertyRef Name="AddressID"/>
+                </Key>
+                <Property Name="AddressID" Type="Edm.String" Nullable="false"/>
+                <Property Name="IsDefaultEmailAddress" Type="Edm.Boolean" sap:display-format="UpperCase" sap:label="Standard addr." sap:quickinfo="Flag: this address is the default address"/>
+                <Property Name="EmailAddress" Type="Edm.String" MaxLength="241" sap:label="E-Mail Address"/>
+            </EntityType>
+            <EntityType Name="A_AddressPhoneNumber" sap:content-version="1" sap:label="Phone Number">
+                <Key>
+                    <PropertyRef Name="AddressID"/>
+                </Key>
+                <Property Name="AddressID" Type="Edm.String" Nullable="false"/>
+                <Property Name="PhoneNumber" Type="Edm.String" MaxLength="30" sap:display-format="UpperCase" sap:label="Telephone" sap:quickinfo="Telephone no.: dialling code+number"/>
+                <Property Name="IsDefaultPhoneNumber" Type="Edm.Boolean" sap:display-format="UpperCase" sap:label="Standard No." sap:quickinfo="Standard Sender Address in this Communication Type"/>
+                <Property Name="PhoneNumberExtension" Type="Edm.String" MaxLength="10" sap:display-format="UpperCase" sap:label="Extension" sap:quickinfo="Telephone no.: Extension"/>
+            </EntityType>
+            <EntityType Name="A_BusinessPartnerContact" sap:content-version="1" sap:label="Contact">
+                <Key>
+                    <PropertyRef Name="RelationshipNumber"/>
+                </Key>
+                <Property Name="RelationshipNumber" Type="Edm.String" MaxLength="12" Nullable="false" sap:display-format="UpperCase" sap:label="BP Relationship No." sap:quickinfo="BP Relationship Number"/>
+                <Property Name="BusinessPartnerPerson" Type="Edm.String" MaxLength="10" Nullable="false" sap:display-format="UpperCase" sap:label="Business Partner" sap:quickinfo="Business Partner Number"/>
+                <Property Name="ValidityStartDate" Type="Edm.DateTime" sap:display-format="Date" sap:label="Valid From" sap:quickinfo="Validity Date (Valid From)"/>
+                <Property Name="ValidityEndDate" Type="Edm.DateTime" Nullable="false" sap:display-format="Date" sap:label="Valid To" sap:quickinfo="Validity Date (Valid To)"/>
+                <Property Name="IsStandardRelationship" Type="Edm.Boolean" sap:display-format="UpperCase" sap:label="Standard" sap:quickinfo="Standard Relationship"/>
+            </EntityType>
+            <Annotations Target="ZAPI_BUSINESS_PARTNERSampleService.EntityContainer/Supplier" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Capabilities.DeleteRestrictions">
+                    <Record Type="Capabilities.DeleteRestrictionsType">
+                        <PropertyValue Property="Deletable" Bool="false"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Capabilities.InsertRestrictions">
+                    <Record Type="Capabilities.InsertRestrictionsType">
+                        <PropertyValue Property="Insertable" Bool="false"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Capabilities.UpdateRestrictions">
+                    <Record Type="Capabilities.UpdateRestrictionsType">
+                        <PropertyValue Property="Updatable" Bool="false"/>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="ZAPI_BUSINESS_PARTNERSampleService.EntityContainer/InternalUser" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Capabilities.DeleteRestrictions">
+                    <Record Type="Capabilities.DeleteRestrictionsType">
+                        <PropertyValue Property="Deletable" Bool="false"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Capabilities.InsertRestrictions">
+                    <Record Type="Capabilities.InsertRestrictionsType">
+                        <PropertyValue Property="Insertable" Bool="false"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Capabilities.UpdateRestrictions">
+                    <Record Type="Capabilities.UpdateRestrictionsType">
+                        <PropertyValue Property="Updatable" Bool="false"/>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="ZAPI_BUSINESS_PARTNERSampleService.EntityContainer/A_BusinessPartnerAddress" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Capabilities.DeleteRestrictions">
+                    <Record Type="Capabilities.DeleteRestrictionsType">
+                        <PropertyValue Property="Deletable" Bool="false"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Capabilities.InsertRestrictions">
+                    <Record Type="Capabilities.InsertRestrictionsType">
+                        <PropertyValue Property="Insertable" Bool="false"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Capabilities.UpdateRestrictions">
+                    <Record Type="Capabilities.UpdateRestrictionsType">
+                        <PropertyValue Property="Updatable" Bool="false"/>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="ZAPI_BUSINESS_PARTNERSampleService.EntityContainer/A_BusinessPartnerBank" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Capabilities.DeleteRestrictions">
+                    <Record Type="Capabilities.DeleteRestrictionsType">
+                        <PropertyValue Property="Deletable" Bool="false"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Capabilities.InsertRestrictions">
+                    <Record Type="Capabilities.InsertRestrictionsType">
+                        <PropertyValue Property="Insertable" Bool="false"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Capabilities.UpdateRestrictions">
+                    <Record Type="Capabilities.UpdateRestrictionsType">
+                        <PropertyValue Property="Updatable" Bool="false"/>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="ZAPI_BUSINESS_PARTNERSampleService.EntityContainer/A_Supplier" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Capabilities.DeleteRestrictions">
+                    <Record Type="Capabilities.DeleteRestrictionsType">
+                        <PropertyValue Property="Deletable" Bool="false"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Capabilities.InsertRestrictions">
+                    <Record Type="Capabilities.InsertRestrictionsType">
+                        <PropertyValue Property="Insertable" Bool="false"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Capabilities.UpdateRestrictions">
+                    <Record Type="Capabilities.UpdateRestrictionsType">
+                        <PropertyValue Property="Updatable" Bool="false"/>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="ZAPI_BUSINESS_PARTNERSampleService.EntityContainer/A_AddressEmailAddress" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Capabilities.DeleteRestrictions">
+                    <Record Type="Capabilities.DeleteRestrictionsType">
+                        <PropertyValue Property="Deletable" Bool="false"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Capabilities.InsertRestrictions">
+                    <Record Type="Capabilities.InsertRestrictionsType">
+                        <PropertyValue Property="Insertable" Bool="false"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Capabilities.UpdateRestrictions">
+                    <Record Type="Capabilities.UpdateRestrictionsType">
+                        <PropertyValue Property="Updatable" Bool="false"/>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="ZAPI_BUSINESS_PARTNERSampleService.EntityContainer/A_AddressPhoneNumber" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Capabilities.DeleteRestrictions">
+                    <Record Type="Capabilities.DeleteRestrictionsType">
+                        <PropertyValue Property="Deletable" Bool="false"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Capabilities.InsertRestrictions">
+                    <Record Type="Capabilities.InsertRestrictionsType">
+                        <PropertyValue Property="Insertable" Bool="false"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Capabilities.UpdateRestrictions">
+                    <Record Type="Capabilities.UpdateRestrictionsType">
+                        <PropertyValue Property="Updatable" Bool="false"/>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="ZAPI_BUSINESS_PARTNERSampleService.EntityContainer/A_BusinessPartnerContact" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Capabilities.DeleteRestrictions">
+                    <Record Type="Capabilities.DeleteRestrictionsType">
+                        <PropertyValue Property="Deletable" Bool="false"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Capabilities.InsertRestrictions">
+                    <Record Type="Capabilities.InsertRestrictionsType">
+                        <PropertyValue Property="Insertable" Bool="false"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Capabilities.UpdateRestrictions">
+                    <Record Type="Capabilities.UpdateRestrictionsType">
+                        <PropertyValue Property="Updatable" Bool="false"/>
+                    </Record>
+                </Annotation>
+            </Annotations>
+        </Schema>
+    </edmx:DataServices>
+</edmx:Edmx>

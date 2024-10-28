@@ -5,6 +5,7 @@ sap.ui.define([
     "sap/ui/model/json/JSONModel",
     "sap/m/MessageBox",
     "sap/ui/core/Fragment",
+    "jszip"
 ],
     function (Controller, formatter, UIComponent, JSONModel, MessageBox, Fragment) {
         "use strict";
@@ -12,6 +13,7 @@ sap.ui.define([
         return Controller.extend("com.air.vp.lnchpage.controller.RequestObj", {
             formatter: formatter,
             onInit: function () {
+                this.jszip = new JSZip();
                 var oRouter = UIComponent.getRouterFor(this);
                 let oModel = this.getOwnerComponent().getModel("registration-manage");
                 this.getView().setModel(oModel);
@@ -39,9 +41,15 @@ sap.ui.define([
                 let model = this.getView().getModel();
                 let sPath = `/RequestInfo/${sObjectId}`
                 debugger;
+                this.byId("idSendBackBtn").setVisible(false);
+                this.byId("idEditBtn").setVisible(false);
                 model.read(sPath, {
                     success: function (res) {
                         debugger;
+                        if(res.APPROVER_ROLE === "MDM"){
+                            this.byId("idSendBackBtn").setVisible(true)
+                            this.byId("idEditBtn").setVisible(true);
+                        }
                         if (res.STATUS == 5) {
                             this.byId("idAcceptBtn").setEnabled(false);
                             this.byId("idRejectBtn").setEnabled(false);
@@ -59,7 +67,7 @@ sap.ui.define([
                         this.getView().setBusy(false);
                         let arrAttachemnts = res.TO_ATTACHMENTS.results.map((item) => {
                             return {
-                                "REGESTERED_MAIL": item.REGISTERED_MAIL,
+                                "REGESTERED_MAIL": item.REGESTERED_MAIL,
                                 "DESCRIPTION": item.DESCRIPTION,
                                 "IMAGEURL": item.IMAGEURL,
                                 "IMAGE_FILE_NAME": item.IMAGE_FILE_NAME
@@ -131,14 +139,15 @@ sap.ui.define([
 
             onNavBack: function () {
                 history.go(-1)
+               
             },
 
             onPreviewAttachment: function (oEvent) {
                 debugger;
                 let pdfURL = oEvent.getSource().data("customData");
-
+debugger;
                 // Function to convert URL to base64 and preview it
-                window.open(pdfURL, '_blank');
+                window.open(`${pdfURL}`);
             },
 
             convertUrlToBase64: function (url, callback) {
@@ -282,10 +291,10 @@ sap.ui.define([
             },
 
             onRejectRegistration: function () {
-                MessageBox.confirm("Are you sure you want to Reject?",{
+                MessageBox.confirm("Are you sure you want to Reject?", {
                     icon: MessageBox.Icon.WARNING,
-                    actions: [MessageBox.Action.YES,MessageBox.Action.NO],
-                    emphasizedAction : MessageBox.Action.YES,
+                    actions: [MessageBox.Action.YES, MessageBox.Action.NO],
+                    emphasizedAction: MessageBox.Action.YES,
                     onClose: function (oAction) {
                         if (oAction === MessageBox.Action.YES) {
                             this.getView().setBusy(true)
@@ -293,30 +302,31 @@ sap.ui.define([
                             let oModel = this.getView().getModel();
                             let pData = this.payLoad;
                             pData.action = "REJECT"
-            
+
                             oModel.create(sFunctionImportPath, pData, {
                                 success: function (oData, response) {
                                     debugger;
                                     this.getView().setBusy(false)
-                                    sap.m.MessageBox.success('Request Rejected', {
+                                    sap.m.MessageBox.success(oData.PostRegData, {
                                         emphasizedAction: sap.m.MessageBox.Action.CLOSE,
                                         onClose: function (sAction) {
                                             this.getOwnerComponent().getRouter().navTo("RegisterApproval")
-            
+
                                         }.bind(this)
                                     })
                                 }.bind(this),
                                 error: function (oError) {
                                     debugger;
-                                    this.getView().setBusy(false)
-                                    sap.m.MessageBox.error("Something went Wrong");
-                                    console.error("Error:", oError);
+                                    const jsonResponse = JSON.parse(oError.responseText);
+                                    const errorMessage = jsonResponse.error.message.value;
+                                    this.getView().setBusy(false);
+                                    sap.m.MessageBox.error(errorMessage);
                                 }.bind(this)
                             });
                         }
                     }.bind(this)
                 })
-              
+
             },
             onSendBackRegistration: function () {
                 var oView = this.getView();
@@ -346,7 +356,7 @@ sap.ui.define([
                 oModel.create(sFunctionImportPath, pData, {
                     success: function (oData, response) {
                         this.getView().setBusy(false);
-                        sap.m.MessageBox.success('Request Sent Back', {
+                        sap.m.MessageBox.success(oData.PostRegData, {
                             emphasizedAction: sap.m.MessageBox.Action.CLOSE,
                             onClose: function (sAction) {
                                 this.getOwnerComponent().getRouter().navTo("RegisterApproval");
@@ -354,9 +364,10 @@ sap.ui.define([
                         });
                     }.bind(this),
                     error: function (oError) {
+                        const jsonResponse = JSON.parse(oError.responseText);
+                        const errorMessage = jsonResponse.error.message.value;
                         this.getView().setBusy(false);
-                        sap.m.MessageBox.error("Something went wrong");
-                        console.error("Error:", oError);
+                        sap.m.MessageBox.error(errorMessage);
                     }.bind(this)
                 });
                 debugger;
@@ -467,6 +478,38 @@ sap.ui.define([
                         "IMAGE_FILE_NAME": attachment.IMAGE_FILE_NAME
                     }))
                 };
+            },
+
+            onDownloadAll: function () {
+                debugger;
+                var oTableItems = this.getView().getModel("requestInfo").getProperty("/TO_ATTACHMENTS/results");
+                var zip = new JSZip(); // Create a new JSZip instance
+                var downloadPromises = [];
+    
+                // Loop through all items in the table and fetch each file
+                oTableItems.forEach(function (item) {
+                    var fileName = item.IMAGE_FILE_NAME;
+                    var fileUrl = item.IMAGEURL;
+    
+                    // Fetch the file and add it to the ZIP
+                    var filePromise = window.open(fileUrl)
+                        .then(function (response) {
+                            return response.blob(); // Convert the response to a blob
+                        })
+                        .then(function (blob) {
+                            zip.file(fileName, blob); // Add the file to the zip
+                        });
+    
+                    downloadPromises.push(filePromise); // Store the promise
+                });
+    
+                // When all files are fetched and added to the zip
+                Promise.all(downloadPromises).then(function () {
+                    zip.generateAsync({ type: "blob" }).then(function (content) {
+                        // Use sap.ui.core.util.File.save to download the zip
+                        sap.ui.core.util.File.save(content, "attachments", "zip", "application/zip");
+                    });
+                });
             }
 
         });

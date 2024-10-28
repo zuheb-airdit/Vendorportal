@@ -45,7 +45,7 @@
                                 />
                             </suggestionItems>
                         </Input>
-                        <Label text="Company Code" labelFor="idUserEntity" />
+                        <!-- <Label text="Company Code" labelFor="idUserEntity" />
                         <MultiComboBox
                             id="idUserEntity"
                             required="true"
@@ -61,7 +61,7 @@
                                 text="{user-master>BUKRS}"
                                 additionalText="{user-master>BUTXT}"
                             />
-                        </MultiComboBox>
+                        </MultiComboBox> -->
                         <Label text="User Name" labelFor="idUserName" />
                         <Input
                             id="idUserName"
@@ -69,7 +69,7 @@
                             editable="false"
                         />
                         <Label text="Role" labelFor="idUserRole" />
-                        <MultiComboBox
+                        <ComboBox
                             id="idUserRole"
                             required="true"
                             showSecondaryValues="true"
@@ -86,7 +86,54 @@
                                     additionalText="{user-master>DESCRIPTION}"
                                 />
                             </items>
-                        </MultiComboBox>
+                        </ComboBox>
+                        <Label text="Department"></Label>
+                         <ComboBox
+                            id="idDepartment"
+                            width="100%"
+                            showSecondaryValues="true"
+                            items="{
+                               path: '/UserMasterDept'
+                                }"
+                        >
+                            <core:ListItem
+                                key="{Dept_Desc}"
+                                text="{Dept_Desc}"
+                                additionalText="{Department}"
+                            />
+                        </ComboBox>
+                         <Label text="GA Code"></Label>
+                         <ComboBox
+                            id="idGaType"
+                            width="100%"
+                            showSecondaryValues="true"
+                            items="{
+                               path: '/GeographicalAreaMASTER',
+                               templateShareable: true
+                                }"
+                        >
+                            <core:ListItem
+                                key="{GA_Code}"
+                                text="{GA_Code}"
+                                additionalText="{GA_Description}"
+                            />
+                        </ComboBox>
+                         <Label text="Company Code"></Label>
+                         <ComboBox
+                            id="idUserEntity"
+                            width="100%"
+                            showSecondaryValues="true"
+                            items="{
+                               path: '/CompanyCode',
+                               templateShareable: true
+                                }"
+                        >
+                            <core:ListItem
+                                key="{BUKRS}"
+                                text="{BUKRS}"
+                                additionalText="{BUTXT}"
+                            />
+                        </ComboBox>
                     </l:content>
                 </l:Grid>
             </VBox>

@@ -13,7 +13,7 @@
     xmlns:card="sap.f.cards"
     xmlns:tnt="sap.tnt" displayBlock="true"
     xmlns="sap.m">
-    <Page id="page" title="Administrator" showHeader="false">
+    <Page id="pagse" title="Administrator" showHeader="false">
         <content>
             <f:GridList id="gridList" class="sapUiTinyMarginTop">
                 <f:GridListItem detailPress="onDetailPress" press="onPress" highlight="{Status}" type="{type}" class="sapUiTinyMarginBegin">
@@ -105,7 +105,7 @@
                             <FlexItemData growFactor="1" baseSize="0" styleClass="sapUiTinyMargin sapUiTinyMarginTop sapUiTinyMarginBottom" />
                         </f:layoutData>
                         <f:content>
-                            <chart:ChartContainer showFullScreen="true" showPersonalization="false" autoAdjustHeight="true" personalizationPress="attachPersonalizationPress" contentChange="attachContentChange" title="Vendor Enrollment vs Buyer Enrollment">
+                            <chart:ChartContainer showFullScreen="true" showPersonalization="false" autoAdjustHeight="true" personalizationPress="attachPersonalizationPress" contentChange="attachContentChange" title="Supplier Enrollment vs User Enrollment">
                                 <chart:content>
                                     <chart:ChartContainerContent icon="sap-icon://line-chart" title="Line Chart">
                                         <chart:content>
@@ -145,7 +145,7 @@
                             <FlexItemData growFactor="1" baseSize="0" styleClass="sapUiTinyMargin sapUiTinyMarginTop customCardMargin padding: 0;" />
                         </f:layoutData>
                         <f:content>
-                            <chart:ChartContainer showFullScreen="true" showPersonalization="false" autoAdjustHeight="true" personalizationPress="attachPersonalizationPress" contentChange="attachContentChange" title="Month-wise Buyer/Vendor Creations">
+                            <chart:ChartContainer showFullScreen="true" showPersonalization="false" autoAdjustHeight="true" personalizationPress="attachPersonalizationPress" contentChange="attachContentChange" title="Month-wise User/Supplier Creations">
                                 <chart:content>
                                     <chart:ChartContainerContent icon="sap-icon://line-chart" title="Line Chart">
                                         <chart:content>
@@ -183,7 +183,7 @@
         <FlexItemData growFactor="1" baseSize="0" styleClass="sapUiTinyMargin sapUiTinyMarginTop sapUiTinyMarginBottom" />
     </f:layoutData>
     <f:content>
-     <Table id="reqPendingTable" items="{approvalData>/}">
+     <Table id="reqPendingTable" items="{approvalData>/}" growing="true" growingThreshold="3">
     <headerToolbar>
         <Toolbar>
             <Title text="Requests Pending" />

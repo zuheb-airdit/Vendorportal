@@ -84,3 +84,867 @@
 .marginRight{
     margin-right: -9px;
 }
+
+.smallText{
+    font-size: xx-large;
+    color: #f7844f;
+}
+
+.password-input-container {
+    position: relative;
+}
+
+.password-visibility-toggle {
+    position: absolute;
+    top: 18px;
+    right: 10px;
+    transform: translateY(-50%);
+    cursor: pointer;
+
+}
+
+.errorTextPassword {
+    font-size: 12px;
+    color: red;
+    font-weight: 510;
+}
+
+.marginZero{
+    margin-left: -10px;
+    margin-right: -15px;
+}
+
+.sapMTableTHead{
+    color: #ef530b;
+}
+
+.text-head {
+    font-size: large;
+    font-weight: 900;
+}
+ 
+#__bar0-content {
+    background-color: white;
+    border: none;
+    outline: none;
+}
+ 
+.smallText {
+    font-size: 0.825rem;
+    /* Adjust the size as needed */
+}
+ 
+.smallTextComponents {
+    font-size: 0.7rem;
+}
+ 
+.smallTextStores {
+    font-size: 0.8rem !important;
+}
+ 
+/* project application first panel icon tab filter   */
+#mainSplitter-splitbar-0 {
+    display: none;
+}
+ 
+#detailsPanelss-content {
+    padding: 0px !important;
+}
+.custom-selected-item {
+    background-color: #F5F5F5; /* Light background for selected item */
+    border-left: 4px solid orange; /* Highlight border */
+    font-weight: bold; /* Bold text for emphasis */
+}
+.phoneIcon{
+    color: #ef6638;
+}
+ 
+/* project application- collapsed screen text */
+.largeTextIcon {
+    font-size: 0.725rem;
+}
+ 
+#table-uploadSet-projects{
+    padding: 0px !important;
+}
+ 
+/* project application- collapsed second panel Assets screen text */
+.detailedAssetsPart {
+    font-size: 0.70rem;
+}
+ 
+.__bar4-content {
+    background-color: transparent;
+}
+ 
+/* panel size reducing for assetsIcon */
+.sapMPanelBGSolid {
+    padding: 0px !important;
+}
+ 
+.basicProjectDetail {
+    padding: 10px;
+}
+ 
+/* project application-  */
+ 
+.mapIframe {
+    outline: none;
+    border: none;
+}
+ 
+.assetsListVbox {
+    border-radius: 1rem;
+    border-color: black;
+    box-shadow: 0 0 .125rem 0 rgba(252, 201, 49, 0.2), 0 .125rem .25rem 0 rgba(34, 53, 72, 0.2);
+}
+ 
+.customListAssets:focus,
+.customListAssets {
+    outline: none !important;
+    border-bottom: none !important;
+    background: none !important;
+}
+ 
+.assetsListVbox:focus {
+    outline: 0.125rem solid #0032a5;
+    /* outline-offset: calc(-0.125rem - 0.0625rem); */
+}
+ 
+.assetsListVboxSelected {
+    outline: 2px solid blue;
+}
+ 
+/* Password icon in Change Password Fragment */
+ 
+.password-input-container {
+    position: relative;
+}
+ 
+.password-visibility-toggle {
+    position: absolute;
+    top: 18px;
+    right: 10px;
+    transform: translateY(-50%);
+    cursor: pointer;
+}
+ 
+.errorTextPassword {
+    font-size: 12px;
+    color: red;
+    font-weight: 510;
+}
+ 
+/* dashboard app-first card */
+#__card0 {
+    width: 100%;
+    /* height: 355px; */
+}
+ 
+/* user profile avatar file uploader hiding fn */
+#fileUploader,
+#fileUploaderEdit,
+#fileUploaderCreateVendor {
+    display: none;
+}
+ 
+.hideUploader {
+    display: none;
+}
+ 
+#dailogCreateUser {
+    background-color: aliceblue;
+}
+ 
+/* administrator user image  */
+.userImg {
+    border-radius: 50%;
+}
+ 
+/* user assignment in project app */
+.userAssignmentDialog,
+#userAssignmentDialog1-cont {
+    overflow: hidden !important;
+}
+ 
+.customList {
+    height: 400px;
+    overflow-y: auto;
+    padding-bottom: 45px;
+}
+ 
+.defaultButton {
+    background-color: transparent;
+    font-style: inherit;
+    rotate: 90deg;
+}
+ 
+.defaultButton span {
+    border: none !important;
+    border-radius: 5px !important;
+    background: transparent;
+    font-size: 14px !important;
+}
+.selectedItemTile{
+    background-color: #FEF0EA;
+}
+ 
+.defaultButton span::before {
+    outline: none !important;
+    border: none !important;
+    text-shadow: none !important;
+}
+ 
+.defaultButton:active,
+.defaultButton span:active {
+    background-color: transparent !important;
+}
+ 
+ 
+ 
+/* Projects - Stores */
+.defaultButtonState {
+    width: 100px;
+    border-radius: 5px !important;
+    background-color: #E5E4E2;
+    margin: 0px 0px;
+    margin-right: 20px;
+}
+ 
+.defaultButtonState span {
+    border: none !important;
+    border-radius: 5px !important;
+    background: #E5E4E2 !important;
+    color: black !important;
+    /* text color */
+}
+ 
+.defaultButtonState span::before {
+    outline: none !important;
+    border: none !important;
+    text-shadow: none !important;
+}
+ 
+.selectedButton {
+    background-color: #f59942 !important;
+    /* Selected background color */
+    color: white;
+    /* Selected text color */
+}
+ 
+.selectedButton span {
+    background: #f59942 !important;
+    color: white !important;
+}
+ 
+/* store components in project app */
+.componentsStores {
+    box-shadow: 0px 1px 6px 0px rgba(0, 0, 0, 0.30);
+}
+ 
+.boldText {
+    font-weight: 800;
+}
+ 
+.sapSuiteUiCommonsImageEditorContainerPanel {
+    display: none;
+}
+ 
+/* panel scrollbar in projects application */
+.thin-scrollbar {
+    scrollbar-color: auto !important;
+}
+ 
+/* filter count icon in projects application */
+.filterBadge {
+ 
+    background-color: red;
+ 
+    color: RED;
+ 
+    border-radius: 50%;
+ 
+    padding: 0.3rem 0.3rem;
+ 
+    font-size: 0.8rem;
+ 
+    position: absolute;
+ 
+    top: 0px;
+ 
+    right: -3px;
+ 
+    display: flex;
+ 
+    align-items: center;
+ 
+    justify-content: center;
+ 
+}
+ 
+ 
+ 
+ 
+ 
+/* Panel 3 list item in project application */
+ 
+.previewBox,.previewBoxActivity {
+ 
+    padding: 5px;
+ 
+    border-radius: 8px;
+ 
+}
+ 
+ 
+ 
+.previewItem ,.previewItemActivity {
+ 
+    padding: 10px;
+ 
+    border: 1px solid #ccc;
+ 
+    border-radius: 8px;
+ 
+    margin-bottom: 20px;
+ 
+    transition: box-shadow 0.3s ease-in-out;
+ 
+}
+ 
+ 
+ 
+.previewItem:hover ,.previewItemActivity:hover {
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+ 
+ 
+ 
+.previewTitle {
+    font-size: 14px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 12px;
+}
+ 
+ 
+ 
+.previewContent {
+ 
+    margin-top: 8px;
+ 
+}
+ 
+ 
+ 
+.previewText {
+ 
+    font-size: 12px;
+    color: #666;
+    line-height: 1.6;
+ 
+}
+ 
+.previewTextHintInfo {
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 1.6;
+}
+ 
+.ProductList {
+ 
+    margin: 20px 0px;
+ 
+}
+ 
+/* Panel 1 alternate VBOX styling */
+ 
+.objectNumberCount {
+    min-width: 1.0rem;
+    max-width: 2.5rem;
+    background: #f38357;
+    text-align: center;
+    border-radius: 50%;
+    margin: 0px;
+    height: 17px;
+    display: flex;
+    padding: 3px;
+    font-weight: 500;
+    font-size: 11px;
+    align-items: center;
+    justify-content: center;
+    align-content: center !important;
+    color: white !important;
+}
+ 
+.objectNumberCountVbox {
+    position: absolute;
+    top: 25px;
+    right: 15px;
+}
+ 
+.objectNumberCountexpand {
+    height: 20px !important;
+}
+ 
+.VboxSmallContainer {
+ 
+    position: relative;
+ 
+}
+ 
+.middleText {
+    text-align: center !important;
+    margin: 10px 0px;
+}
+ 
+.textBold {
+    font-size: 13px;
+    font-weight: 600;
+}
+ 
+.qcstatustext,
+.dateText {
+    font-size: 0.8em;
+}
+ 
+.objectNumVbox {
+    position: absolute;
+    top: 50%;
+    right: -5%;
+}
+ 
+#assetListItem-content {
+    overflow: hidden !important;
+    padding-bottom: 50px;
+}
+ 
+.filterBadgeQC {
+ 
+    height: 9px;
+ 
+    /* background: #ffffff; */
+    border-radius: 50%;
+    /* padding: 0.5rem 0.56rem; */
+    text-wrap: nowrap;
+    font-size: 0.5rem;
+    font-weight: 900;
+    position: absolute;
+    top: 16px;
+    touch-action: none;
+    cursor: pointer;
+    /* width: 37px;*/
+    color: #0070f2;
+    right: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+ 
+ 
+/* project Stores Page */
+.projectStorePage {
+    overflow: hidden !important;
+}
+ 
+.searchFieldHeight {
+    height: 28px !important;
+}
+ 
+#iconTabBar,
+.iconTabBar {
+    background-color: white !important;
+}
+ 
+.tableContainer {
+    overflow-y: hidden;
+    overflow-x: auto;
+    background-color: white;
+    box-shadow: 16px 20px 50px -45px rgba(0, 0, 0, 0.75);
+}
+ 
+ 
+ 
+/* Stores Page Application */
+.storesScrollContainer {
+    background-color: white;
+}
+ 
+/* .storesDepTable{
+    padding-bottom: 10px;
+} */
+ 
+/* .sapMPageHeader, .sapTntNL{
+    background-color: #f38357;
+}
+ .abc{
+    background-color: #f38357 !important;
+} */
+/* .ccc{
+    background-color: #f2662c !important;
+} */
+ 
+.new {
+    background-color: #0032a5;
+}
+ 
+ 
+/* Sanjay */
+ 
+/* For Secondary key */
+.sapTntNLISecondLevel {
+    margin-left: .5rem;
+}
+ 
+/* For Icons */
+.sapMBtnIconLeft,
+.sapMSLITitle,
+.sapMGrowingListDescription.sapMSLIDescription {
+    color: #ef6638 !important;
+}
+ 
+/* For Emphasized buttons (Go) */
+.sapMBtnEmphasized {
+    background-color: #ef6638 !important;
+    border: none !important;
+    color: white !important;
+}
+ 
+/* Style the button content to ensure text color remains white */
+.sapMBtnEmphasized .sapMBtnContent {
+    color: white !important;
+}
+ 
+/* Style the inner part of the button to maintain consistency */
+.sapMBtnEmphasized .sapMBtnInner {
+    color: white !important;
+}
+ 
+/* For Selected key */
+.sapTntNLISelected {
+    background-color: #feede2 !important;
+}
+ 
+/* For Seleted Key  */
+.sapTntNLISelected .sapTntNLIText {
+    color: #ef6638 !important;
+}
+ 
+.sapTntNLISelected .sapUiIcon {
+    color: #ef6638 !important;
+}
+ 
+/* For Dot */
+.sapTntNLISelectionIndicator {
+    color: #ef6638 !important;
+}
+ 
+ 
+/* For All text */
+.sapMBtnText {
+    color: #ef6638 !important;
+}
+ 
+/* For Avatar */
+.sapFAvatar.sapFAvatarColorAccent6 {
+    background-color: #feede2 !important;
+    color: #ef6638 !important;
+    border-color: #ef6638 !important;
+}
+ 
+.sapMFocusable,
+.sapMBtnHoverable {
+    border-color: #ef663800 !important;
+}
+ 
+/* For table select secondary */
+.sapMLIBSelected+.sapMListTblSubRow,
+.sapMLIBSelected.sapMListTblRowAlternate+.sapMListTblSubRow {
+    background-color: #feede2 !important;
+}
+ 
+ 
+.sapMFocusable:focus,
+.sapMBtnHoverable:focus {
+    border-color: #ef663800 !important;
+    outline: none !important;
+}
+ 
+.sapMBtnContent {
+    color: #ef6638 !important;
+}
+ 
+.sapMBtnInner {
+    color: white !important;
+}
+ 
+ 
+.sapMBtnInner.sapMBtnHoverable.sapMFocusable.sapMBtnIconFirst.sapMToggleBtnPressed.sapMBtnTransparent {
+    background-color: #fcdcca !important;
+    /* Set the desired background color */
+}
+ 
+/* Remove focus styles globally */
+.sapMBtn:focus>.sapMFocusable:not(.sapMBadgeIndicator):before {
+    border-color: #ef6638 !important;
+}
+ 
+.sapMRbSel .sapMRbBInn {
+    fill: #ef6638 !important;
+}
+ 
+ 
+.sapMRbBInn:hover {
+    background-color: #ffeee3 !important;
+}
+ 
+/* .sapMRbB,
+ .sapMRbHoverable{
+    background-color: #ffeee3 !important;
+} */
+ 
+.sapMLIB.sapMLIBSelected {
+    border-bottom: .0625rem solid #ef6638 !important;
+    background-color: #ffeee3 !important;
+}
+ 
+.sapMTableTBody:not(.sapMListTblHasPopin)>.sapMLIBSelected,
+.sapMTableTBody.sapMListTblHasPopin>.sapMLIBSelected+.sapMListTblSubRow {
+    box-shadow: none;
+}
+ 
+.sapMRb:focus:before {
+    border: #ef6638;
+}
+ 
+.sapFDynamicPageTitle,
+.sapFDynamicPageT1tleFocus {
+    outline: #ef6638 !important;
+}
+ 
+/* Custom focus style for the specific elements */
+.sapMRb.sapMRbSel.sapMLIBSelectS:focus::before,
+.saspMRbB.sapMRbHoverable:focus::before,
+.sapMRbB:focus::before {
+    outline: 2px solid #f59166 !important;
+    /* Adds an orange outline on focus */
+    box-shadow: none !important;
+    /* Removes default shadow, if any */
+}
+ 
+.sapMFocus:focus {
+    outline: #ef6638 !important;
+}
+ 
+.sapTntNLI:not(.sapTntNLIDisabled).sapTntNLISelected::before {
+    outline: none;
+}
+ 
+.sapMInputFocus:focus {
+    outline: #ef6638 !important;
+}
+ 
+.sapUiLocalBusyIndicatorAnimation>div::before {
+    background: #ef6638 !important;
+}
+ 
+.sapFCardHeader.sapFCardHeaderHasIcon {
+    background-color: #ef6638 !important;
+}
+ 
+/* Table Header */
+.sapMTableTH {
+    background-color: #FEF0EA !important;
+}
+ 
+/* Text color */
+.sapUiTableHeaderDataCell .sapMLabel,
+.sapMListTbl .sapMColumnHeader .sapMLabel,
+.sapUiTableHeaderDataCell .sapMText,
+.sapMColumnHeader .sapMText {
+    color: rgb(0, 0, 0) !important;
+}
+ 
+/* Table Header Hover */
+.sapMColumnHeaderActive:hover {
+    background-color: #fabe9b !important;
+    /* box-shadow: ; */
+}
+ 
+/* For Icon tab bar */
+.sapMITBFilterDefault {
+    color: #ef6638 !important;
+    border-color: #ef6638 !important;
+}
+ 
+/* For Icon tab bar (Border) */
+.sapMITH .sapMITBSelected .sapMITBContentArrow::after{
+    background: #ef6638;
+}
+ 
+/* Icon tab bar */
+.sapMITBTextOnly .sapMITBFilterDefault.sapMITBSelected .sapMITBText {
+    color: #ef6638 !important;
+}
+ 
+.sapMITHTextContent::after{
+    color: #ef6638 !important;
+}
+ 
+.sapMITBFilterWrapper:hover{
+    color: #ed734a !important;
+}
+ 
+/* Icon tab bar hover */
+.sapMITBFilterWrapper:hover .sapMITHTextContent {
+    color: #ed734a !important;
+}
+ 
+/* For Focus */
+/* .sapMITBInLine.sapMITBTextOnly .sapMITBHead .sapMITBVertical.sapMITBFilter:focus {
+    outline: #ed734a !important;
+} */
+ 
+ 
+/* .sapMITBInLine.sapMITBTextOnly .sapMITBHead .sapMITBVertical.sapMITBFilter {
+    outline: #ed734a !important;
+} */
+ 
+/* ---------------------------------------------------------------- ICONS ----------------------------------------------------------------------- */
+ 
+ 
+@font-face {
+    font-family: 'icomoon';
+    src: url('../icons/icons.woff') format('woff');
+}
+ 
+[class^="icon-"],
+[class*=" icon-"] {
+    font-family: 'icomoon';
+}
+ 
+.formattedTextWrapping {
+    word-wrap: break-word;
+    white-space: normal;
+    overflow-wrap: break-word;
+}
+ 
+ 
+/* field user filter button in activity */
+.filterBtnField{
+    margin-top: 5px;
+    background-color: #f38357 !important ;
+    color: white !important;
+}
+.filterBtnField span {
+   
+    background: #f38357 !important;
+    color: white !important;
+    /* text color */
+}
+ 
+/* bottom to top button */
+.toTop{
+    position: fixed;
+    bottom: 35px;
+    right: 20px;
+    background: #ef6638;
+    border-radius: 20px;
+    z-index: 1000;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+}
+.toTop span{
+    background: #ef6638 !important;
+    border-radius: 20px;    
+    border: none !important;
+}
+.toTop span span{
+    color:white !important
+}
+ 
+.toTop span::before {
+    outline: none !important;
+    border: none !important;
+    text-shadow: none !important;
+}
+ 
+.toTop:active,
+.toTop span:active,
+.toTop span span:active,
+.toTop span span:hover,
+.toTop span span::before
+.toTop:hover {
+    background-color: #ef6638 !important;
+}
+ 
+ 
+/* Activity form Edit Fild Details */
+ 
+.formWidgetHbox{  
+    padding: 3px;
+    align-items: center;
+    color: #575962;
+    background-color: #ede4e43d;
+    border: 1px solid #e1dbdb;
+    border-radius: 20px;
+    transition: transform 0.3s ease;
+}
+.formWidgetHbox:hover{    
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    background-color: white;
+    transition: transform 0.3s ease;
+    transform: scale(1.06);
+}
+.formWidgetsText{
+    font-weight: 700;
+    margin-top: 5px;
+}
+.formWidgetHbox:hover .formWidgetsText{
+    color: #ef6638;
+    transition: transform 0.3s ease;
+}
+.formWidgetHbox:hover .formWidgetsIcon{
+    transform: scale(1.2);
+    transition: transform 0.3s ease;
+}
+ 
+.mandatoryField{
+    margin-left: 5px;
+    color: red;
+    margin-bottom: 12px;
+}
+.actionIcon{
+    display: none !important;
+}
+.previewItemActivity:hover  .actionIcon{
+    display: inline-block !important;
+}
+.previewItemActivityStatic {
+    padding: 2px;
+    border: 1px solid #ccc;
+    transition: box-shadow 0.3s ease-in-out;
+}
+.previewItemActivityStatic:hover {
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+.ActFieldVbox{
+    background-color: #f38357 !important;
+}
+.ActFieldVbox .listItemsActivity{
+    color: white !important;
+}
+ 
+/* for activity field Details  */
+.tableHeadingList{
+    background-color:rgb(72, 171, 247) !important;
+}
+.tableBreakList{
+    background-color: #ffeee3 !important;
+}
+.headingTitle{
+    color: white !important;
+}
+.tableBreakText{
+    font-weight: 600;
+}
+ 

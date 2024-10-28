@@ -1,0 +1,95 @@
+<mvc:View
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:smartTable='sap.ui.comp.smarttable'
+    xmlns:table="sap.ui.table"
+    controllerName="com.air.vp.lnchpage.controller.SuppliersList"
+>
+    <Page
+        title="Suppliers List"
+        showHeader="true"
+        navButtonPress="onNavPress"
+        showNavButton="true"
+    >
+        <content>
+            <Table
+                selectionChange="selectionChangeHandlerWorkflow"
+                id="idInvitefdTabledsf"
+                growing="true"
+                growingThreshold="10"
+                items="{supplierModel>/results}"
+            >
+                <headerToolbar>
+                    <Toolbar>
+                        <Title text="Supplier List" />
+                        <ToolbarSpacer />
+                        <SearchField
+                            id="searchField"
+                            width="20rem"
+                            search="onSearch"
+                            placeholder="Search Supplier..."
+                        />
+                    </Toolbar>
+                </headerToolbar>
+
+                <columns>
+                    <Column>
+                        <Label
+                            text="Supplier Number"
+                            wrapping="true"
+                        />
+                    </Column>
+                    <Column>
+                        <Label
+                            text="Supplier Name"
+                            wrapping="true"
+                        />
+                    </Column>
+                    <Column>
+                        <Label
+                            text="Supplier Full Name"
+                            wrapping="true"
+                        />
+                    </Column>
+                    <Column>
+                        <Label
+                            text="Supplier Account Group"
+                            wrapping="true"
+                        />
+                    </Column>
+                    <Column>
+                        <Label
+                            text="Creation Date"
+                            wrapping="true"
+                        />
+                    </Column>
+                    <Column>
+                        <Label
+                            text="Created By User"
+                            wrapping="true"
+                        />
+                    </Column>
+                </columns>
+
+                <items>
+                    <ColumnListItem
+                        vAlign="Middle"
+                        type="Navigation"
+                        press="handleProcessTable_RowClickReperts"
+                    >
+                        <cells>
+                            <Text text="{supplierModel>Supplier}" />
+                            <Text text="{supplierModel>SupplierName}" />
+                            <Text text="{supplierModel>SupplierFullName}" />
+                            <Text text="{supplierModel>SupplierAccountGroup}" />
+                            <Text
+                                text="{path: 'supplierModel>CreationDate', formatter: '.formatDate'}"
+                            />
+                            <Text text="{supplierModel>CreatedByUser}" />
+                        </cells>
+                    </ColumnListItem>
+                </items>
+            </Table>
+        </content>
+    </Page>
+</mvc:View>

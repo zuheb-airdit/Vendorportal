@@ -1,0 +1,27 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+    <Dialog id="editGATypeDialog" title="Edit GA Type" stretch="false">
+        <content>
+            <VBox class="sapUiMediumMargin">
+                <Label text="GA Type" />
+                <!-- Bind the value to the selected GA Type's data -->
+                <Input id="editGATypeInput" value="{selectedGAType>CODE}" placeholder="Edit GA Type" />
+
+                <Label text="GA Type Description" class="sapUiSmallMarginTop"/>
+                <!-- Bind the value to the selected GA Type's description -->
+                <Input id="editGATypeDescInput" value="{selectedGAType>DESCRIPTION}" placeholder="Edit GA Type Description" />
+
+                <Label text="Company" class="sapUiSmallMarginTop"/>
+                <!-- Bind the value to the selected GA Type's company -->
+                <Input id="editGATypeCompanyInput" value="{selectedGAType>COMPANY}" placeholder="Edit Company" />
+            </VBox>
+        </content>
+        <beginButton>
+            <!-- Save button for submitting changes -->
+            <Button text="Save" press="onEditGAType" />
+        </beginButton>
+        <endButton>
+            <!-- Cancel button to close the dialog -->
+            <Button text="Cancel" press="onCancelDialog" />
+        </endButton>
+    </Dialog>
+</core:FragmentDefinition>

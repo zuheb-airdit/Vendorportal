@@ -29,7 +29,7 @@
                 <!--	<Text text="{i18n>title}" class="pageTitleClass"/>-->
                 <!--</HBox>-->
                 <Title
-                    text="Vendor Portal Cockpit"
+                    text="Supplier Portal Cockpit"
                     wrapping="false"
                     id="productName"
                 >

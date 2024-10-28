@@ -12,10 +12,23 @@ sap.ui.define([
                 this.getView().setModel(oModel);
                 this.getOwnerComponent().getRouter().getRoute("Routeworkflow").attachPatternMatched(this.onObjectMatchedS, this);
 
+                const customizeConfig = {
+                    autoColumnWidth: {
+                        '*': { min: 2, max: 8, gap: 1, truncateLabel: false },
+                        'REASSIGN_FLAG': { min: 2, max: 6, gap: 1, truncateLabel: false },
+                        'DEPARTMENT': { min: 2, max: 6, gap: 1, truncateLabel: false },
+                        "REGISTERED_ID": { min: 2, max: 11, gap: 1, truncateLabel: false },
+                        // 'STATUS': { min: 2, max: 3, gap: 1, truncateLabel: false },
+                        // "BP_TYPE_CODE": { min: 2, max: 8, gap: 1, truncateLabel: false }
+                    }
+                };
+                this.oSmartTable = this.getView().byId('idSmartTableReqManagementWork');
+                this.oSmartTable.setCustomizeConfig(customizeConfig);
+
             },
-            onObjectMatchedS: function () {
-                this.byId("idSmartTableReqManagementInvitedd").rebindTable();
-            },
+            // onObjectMatchedS: function () {
+            //     this.byId("idSmartTableReqManagementInvitedd").rebindTable();
+            // },
 
             // onBeforrebindWorkflpw: function(oEvent){
             //     debugger;
@@ -76,6 +89,17 @@ sap.ui.define([
                 this.getView().byId(
                     "idReAssign"
                 ).setEnabled(true);
+            },
+            onSearchRequestNoWorkflow: function (oEvent) {
+                debugger;
+                let req = oEvent.getParameter("query");
+                var oSmartTable = this.byId("idSmartTableReqManagementWork");
+                var oBinding = oSmartTable.getTable().getBinding("items");
+                var aFilters = [];
+                if (req) {
+                    aFilters.push(new sap.ui.model.Filter("REQUEST_NO", sap.ui.model.FilterOperator.EQ, req));
+                }
+                oBinding.filter(aFilters);
             },
             onSelectionofReassignEmail: function (oEvent) {
                 debugger;

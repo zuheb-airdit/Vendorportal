@@ -65,8 +65,8 @@
                     </Record>
                     
                     <Record Type="UI.DataField" >
-                        <PropertyValue Property="Value" Path="COMPANY_CODE"/>
-                        <PropertyValue Property="Label" String="Company Code"/>
+                        <PropertyValue Property="Value" Path="DEPARTMENT"/>
+                        <PropertyValue Property="Label" String="Department"/>
                     </Record>
                     <Record Type="UI.DataField">
                         <PropertyValue Property="Value" Path="VENDOR_ACCOUNT_GROUP"/>
@@ -78,6 +78,37 @@
                         <PropertyValue Property="Label" String="Re-Assign"/>
 
                     </Record>
+                    
+                </Collection>
+            </Annotation>
+        </Annotations>
+        <Annotations Target="SAP.RequestReport">
+              <Annotation Term="UI.LineItem" >
+                <Collection>
+                    <!-- <Record Type="UI.DataField">
+                        <PropertyValue Property="Value" Path="REQUEST_NO"/>
+                        <PropertyValue Property="Label" String="Request Number"/>
+                    </Record> -->
+                
+                    <!-- <Record Type="UI.DataField">
+                        <PropertyValue Property="Value" Path="COMPANY_CODE"/>
+                        <PropertyValue Property="Label" String="Company Code"/>
+                    </Record> -->
+                    <Record Type="UI.DataField">
+                        <PropertyValue Property="Value" Path="REGISTERED_ID"/>
+                        <PropertyValue Property="Label" String="Vendor Email"/>
+                    </Record>
+                    
+                    <Record Type="UI.DataField" >
+                        <PropertyValue Property="Value" Path="DEPARTMENT"/>
+                        <PropertyValue Property="Label" String="Department"/>
+                    </Record>
+                    <Record Type="UI.DataField">
+                        <PropertyValue Property="Value" Path="VENDOR_ACCOUNT_GROUP"/>
+                        <PropertyValue Property="Label" String="Vendor Account Type"/>
+
+                    </Record>
+
                     
                 </Collection>
             </Annotation>

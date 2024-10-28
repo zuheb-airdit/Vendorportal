@@ -1,0 +1,24 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+    <Dialog id="editAccountTypeDialog" title="Edit Account Type" stretch="false">
+        <content>
+            <VBox class="sapUiMediumMargin">
+                <!-- Account Group Input Field (non-editable) -->
+                <Label text="Account Group" />
+                <Input id="editAccountGroupInput" enabled="false" />
+
+                <Label text="Description" />
+                <Input id="editDescriptionInput" />
+
+                <!-- Required Documents TextArea -->
+                <Label text="Required Documents" class="sapUiSmallMarginTop"/>
+                <TextArea id="editRequiredDocsInput" growing="true" growingMaxLines="5" width="20rem" />
+            </VBox>
+        </content>
+        <beginButton>
+            <Button text="Save" press="onSaveEditAccountType" />
+        </beginButton>
+        <endButton>
+            <Button text="Cancel" press="onCancelEditDialog" />
+        </endButton>
+    </Dialog>
+</core:FragmentDefinition>

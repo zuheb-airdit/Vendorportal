@@ -8,8 +8,10 @@
     displayBlock="true"
     xmlns:f="sap.f"
     xmlns="sap.m"
+    xmlns:upload="sap.m.upload"
+    xmlns:u="sap.ui.unified"
 >
-    <f:DynamicPage id="dynamicPageId">
+    <f:DynamicPage>
         <f:title>
             <f:DynamicPageTitle>
                 <f:heading>
@@ -79,11 +81,21 @@
                             press="onEditUserMaster"
                             enabled="false"
                         />
-                        <Button
+ <Button
                             id="idDeleteUserMaster"
                             text="Delete"
                             press="onDeleteUserMaster"
                             enabled="false"
+                        />
+                        <!-- File Uploader - No need to hide -->
+                        <u:FileUploader
+                            id="fileUploader"
+                            change="onFileSelected"
+                            fileType="xlsx,csv"
+                            buttonOnly="true"
+                           buttonText="Upload"
+                           uploadComplete="onFileSelected"
+
                         />
                     </OverflowToolbar>
                 </smartTable:customToolbar>
@@ -91,9 +103,11 @@
                     id="idTableUserMaster"
                     mode="SingleSelectLeft"
                     selectionChange="selectionChangeHandler"
+                    growing="true"
+                    growingThreshold="10"
                 >
                     <columns>
-                        <Column>
+                        <!-- <Column>
                             <customData>
                                 <core:CustomData
                                     key="p13nData"
@@ -104,7 +118,7 @@
                                 text="Company Code"
                                 wrapping="false"
                             />
-                        </Column>
+                        </Column> -->
                         <Column>
                             <customData>
                                 <core:CustomData
@@ -137,7 +151,7 @@
                             press="handleProcessTable_RowClick"
                         >
                             <cells>
-                                <core:Icon
+                                <!-- <core:Icon
                                     src="sap-icon://credit-card"
                                     press="onOpenCompanycode"
                                     class="size1"
@@ -147,14 +161,15 @@
                                     <core:layoutData>
                                         <FlexItemData growFactor="1" />
                                     </core:layoutData>
-                                </core:Icon>
-                                
-                                  <core:Icon
-                                    src="sap-icon://add-employee"
+                                </core:Icon> -->
+
+                                <core:Icon
+                                    src="sap-icon://person-placeholder"
                                     press="onOpenUserRole"
                                     class="size1"
                                     color="#f7844f"
                                     tooltip="Role Info"
+                                
                                 >
                                     <core:layoutData>
                                         <FlexItemData growFactor="1" />

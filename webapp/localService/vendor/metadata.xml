@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="1.0" xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx" xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" xmlns:sap="http://www.sap.com/Protocols/SAPData">
+    <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/Common.xml" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+        <edmx:Include Alias="Common" Namespace="com.sap.vocabularies.Common.v1"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Core.V1.xml" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+        <edmx:Include Alias="Core" Namespace="Org.OData.Core.V1"/>
+    </edmx:Reference>
+    <edmx:DataServices m:DataServiceVersion="2.0">
+        <Schema Namespace="VendorService" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+            <EntityContainer Name="EntityContainer" m:IsDefaultEntityContainer="true">
+                <EntitySet Name="EmailConfiguration" EntityType="VendorService.EmailConfiguration"/>
+                <FunctionImport Name="testEmailConfig" ReturnType="Edm.String" m:HttpMethod="POST">
+                    <Parameter Name="ToEmails" Type="Edm.String" Mode="In" Nullable="true"/>
+                    <Parameter Name="CCEmail" Type="Edm.String" Mode="In" Nullable="true"/>
+                    <Parameter Name="subject" Type="Edm.String" Mode="In" Nullable="true"/>
+                    <Parameter Name="body" Type="Edm.String" Mode="In" Nullable="true"/>
+                    <Parameter Name="type" Type="Edm.String" Mode="In" Nullable="true"/>
+                </FunctionImport>
+                <FunctionImport Name="updateEmailConfig" ReturnType="Edm.String" m:HttpMethod="POST">
+                    <Parameter Name="host" Type="Edm.String" Mode="In" Nullable="true"/>
+                    <Parameter Name="username" Type="Edm.String" Mode="In" Nullable="true"/>
+                    <Parameter Name="password" Type="Edm.String" Mode="In" Nullable="true"/>
+                    <Parameter Name="port" Type="Edm.Int32" Mode="In" Nullable="true"/>
+                    <Parameter Name="secure" Type="Edm.Boolean" Mode="In" Nullable="true"/>
+                    <Parameter Name="senderEmail" Type="Edm.String" Mode="In" Nullable="true"/>
+                </FunctionImport>
+                <FunctionImport Name="CreateRole" ReturnType="Edm.String" m:HttpMethod="POST">
+                    <Parameter Name="CODE" Type="Edm.String" MaxLength="25" Mode="In" Nullable="true"/>
+                    <Parameter Name="DESCRIPTION" Type="Edm.String" MaxLength="100" Mode="In" Nullable="true"/>
+                </FunctionImport>
+                <FunctionImport Name="DeleteRole" ReturnType="Edm.String" m:HttpMethod="POST">
+                    <Parameter Name="CODE" Type="Edm.String" MaxLength="25" Mode="In" Nullable="true"/>
+                </FunctionImport>
+                <FunctionImport Name="CreateDepartment" ReturnType="Edm.String" m:HttpMethod="POST">
+                    <Parameter Name="Department" Type="Edm.String" Mode="In" Nullable="true"/>
+                </FunctionImport>
+                <FunctionImport Name="DeleteDepartment" ReturnType="Edm.String" m:HttpMethod="POST">
+                    <Parameter Name="Department" Type="Edm.String" Mode="In" Nullable="true"/>
+                </FunctionImport>
+            </EntityContainer>
+            <EntityType Name="EmailConfiguration">
+                <Key>
+                    <PropertyRef Name="SR_NO"/>
+                </Key>
+                <Property Name="SR_NO" Type="Edm.Int32" Nullable="false"/>
+                <Property Name="HOST" Type="Edm.String" MaxLength="100"/>
+                <Property Name="PORT" Type="Edm.Int32"/>
+                <Property Name="SECURE" Type="Edm.Boolean"/>
+                <Property Name="SENDER_EMAIL" Type="Edm.String" MaxLength="100"/>
+                <Property Name="USERNAME" Type="Edm.String" MaxLength="100"/>
+                <Property Name="PASSWORD" Type="Edm.String" MaxLength="100"/>
+                <Property Name="CREATED_ON" Type="Edm.DateTimeOffset" Precision="7"/>
+            </EntityType>
+        </Schema>
+    </edmx:DataServices>
+</edmx:Edmx>

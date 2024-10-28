@@ -7,12 +7,25 @@ sap.ui.define([
 
         return Controller.extend("com.air.vp.lnchpage.controller.ApprovalMatrix", {
             onInit: function () {
+                debugger;
                 let oModel = this.getOwnerComponent().getModel();
                 this.getView().setModel(oModel);
+
                 let approvalMatrix = []
                 var hierarchyModel = new sap.ui.model.json.JSONModel({ jsonObjects: approvalMatrix });
                 this.getView().setModel(hierarchyModel, "hierarchydata");
                 this._isBox1FullWidth = true;
+                let usermodel = this.getOwnerComponent().getModel("user-master");
+                this.getView().setModel(usermodel,"userModel")
+                // usermodel.read("/GeographicalAreaMASTER",{
+                //     success: function(res){
+                //       let newGAModel = new sap.ui.model.json.JSONModel({Ga: res.results});
+
+                //     },
+                //     error : function(err){
+                //         debugger;
+                //     }
+                // })
 
                 const customizeConfig = {
                     autoColumnWidth: {
@@ -32,29 +45,133 @@ sap.ui.define([
 
 
             onCreateApproval: function () {
-                let oModel = this.getView().getModel("hierarchydata")
-                oModel.setData({ jsonObjects: [] })
-                this.byId("idCompanyApproval").setValue("");
-                this.byId("idCompoBoxReq").setSelectedKey("");
-                this.byId("idEditApproval").setVisible(false)
-                var oBox1 = this.byId("box1");
-                var oBox2 = this.byId("box2");
+                debugger;
+                let oModel = this.getView().getModel()
+                // oModel.setData({ jsonObjects: [] })
+                // this.byId("idCompanyApproval").setValue("");
+                // this.byId("idCompoBoxReq").setSelectedKey("");
+                // this.byId("idEditApproval").setVisible(false)
+                // var oBox1 = this.byId("box1");
+                // var oBox2 = this.byId("box2");
 
-                if (this._isBox1FullWidth) {
-                    oBox1.getLayoutData().setSize("300px");
-                    oBox2.getLayoutData().setSize("auto");
-                } else {
-                    oBox1.getLayoutData().setSize("auto");
-                    oBox2.getLayoutData().setSize("0px");
+                // if (this._isBox1FullWidth) {
+                //     oBox1.getLayoutData().setSize("300px");
+                //     oBox2.getLayoutData().setSize("auto");
+                // } else {
+                //     oBox1.getLayoutData().setSize("auto");
+                //     oBox2.getLayoutData().setSize("0px");
+                // }
+
+                // this._isBox1FullWidth = !this._isBox1FullWidth;
+                // oModel.read("/VMUsers", {
+                //     success: function (res) {
+                //         var mdmData = res.results.filter(function (item) {
+                //             return item.USER_ROLE === "MDM"; // Adjust "MDM" to the role that represents MDM
+                //         });
+
+                //         var approverData = res.results.filter(function (item) {
+                //             return item.USER_ROLE === "APPROVER"; // Adjust "APPROVER" to the role that represents Approver
+                //         });
+
+                //         // Creating JSON models
+                //         var oMdmModel = new sap.ui.model.json.JSONModel({ Mdm: mdmData });
+                //         var oApproverModel = new sap.ui.model.json.JSONModel({ Approver: approverData });
+
+                //         // Setting the models to the view (adjust as necessary)
+                //         this.getView().setModel(oMdmModel, "MdmModel");
+                //         this.getView().setModel(oApproverModel, "ApproverModel");
+                //         debugger;
+                //     }.bind(this),
+                //     error: function (err) {
+                //         debugger;
+                //     }
+                // })
+                if (!this.createFragment) {
+                    this.createFragment = sap.ui.xmlfragment("com.air.vp.lnchpage.fragments.ApprovalMatrix.createApprovalMatrix", this);
+                    this.getView().addDependent(this.createFragment);
                 }
+                this.createFragment.open();
+            },
+            onValueHelpClicked: function () {
+                if (!this.createFragmentValue) {
+                    this.createFragmentValue = sap.ui.xmlfragment("com.air.vp.lnchpage.fragments.ApprovalMatrix.valueHelpForDepartment", this);
+                    this.getView().addDependent(this.createFragmentValue);
+                }
+                this.createFragmentValue.open();
+            },
+            onCloseofApprovalDepartmentDialog: function (oEvent) {
+                debugger;
+                var sDescription, sTitle,
+                    oSelectedItem = oEvent.getParameter("selectedItem");
+                oEvent.getSource().getBinding("items").filter([]);
+                if (!oSelectedItem) {
+                    return;
+                }
+                sDescription = oSelectedItem.getInfo();
+                sTitle = oSelectedItem.getTitle()
+                sap.ui.getCore().byId("idDepartments").setValue(`${sDescription} - ${sTitle}`);
+                // sap.ui.getCore().byId("idUserName").setValue(sTitle);
+                let oModel = this.getView().getModel()
+                oModel.read("/VMUsers", {
+                    success: function (res) {
+                        var department = sTitle; 
+                
+                        // Filter for MDM role and specific department
+                        var mdmData = res.results.filter(function (item) {
+                            return item.USER_ROLE === "MDM" && item.DEPARTMENT === department;
+                        });
+                
+                        // Filter for Approver role and specific department
+                        var approverData = res.results.filter(function (item) {
+                            return item.USER_ROLE === "APPROVER" && item.DEPARTMENT === department;
+                        });
 
-                this._isBox1FullWidth = !this._isBox1FullWidth;
+                        var reviewerData = res.results.filter(function (item) {
+                            return item.USER_ROLE === "REVIEWER" && item.DEPARTMENT === department;
+                        });
+                
+                        // Creating JSON models
+                        var oMdmModel = new sap.ui.model.json.JSONModel({ Mdm: mdmData });
+                        var oApproverModel = new sap.ui.model.json.JSONModel({ Approver: approverData });
+                        var reviewerModel = new sap.ui.model.json.JSONModel({Reviewer:reviewerData})
+                
+                        // Setting the models to the view
+                        this.getView().setModel(oMdmModel, "MdmModel");
+                        this.getView().setModel(oApproverModel, "ApproverModel");
+                        this.getView().setModel(reviewerModel, "reviewrModel");
+                
+                        debugger;
+                    }.bind(this),
+                    error: function (err) {
+                        debugger;
+                    }
+                });
+                
+            },
+            onCloseApprovalfrag: function () {
+                debugger;
+                this.createFragment.close();
+                sap.ui.getCore().byId("idDepartments").setValue("");  
+                sap.ui.getCore().byId("idReviewer").setSelectedKey("");  
+                sap.ui.getCore().byId("idApprover").setSelectedKey("");  
+                sap.ui.getCore().byId("idGAType").setSelectedKey("");
+                sap.ui.getCore().byId("idMDM").setSelectedKey("");
             },
             onCloseApprovalSplit: function (oEvent) {
                 debugger;
                 let editVisib = this.byId("idEditApproval").getVisible();
                 let createBtn = this.byId("idCreateMassRequest").getEnabled();
                 let deleBtn = this.byId("idDeleteBtmApprovalRow").getVisible();
+                let remBtn = this.byId("idRemoveBtmApprovalRow").getVisible();
+
+                if (deleBtn) {
+                    this.byId("idDeleteBtmApprovalRow").setVisible(false)
+                    this.byId("idDeleteBtmApprovalRow").setEnabled(false)
+                }
+                if (remBtn) {
+                    this.byId("idRemoveBtmApprovalRow").setVisible(false)
+                    this.byId("idRemoveBtmApprovalRow").setEnabled(false)
+                }
                 if (!editVisib) {
                     this.byId("idEditApproval").setVisible(true)
                 }
@@ -101,6 +218,8 @@ sap.ui.define([
             },
             onPressCreateMassApprovalInputs: function () {
                 let approvalType = this.byId("idCompoBoxReq").getSelectedKey();
+                this.byId("idRemoveBtmApprovalRow").setVisible(true)
+
                 // if (approvalType == "R0") {
                 //     this.byId("idApprove").setVisible(false)
                 // }
@@ -134,6 +253,7 @@ sap.ui.define([
 
             onValueHelpDialogClose: function (oEvent) {
                 debugger;
+
                 var sDescription, sTitle,
                     oSelectedItem = oEvent.getParameter("selectedItem");
                 oEvent.getSource().getBinding("items").filter([]);
@@ -143,10 +263,31 @@ sap.ui.define([
                 }
                 if (this.ApprovalType) {
                     this.byId("idCreateMassRequest").setEnabled(true)
+                    this.byId("idRemoveBtmApprovalRow").setVisible(true)
                 }
 
                 sDescription = oSelectedItem.getInfo();
                 sTitle = oSelectedItem.getTitle()
+                let model = this.getView().getModel();
+
+                // Create a filter for DEPARTMENT equals 'Sales'
+                let oFilter = new sap.ui.model.Filter("DEPARTMENT", sap.ui.model.FilterOperator.EQ, sTitle);
+
+                model.read("/REVIEWERUSERS", {
+                    filters: [oFilter], // Add the filter here
+                    success: function (res) {
+                        debugger;
+                        // Create a new JSON model with the data from the success response
+                        let oReviewerFiltersModel = new sap.ui.model.json.JSONModel(res.results);
+
+
+                        this.getView().setModel(oReviewerFiltersModel, "ReviewerFilters");
+                    }.bind(this), // Bind the context to access 'this' inside the success callback
+                    error: function (err) {
+                        MessageBox.show("Please select again")
+                    }
+                });
+
                 // sap.ui.getCore().byId("idCompanyApproval").setValue(sDescription);
                 this.byId("idCompanyApproval").setValue(`${sTitle} - ${sDescription}`);
                 var oText = this.byId("idText");
@@ -239,8 +380,18 @@ sap.ui.define([
             },
 
             onSelectionChange: function () {
+                let deleBtn = this.byId("idDeleteBtmApprovalRow").getEnabled()
+                // let remBtn = this.byId("idRemoveBtmApprovalRow").getEnabled()
+                if (!deleBtn) {
+                    this.byId("idDeleteBtmApprovalRow").setEnabled(true)
+                }
+                // if(!remBtn){
+                //     this.byId("idRemoveBtmApprovalRow").setEnabled(true)
+
+                // }
 
             },
+
 
             onValueHelpDialogCloseRole: function (oEvent) {
                 debugger;
@@ -267,8 +418,8 @@ sap.ui.define([
 
                 this.getView().getModel("hierarchydata").setProperty(sPath + "/role", sTitle);
 
-                var oFilter = new sap.ui.model.Filter("USER_ROLE", sap.ui.model.FilterOperator.EQ, `${sTitle}`);
-                var oFilter1 = new sap.ui.model.Filter("COMPANY_CODE", sap.ui.model.FilterOperator.EQ, `${val}`);
+                var oFilter = new sap.ui.model.Filter("USER_ROLE", sap.ui.model.FilterOperator.EQ, `APPROVER`);
+                var oFilter1 = new sap.ui.model.Filter("DEPARTMENT", sap.ui.model.FilterOperator.EQ, `${val}`);
                 var oCombinedFilter = new sap.ui.model.Filter({
                     filters: [oFilter, oFilter1],
                     and: true
@@ -386,12 +537,12 @@ sap.ui.define([
                             var aData = oModel.getProperty("/jsonObjects");
                             let companyCode = this.byId("idCompanyApproval").getValue().split("-")[0].trim();
                             let approvalType = this.byId("idCompoBoxReq").getSelectedKey();
-                            if(oModel.getData().jsonObjects.length == 0){
+                            if (oModel.getData().jsonObjects.length == 0) {
                                 return MessageBox.error("Please fill all data")
                             }
-                                let userData = oModel.getData().jsonObjects[0].user;
-                                let role = oModel.getData().jsonObjects[0].role;
-                            
+                            let userData = oModel.getData().jsonObjects[0].user;
+                            let role = oModel.getData().jsonObjects[0].role;
+
 
                             if (!companyCode || !approvalType || userData == "" || role == "") {
                                 return MessageBox.error("Please fill all data")
@@ -400,8 +551,8 @@ sap.ui.define([
 
                             const ApprovalData = aData.map((item) => {
                                 return {
-                                    APPR_TYPE: approvalType,
-                                    COMPANY_CODE: companyCode,
+                                    APPR_TYPE: companyCode,
+                                    COMPANY_CODE: approvalType,
                                     USER_ID: item.user,
                                     APPROVER_LEVEL: parseInt(item.approvalLevel, 10),
                                     USER_ROLE: item.role,
@@ -540,10 +691,11 @@ sap.ui.define([
                         let apptypeIdField = this.byId("idCompoBoxReq");
                         let apprType = res.results[0].APPR_TYPE;
                         let updBtn = this.byId("idSubmtUpdate");
-                        this.byId("idCompanyApproval").setValue(res.results[0].COMPANY_CODE)
-                        apptypeIdField.setValue(apprType);
+                        this.byId("idCompanyApproval").setValue(apprType)
+                        this.byId("idDeleteBtmApprovalRow").setVisible(true)
+                        apptypeIdField.setValue(res.results[0].COMPANY_CODE);
                         apptypeIdField.setEditable(false)
-                        this.byId("idText").setText(res.results[0].TO_COMPANY_CODE.BUTXT)
+                        // this.byId("idText").setText(res.results[0].TO_COMPANY_CODE.BUTXT)
                         // if (apprType == "R1") {
                         //     updBtn.setVisible(true)
                         // }
@@ -558,7 +710,7 @@ sap.ui.define([
                                 "role": item.USER_ROLE,
                                 "user": item.USER_ID,
                                 "selected": false,
-                                "checkboxVisible": item.APPR_TYPE == "R1" ? true : false,
+                                "checkboxVisible": true,
                                 "editCheckboxVisible": item.ACCESS_EDIT,
                                 "approveCheckboxVisible": item.ACCESS_APPROVE,
                                 "sendBackCheckboxVisible": item.ACCESS_SENDBACK,
@@ -617,8 +769,8 @@ sap.ui.define([
                     onClose: function (oAction) {
                         if (oAction === MessageBox.Action.YES) {
                             // Continue with the update process if the user confirms
-                            let app = this.byId("idCompoBoxReq").getValue();
-                            let company = this.byId("idCompanyApproval").getValue();
+                            let app = this.byId("idCompoBoxReq").getValue();//department
+                            let company = this.byId("idCompanyApproval").getValue();//reviewer
                             var oModel = this.getView().getModel("hierarchydata");
                             let data = oModel.getData().jsonObjects;
                             let userId = data[0].user;
@@ -630,8 +782,8 @@ sap.ui.define([
                                     "USER_ID": ele.user,
                                     "USER_ROLE": ele.role,
                                     "APPROVER_LEVEL": parseFloat(ele.approvalLevel),
-                                    "COMPANY_CODE": company,
-                                    "APPR_TYPE": app,
+                                    "COMPANY_CODE": app,
+                                    "APPR_TYPE": company,
                                     "ACCESS_EDIT": ele.editCheckboxVisible,
                                     "ACCESS_APPROVE": ele.approveCheckboxVisible,
                                     "ACCESS_SENDBACK": ele.sendBackCheckboxVisible,
@@ -697,7 +849,120 @@ sap.ui.define([
                     ele.editablechk = !ele.editablechk;
                 });
                 oModel.setData(data);
+            },
+
+            onPressRemoveSelectedRows: function (oEvent) {
+                debugger;
+                var oModel = this.getView().getModel("hierarchydata");
+                var oData = oModel.getData();
+
+                // Remove the last item from jsonObjects
+                oData.jsonObjects.pop();
+
+                // Update the model with the modified data
+                oModel.setData(oData);
+
+                // Check if jsonObjects is empty and hide the Remove button if true
+                if (oData.jsonObjects.length === 0) {
+                    this.byId("idRemoveBtmApprovalRow").setVisible(false);
+                }
+            },
+            onSubmitApproval: function() {
+                debugger;
+                this.getView().setBusy(true);
+                
+                // Retrieve field values
+                let department = sap.ui.getCore().byId("idDepartments").getValue();
+                let reviewer = sap.ui.getCore().byId("idReviewer").getSelectedKey();
+                let approver = sap.ui.getCore().byId("idApprover").getSelectedKey();
+                let mdm = sap.ui.getCore().byId("idMDM").getSelectedKey();
+                let GaType = sap.ui.getCore().byId("idGAType").getSelectedKey();
+            
+                // Validation: Check if required fields are filled
+                if (!department || department.trim() === "") {
+                    sap.m.MessageBox.error("Department is required.");
+                    this.getView().setBusy(false);
+                    return;
+                }
+                if (!reviewer || reviewer.trim() === "") {
+                    sap.m.MessageBox.error("Reviewer is required.");
+                    this.getView().setBusy(false);
+                    return;
+                }
+                if (!approver || approver.trim() === "") {
+                    sap.m.MessageBox.error("Approver is required.");
+                    this.getView().setBusy(false);
+                    return;
+                }
+                if (!mdm || mdm.trim() === "") {
+                    sap.m.MessageBox.error("MDM is required.");
+                    this.getView().setBusy(false);
+                    return;
+                }
+                if (!GaType || GaType.trim() === "") {
+                    sap.m.MessageBox.error("GA Type is required.");
+                    this.getView().setBusy(false);
+                    return;
+                }
+            
+                // Create the payload
+                let oPayload = [
+                    {
+                        "USER_ID": approver,
+                        "USER_ROLE": "APPROVER",
+                        "APPROVER_LEVEL": 1,
+                        "COMPANY_CODE": reviewer,
+                        "APPR_TYPE": department.split("-")[0].trim(),
+                        "APPROVER": approver,
+                        "MDM": mdm,
+                        "GA": GaType
+                    },
+                    {
+                        "USER_ID": mdm,
+                        "USER_ROLE": "MDM",
+                        "APPROVER_LEVEL": 2,
+                        "COMPANY_CODE": reviewer,
+                        "APPR_TYPE": department.split("-")[0].trim(),
+                        "APPROVER": approver,
+                        "MDM": mdm,
+                        "GA": GaType
+                    }
+                ];
+            
+                // OData Model request
+                var oDataModel = this.getView().getModel();
+                let oPayloadS = { "ApprovalData": oPayload };
+                
+                oDataModel.create("/CreateApprovalHierarchy", oPayloadS, {
+                    success: function (oData) {
+                        this.getView().setBusy(false);
+                        MessageBox.success("Approval Created");
+                        this.getView().byId("idSmartTablAppr").rebindTable(); // Refresh table
+                        // Clear fields after successful submission
+                        sap.ui.getCore().byId("idDepartments").setValue("");
+                        sap.ui.getCore().byId("idReviewer").setSelectedKey("");  
+                        sap.ui.getCore().byId("idApprover").setSelectedKey("");
+                        sap.ui.getCore().byId("idGAType").setSelectedKey("");
+                        sap.ui.getCore().byId("idMDM").setSelectedKey("");
+                        this.createFragment.close();
+                    }.bind(this),
+                    error: function (oError) {
+                        const jsonResponse = JSON.parse(oError.responseText);
+                        const errorMessage = jsonResponse.error.message.value;
+                        this.getView().setBusy(false);
+                        sap.m.MessageBox.error(errorMessage);
+                        // Clear fields after error
+                        sap.ui.getCore().byId("idDepartments").setValue("");
+                        sap.ui.getCore().byId("idReviewer").setSelectedKey("");  
+                        sap.ui.getCore().byId("idApprover").setSelectedKey("");
+                        sap.ui.getCore().byId("idGAType").setSelectedKey("");
+                        sap.ui.getCore().byId("idMDM").setSelectedKey("");
+                        this.createFragment.close();
+                    }.bind(this)
+                });
             }
+            
+
 
 
         });

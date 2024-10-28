@@ -1,153 +1,534 @@
-<mvc:View controllerName="com.air.vp.lnchpage.controller.AdministratorSupplier"
+<mvc:View
+    controllerName="com.air.vp.lnchpage.controller.AdministratorSupplier"
     xmlns:mvc="sap.ui.core.mvc"
     xmlns="sap.uxap"
     xmlns:forms="sap.ui.layout.form"
     xmlns:layout="sap.ui.layout"
-    xmlns:m="sap.m" height="100%">
-    <ObjectPageLayout id="ObjectPageLayout" showTitleInHeaderContent="true" upperCaseAnchorBar="false" toggleHeaderOnTitleClick="false">
+    xmlns:core="sap.ui.core"
+    xmlns:m="sap.m"
+    height="100%"
+>
+    <ObjectPageLayout
+        id="ObjectPagesLayout"
+        showTitleInHeaderContent="true"
+        upperCaseAnchorBar="false"
+    >
+        <!-- Header Section -->
         <headerTitle>
-            <ObjectPageDynamicHeaderTitle >
+            <ObjectPageDynamicHeaderTitle>
                 <expandedHeading>
-                    <m:Title text="Airdit Software" wrapping="true"/>
+                    <m:HBox>
+                        <!-- <m:Button icon="sap-icon://nav-back" press="onNavBack" class="sapUiTinyMarginEnd sapUiTinyMarginBottom" /> -->
+                        <m:Title
+                            text="{supplierDetailsModel>/businessPartnerDetails/BusinessPartner}"
+                            wrapping="true"
+                            id="idRseqTitle"
+                            class="usermasterColo"
+                        />
+                    </m:HBox>
                 </expandedHeading>
-
-                <snappedHeading>
-                    <m:FlexBox fitContainer="true" alignItems="Center">
-                        <m:Avatar src="sap-icon://picture" backgroundColor="Random" class="sapUiTinyMarginEnd"/>
-                        <m:Title text="Airdit Software" wrapping="true" />
-                    </m:FlexBox>
-                </snappedHeading>
-
                 <expandedContent>
-                    <m:Text text="Senior Developer"/>
+                    <m:HBox>
+                        <m:Label
+                            text="Partner Name :"
+                            class="sapUiTinyMarginEnd"
+                        />
+                        <m:Text
+                            text="{supplierDetailsModel>/businessPartnerDetails/BusinessPartnerName}"
+                            class="labelSize"
+                        />
+                    </m:HBox>
                 </expandedContent>
-
-                <snappedContent>
-                    <m:Text text="Senior Developer"/>
-                </snappedContent>
-
-                <snappedTitleOnMobile>
-                    <m:Title text="Senior Developer"/>
-                </snappedTitleOnMobile>
-
-
+                <snappedHeading>
+                    <m:HBox>
+                        <m:VBox>
+                            <m:Title
+                                text="{supplierDetailsModel>/businessPartnerDetails/BusinessPartner}"
+                                wrapping="true"
+                                class="usermasterColo"
+                            />
+                            <m:Label text="Partner Name:" />
+                            <m:Text
+                                text="{supplierDetailsModel>/businessPartnerDetails/BusinessPartnerName}"
+                                class="labelSize"
+                            />
+                        </m:VBox>
+                    </m:HBox>
+                </snappedHeading>
             </ObjectPageDynamicHeaderTitle>
         </headerTitle>
 
+        <!-- Header Content -->
         <headerContent>
-            <m:FlexBox wrap="Wrap">
-                <m:Avatar src="sap-icon://picture" backgroundColor="Random" displaySize="L" class="sapUiTinyMarginEnd"/>
+            <m:FlexBox
+                wrap="Wrap"
+                fitContainer="true"
+            >
+                <m:VBox class="sapUiLargeMarginEnd sapUiSmallMarginBottom">
+                    <m:HBox class="sapUiTinyMarginBottom">
+                        <m:Label
+                            text="Account Type:"
+                            class="sapUiSmallMarginEnd"
+                        />
+                        <m:Text
+                            text="{supplierDetailsModel>/businessPartnerDetails/BusinessPartnerGrouping}"
+                            class="labelSize"
+                        />
+                    </m:HBox>
+                </m:VBox>
 
-                <layout:VerticalLayout class="sapUiSmallMarginBeginEnd">
-                    <m:ObjectStatus title="User ID" text="12345678"/>
-                    <m:ObjectStatus title="Language" text="English"/>
-                    <m:ObjectStatus title="Country" text="USA"/>
-                    <m:ObjectStatus title="Phone Number" text="1-844-726-7733"/>
-                </layout:VerticalLayout>
+                <m:VBox class="sapUiLargeMarginEnd sapUiSmallMarginBottom">
+                    <m:HBox class="sapUiTinyMarginBottom">
+                        <m:Label
+                            text="Created By:"
+                            class="sapUiSmallMarginEnd"
+                        />
+                        <m:Text
+                            text="{supplierDetailsModel>/businessPartnerDetails/CreatedByUser}"
+                            class="labelSize"
+                        />
+                    </m:HBox>
+                </m:VBox>
 
-                <layout:VerticalLayout class="sapUiSmallMarginBeginEnd">
-                    <m:ObjectStatus title="Functional Area" text="Development"/>
-                    <m:ObjectStatus title="Cost Center" text="PI DFA GD Programs and Product"/>
-                    <m:ObjectStatus title="Email" text="email@address.com"/>
-                    <m:ObjectStatus title="Company Address" text="1234 Elm Street, Suite 567, Springfield, USA"/>
-                    <m:ObjectStatus title="Contact Person" text="John Doe"/>
-                </layout:VerticalLayout>
-
-                <layout:VerticalLayout class="sapUiSmallMarginBeginEnd">
-                    <layout:layoutData>
-                        <ObjectPageHeaderLayoutData visibleS="false" visibleM="false"/>
-                    </layout:layoutData>
-                    <m:ObjectStatus text="Senior UI Developer" state="Success"/>
-                    <m:RatingIndicator maxValue="6" value="5" tooltip="Rating Tooltip"/>
-                </layout:VerticalLayout>
+                <m:VBox class="sapUiLargeMarginEnd sapUiSmallMarginBottom">
+                    <m:HBox class="sapUiTinyMarginBottom">
+                        <m:Label
+                            text="Created On:"
+                            class="sapUiSmallMarginEnd"
+                        />
+                        <m:Text
+                            text="{supplierDetailsModel>/businessPartnerDetails/CreationDate}"
+                            class="labelSize"
+                        />
+                    </m:HBox>
+                </m:VBox>
             </m:FlexBox>
         </headerContent>
 
+        <!-- Sections -->
         <sections>
-            <ObjectPageSection titleUppercase="false" class="noMargin">
+            <!-- Vendor Information Section -->
+            <ObjectPageSection
+                title="Vendor Information"
+                titleUppercase="false"
+            >
                 <subSections>
-                    <ObjectPageSubSection title="Bank Details" titleUppercase="false">
+                    <ObjectPageSubSection
+                        title="Vendor Details"
+                        titleUppercase="false"
+                    >
+                        <blocks>
+                            <m:VBox class="sapUiSmallMargin">
+                                <m:HBox>
+                                    <m:Label
+                                        text="Vendor Organisation Name :"
+                                        width="11rem"
+                                    />
+                                    <m:Text
+                                        text="{supplierDetailsModel>/businessPartnerDetails/BusinessPartnerName}"
+                                        width="13rem"
+                                    />
+                                    <m:Label
+                                        text="Contact Person :"
+                                        width="10rem"
+                                    />
+                                    <m:Text
+                                        text="{supplierDetailsModel>/businessPartnerDetails/contact}"
+                                        width="13rem"
+                                    />
+                                </m:HBox>
+                                <m:HBox>
+                                    <m:Label
+                                        text="Priority :"
+                                        width="11rem"
+                                    />
+                                    <m:Text
+                                        text="{supplierDetailsModel>/vendorInformation/Priority}"
+                                        width="13rem"
+                                    />
+                                    <m:Label
+                                        text="Due Diligence Number :"
+                                        width="10rem"
+                                    />
+                                    <m:Text
+                                        text="{supplierDetailsModel>/vendorInformation/DueDiligenceNumber}"
+                                        width="13rem"
+                                    />
+                                </m:HBox>
+                            </m:VBox>
+                        </blocks>
+                    </ObjectPageSubSection>
+                </subSections>
+            </ObjectPageSection>
+
+            <!-- Vendor Address Section -->
+            <!-- Vendor Address Section -->
+            <ObjectPageSection
+                title="Vendor Address"
+                titleUppercase="false"
+            >
+                <subSections>
+                    <ObjectPageSubSection
+                        title="Address"
+                        titleUppercase="false"
+                    >
                         <blocks>
                             <m:VBox class="sapUiSmallMargin">
                                 <!-- First Row -->
                                 <m:HBox>
-                                    <m:Label text="Account Number:" width="10rem" />
-                                    <m:Text text="1234567890" width="13rem" />
-                                    <m:VBox width="2rem"/>
-                                    <m:Label text="IFSC Code:" width="10rem" />
-                                    <m:Text text="DUMMYIFSC123" width="13rem" />
+                                    <m:Label
+                                        text="Street: "
+                                        width="10rem"
+                                    />
+                                    <m:Text
+                                        text="{supplierDetailsModel>/addressDetails/0/StreetName}"
+                                        width="13rem"
+                                    />
+                                    <m:Label
+                                        text="Street2:"
+                                        width="10rem"
+                                    />
+                                    <m:Text
+                                        text="{supplierDetailsModel>/addressDetails/0/AdditionalStreetPrefixName}"
+                                        width="13rem"
+                                    />
                                 </m:HBox>
 
                                 <!-- Second Row -->
                                 <m:HBox>
-                                    <m:Label text="Branch:" width="10rem" />
-                                    <m:Text text="Springfield Branch" width="13rem" />
-                                    <m:VBox width="2rem"/>
-                                    <m:Label text="Bank Name:" width="10rem" />
-                                    <m:Text text="Dummy Bank Ltd." width="13rem" />
+                                    <m:Label
+                                        text="Street3:"
+                                        width="10rem"
+                                    />
+                                    <m:Text
+                                        text="{supplierDetailsModel>/addressDetails/0/StreetPrefixName}"
+                                        width="13rem"
+                                    />
+                                    <m:Label
+                                        text="City:"
+                                        width="10rem"
+                                    />
+                                    <m:Text
+                                        text="{supplierDetailsModel>/addressDetails/0/CityName}"
+                                        width="13rem"
+                                    />
                                 </m:HBox>
 
                                 <!-- Third Row -->
                                 <m:HBox>
-                                    <m:Label text="Account Type:" width="10rem" />
-                                    <m:Text text="Savings" width="13rem" />
-                                    <m:VBox width="2rem"/>
-                                    <m:Label text="LST No:" width="10rem" />
-                                    <m:Text text="LST1234567" width="13rem" />
+                                    <m:Label
+                                        text="District:"
+                                        width="10rem"
+                                    />
+                                    <m:Text
+                                        text="{supplierDetailsModel>/addressDetails/0/District}"
+                                        width="13rem"
+                                    />
+                                    <m:Label
+                                        text="Pincode:"
+                                        width="10rem"
+                                    />
+                                    <m:Text
+                                        text="{supplierDetailsModel>/addressDetails/0/PostalCode}"
+                                        width="13rem"
+                                    />
                                 </m:HBox>
 
                                 <!-- Fourth Row -->
                                 <m:HBox>
-                                    <m:Label text="GST No:" width="10rem" />
-                                    <m:Text text="GST123456789" width="13rem" />
-                                    <m:VBox width="2rem"/>
-                                    <m:Label text="PAN No:" width="10rem" />
-                                    <m:Text text="PAN1234567" width="13rem" />
+                                    <m:Label
+                                        text="State:"
+                                        width="10rem"
+                                    />
+                                    <m:Text
+                                        text="{supplierDetailsModel>/addressDetails/0/Region}"
+                                        width="13rem"
+                                    />
+                                    <m:Label
+                                        text="Country:"
+                                        width="10rem"
+                                    />
+                                    <m:Text
+                                        text="{supplierDetailsModel>/addressDetails/0/Country}"
+                                        width="13rem"
+                                    />
                                 </m:HBox>
 
                                 <!-- Fifth Row -->
                                 <m:HBox>
-                                    <m:Label text="MSME Category:" width="10rem" />
-                                    <m:Text text="Small" width="13rem" />
-                                    <m:VBox width="2rem"/>
-                                    <m:Label text="Vendor Account Group:" width="10rem" />
-                                    <m:Text text="Domestic" width="13rem" />
+                                    <m:Label
+                                        text="Email:"
+                                        width="10rem"
+                                    />
+                                    <m:Text
+                                        text="{supplierDetailsModel>/addressDetails/0/Email}"
+                                        width="13rem"
+                                    />
+                                    <m:Label
+                                        text="Email(Payment):"
+                                        width="10rem"
+                                    />
+                                    <m:Text
+                                        text="{supplierDetailsModel>/addressDetails/0/EmailPayment}"
+                                        width="13rem"
+                                    />
+                                </m:HBox>
+
+                                <!-- Sixth Row -->
+                                <m:HBox>
+                                    <m:Label
+                                        text="Telephone No:"
+                                        width="10rem"
+                                    />
+                                    <m:Text
+                                        text="{supplierDetailsModel>/phoneDetails/0/PhoneNumber}"
+                                        width="13rem"
+                                    />
+                                    <m:Label
+                                        text="Mobile No:"
+                                        width="10rem"
+                                    />
+                                    <m:Text
+                                        text="{supplierDetailsModel>/addressDetails/0/MobileNo}"
+                                        width="13rem"
+                                    />
                                 </m:HBox>
                             </m:VBox>
-
-
                         </blocks>
                     </ObjectPageSubSection>
-                    <ObjectPageSubSection title="PO Details" titleUppercase="false">
+                </subSections>
+            </ObjectPageSection>
+
+            <!-- Financial Information Section -->
+            <!-- Financial Information Section -->
+            <ObjectPageSection
+                title="Financial Information"
+                titleUppercase="false"
+            >
+                <subSections>
+                    <ObjectPageSubSection
+                        title="Financial Details"
+                        titleUppercase="false"
+                    >
                         <blocks>
-                            <m:Table id="poTable" items="{/POs}">
-                                <m:columns>
-                                    <m:Column>
-                                        <m:header>
-                                            <m:Label text="PO Number" class="labelSize"/>
-                                        </m:header>
-                                    </m:Column>
-                                    <m:Column>
-                                        <m:header>
-                                            <m:Label text="PO Amount" />
-                                        </m:header>
-                                    </m:Column>
-                                    <m:Column>
-                                        <m:header>
-                                            <m:Label text="Date of Approved" />
-                                        </m:header>
-                                    </m:Column>
-                                </m:columns>
-                                <m:items>
-                                    <m:ColumnListItem>
-                                        <m:cells>
-                                            <m:Text text="{PONumber}" />
-                                            <m:Text text="{POAmount}" />
-                                            <m:Text text="{DateOfApproved}" />
-                                        </m:cells>
-                                    </m:ColumnListItem>
-                                </m:items>
-                            </m:Table>
+                            <m:VBox class="sapUiSmallMargin">
+                                <!-- First Row -->
+                                <m:HBox>
+                                    <m:Label
+                                        text="Account Number:"
+                                        width="10rem"
+                                    />
+                                    <m:Text
+                                        text="{supplierDetailsModel>/bankDetails/0/BankAccount}"
+                                        width="13rem"
+                                    />
+                                    <m:Label
+                                        text="IFSC Code:"
+                                        width="10rem"
+                                    />
+                                    <m:Text
+                                        text="{supplierDetailsModel>/bankDetails/0/BankNumber}"
+                                        width="13rem"
+                                    />
+                                </m:HBox>
+
+                                <!-- Second Row -->
+                                <m:HBox>
+                                    <m:Label
+                                        text="Branch:"
+                                        width="10rem"
+                                    />
+                                    <m:Text
+                                        text="{supplierDetailsModel>/bankDetails/0/Branch}"
+                                        width="13rem"
+                                    />
+                                    <m:Label
+                                        text="Bank Name:"
+                                        width="10rem"
+                                    />
+                                    <m:Text
+                                        text="{supplierDetailsModel>/bankDetails/0/BankName}"
+                                        width="13rem"
+                                    />
+                                </m:HBox>
+
+                                <!-- Third Row -->
+                                <m:HBox>
+                                    <m:Label
+                                        text="Account Type:"
+                                        width="10rem"
+                                    />
+                                    <m:Text
+                                        text="{supplierDetailsModel>/bankDetails/0/AccountType}"
+                                        width="13rem"
+                                    />
+                                    <m:Label
+                                        text="Vendor Account Group:"
+                                        width="10rem"
+                                    />
+                                    <m:Text
+                                        text="{supplierDetailsModel>/supplierDetails/0/SupplierAccountGroup}"
+                                        width="13rem"
+                                    />
+                                </m:HBox>
+                            </m:VBox>
+                        </blocks>
+                    </ObjectPageSubSection>
+                </subSections>
+            </ObjectPageSection>
+
+            <!-- Tax Information Section -->
+            <ObjectPageSection
+                title="Tax Information"
+                titleUppercase="false"
+            >
+                <subSections>
+                    <ObjectPageSubSection
+                        title="Tax Details"
+                        titleUppercase="false"
+                    >
+                        <blocks>
+                            <m:VBox class="sapUiSmallMargin">
+                                <!-- First Row -->
+                                <m:HBox>
+                                    <m:Label
+                                        text="LST No:"
+                                        width="10rem"
+                                    />
+                                    <m:Text
+                                        text="{supplierDetailsModel>/taxInformation/LSTNo}"
+                                        width="13rem"
+                                    />
+                                    <m:Label
+                                        text="GST No:"
+                                        width="10rem"
+                                    />
+                                    <m:Text
+                                        text="{supplierDetailsModel>/supplierDetails/GSTNumber}"
+                                        width="13rem"
+                                    />
+                                </m:HBox>
+
+                                <!-- Second Row -->
+                                <m:HBox>
+                                    <m:Label
+                                        text="PAN No:"
+                                        width="10rem"
+                                    />
+                                    <m:Text
+                                        text="{supplierDetailsModel>/supplierDetails/PANNumber}"
+                                        width="13rem"
+                                    />
+                                    <m:Label
+                                        text="MSME Category:"
+                                        width="10rem"
+                                    />
+                                    <m:Text
+                                        text="{supplierDetailsModel>/taxInformation/MSMECategory}"
+                                        width="13rem"
+                                    />
+                                </m:HBox>
+                            </m:VBox>
+                        </blocks>
+                    </ObjectPageSubSection>
+                </subSections>
+            </ObjectPageSection>
+
+            <!-- Relative Vendor Codes Section -->
+            <ObjectPageSection
+                title="Relative Vendor Codes (Ordering Address)"
+                titleUppercase="false"
+            >
+                <subSections>
+                    <ObjectPageSubSection
+                        title="Relative Vendor Codes (Ordering Address)"
+                        titleUppercase="false"
+                    >
+                        <blocks>
+                            <m:VBox>
+                                <!-- Toolbar with Segmented Button -->
+                                <m:Toolbar>
+                                    <m:Title text="Vendor Data" />
+                                    <m:ToolbarSpacer />
+                                    <m:Select
+                                        id="purchasingOrgSelect"
+                                        change="onPurchasingOrgChange"
+                                    >
+                                        <core:Item
+                                            key="1000"
+                                            text="1000"
+                                        />
+                                        <core:Item
+                                            key="2000"
+                                            text="2000"
+                                        />
+                                    </m:Select>
+                                </m:Toolbar>
+
+                                <!-- Vendor Table -->
+                                <m:Table
+                                    id="vendorTable"
+                                    items="{supplierDetailsModel>/vendors1000}"
+                                >
+                                    <m:columns>
+                                        <m:Column>
+                                            <m:Label text="Vendor Code" />
+                                        </m:Column>
+                                         <m:Column>
+                                            <m:Label text="Partner Function" />
+                                        </m:Column>
+                                        <m:Column>
+                                            <m:Label text="City" />
+                                        </m:Column>
+                                        <m:Column>
+                                            <m:Label text="Street" />
+                                        </m:Column>
+                                        <m:Column>
+                                            <m:Label text="Postal Code" />
+                                        </m:Column>
+                                         <m:Column>
+                                            <m:Label text="Created On" />
+                                        </m:Column>
+                                        <m:Column>
+                                            <m:Label text="State/Region" />
+                                        </m:Column>
+                                        <m:Column>
+                                            <m:Label text="Country" />
+                                        </m:Column>
+                                    </m:columns>
+
+                                    <m:items>
+                                        <m:ColumnListItem>
+                                            <m:cells>
+                                                <m:Text
+                                                    text="{supplierDetailsModel>ReferenceSupplier}"
+                                                />
+                                                 <m:Text
+                                                    text="{supplierDetailsModel>partnerFunction}"
+                                                />
+                                                <m:Text
+                                                    text="{supplierDetailsModel>CityName}"
+                                                />
+                                                <m:Text
+                                                    text="{supplierDetailsModel>StreetName}"
+                                                />
+                                                <m:Text
+                                                    text="{supplierDetailsModel>PostalCode}"
+                                                />
+                                                 <m:Text
+                                                    text="{supplierDetailsModel>date}"
+                                                />
+                                                <m:Text
+                                                    text="{supplierDetailsModel>Region}"
+                                                />
+                                                <m:Text
+                                                    text="{supplierDetailsModel>Country}"
+                                                />
+                                            </m:cells>
+                                        </m:ColumnListItem>
+                                    </m:items>
+                                </m:Table>
+                            </m:VBox>
                         </blocks>
                     </ObjectPageSubSection>
                 </subSections>

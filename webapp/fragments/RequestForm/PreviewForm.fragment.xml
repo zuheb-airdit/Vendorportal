@@ -5,14 +5,14 @@
     xmlns:l="sap.ui.layout"
 >
     <Dialog
-        id="previewDialog"
+        id="previewDialogs"
         title="Form Preview"
         contentWidth="65%"
         contentHeight="auto"
     >
     <VBox id="previewVBox">
         <f:SimpleForm
-            id="SimpleFormChangeColumn_oneGrousp234"
+            id="SimpleFormChangeColumn_oneGrousp234s"
             editable="true"
             layout="ColumnLayout"
             columnsM="2"
@@ -44,7 +44,7 @@
             </f:content>
         </f:SimpleForm>
         <f:SimpleForm
-            id="SimpleFormChangeColumn_oneGroup234"
+            id="SimpleFormChangeColumn_oneGroup234s"
             editable="true"
             layout="ColumnLayout"
             title="Complete Office Address"
@@ -141,7 +141,7 @@
             </f:content>
         </f:SimpleForm>
         <f:SimpleForm
-            id="SimpleFormChangeColumn_oneGrokup234"
+            id="SimpleFormChangeColumn_oneGrokup23h4"
             editable="true"
             layout="ColumnLayout"
             title="Bank Details"
@@ -179,7 +179,7 @@
         </f:SimpleForm>
 
         <f:SimpleForm
-            id="SimpleFormChangeColumn_oneGrsoup234"
+            id="SimpleFormChangeColumn_oneGrsoup23ui4"
             editable="true"
             layout="ColumnLayout"
             columnsM="2"

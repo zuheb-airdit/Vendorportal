@@ -1,7 +1,7 @@
 <core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
 	<SelectDialog
-		title="Company"
-		items="{/CompanyCode}"
+		title="Department"
+		items="{/DEPARTMENT}"
 		contentHeight="10rem"
 		search=".onValueHelpDialogSearch"
 		confirm=".onValueHelpDialogClose"
@@ -9,7 +9,7 @@
 		<StandardListItem
 			iconDensityAware="false"
 			iconInset="false"
-			title="{BUKRS}"
-			info="{BUTXT}" />
+			title="{CODE}"
+			info="{DESC}" />
 	</SelectDialog>
 </core:FragmentDefinition>

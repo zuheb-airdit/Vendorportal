@@ -10,8 +10,8 @@
             <StandardListItem
                 
 				
-                title="Super User"
-                description="anilk@airditsoftware.com"
+                title="{navigationApps>/role}"
+                description="{navigationApps>/email}"
                 type="Active"
                 press="onListItemPress"
             >
@@ -36,7 +36,7 @@
                 icon="sap-icon://edit"
                 title="Change Password"
                 type="Active"
-                press="onListItemPress"
+                press="onPressChangePassword"
             />
             <StandardListItem
                 icon="sap-icon://log"

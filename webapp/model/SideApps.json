@@ -10,37 +10,49 @@
 				{
 					"title": "User Master",
 					"key": "RouteUserMaster",
-					"icon":"sap-icon://activity-individual"
+					"icon": "sap-icon://add-employee"
 				},
 				{
 					"title": "Approval Matrix",
 					"key": "RouteApprovalMatrix",
-					"icon":"sap-icon://add-activity-2"
+					"icon": "sap-icon://add-activity-2"
 				},
 				{
 					"title": "Workflow Management",
 					"key": "Routeworkflow",
-					"icon":"sap-icon://add-activity-2"
+					"icon": "sap-icon://workflow-tasks"
 				}
+				
 			]
 		},
 		{
+			"title": "Supplier Request Report",
+			"key": "Routerequests",
+			"icon": "sap-icon://clinical-task-tracker"
+		},
+		{
+			"title": "Admin Configuration",
+			"key": "emailconfig",
+			"icon": "sap-icon://business-by-design"
+			
+		},
+		{
 			"title": "Supplier Profile",
-			"icon": "sap-icon://request",
+			"icon": "sap-icon://personnel-view",
 			"key": "RouteAdministratorPageSupplier",
-			"expanded":false
+			"expanded": false
+		},
+		{
+			"title": "Supplier Reports",
+			"icon": "sap-icon://monitor-payments",
+			"key": "RouteSupplier",
+			"expanded": false
 		},
 		{
 			"title": "Request Management",
 			"icon": "sap-icon://request",
 			"expanded": false,
 			"key": "Request"
-		},
-		{
-			"title": "Register Management",
-			"icon": "sap-icon://order-status",
-			"expanded": false,
-			"key": "RegisterManagement"
 		},
 		{
 			"title": "Registration Approval",
@@ -60,7 +72,7 @@
 				},
 				{
 					"title": "Non PO Based",
-					"key": "InvoiceUploadHome",
+					"key": "InvoiceTesting",
 					"icon": "sap-icon://add-activity-2"
 				}
 			]
@@ -98,4 +110,3 @@
 		}
 	]
 }
-

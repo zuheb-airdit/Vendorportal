@@ -5,7 +5,7 @@
 	xmlns:l="sap.ui.layout">
 	<Popover
 		id="userMenu"
-		title="Mr. Anil Kharche"
+		title="Profile"
 	
 		titleAlignment="Center"
 		placement="Bottom"

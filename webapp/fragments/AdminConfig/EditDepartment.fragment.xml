@@ -1,0 +1,25 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+    <Dialog id="editDepartmentDialog" title="Edit Department" stretch="false">
+        <content>
+            <VBox class="sapUiMediumMargin">
+                <Label text="Department" />
+                <!-- Bind the value to the selected department's data -->
+                <Input id="editDepartmentInput" value="{selectedDepartment>CODE}" placeholder="Edit Department" />
+
+                <Label text="Department Description" class="sapUiSmallMarginTop"/>
+                <!-- Bind the value to the selected department's description -->
+                <Input id="editDepartmentDescInput" value="{selectedDepartment>DESCRIPTION}" placeholder="Edit Department Description" />
+
+              
+            </VBox>
+        </content>
+        <beginButton>
+            <!-- Save button for submitting changes -->
+            <Button text="Save" press="onEditDepartment" />
+        </beginButton>
+        <endButton>
+            <!-- Cancel button to close the dialog -->
+            <Button text="Cancel" press="onCancelDialog" />
+        </endButton>
+    </Dialog>
+</core:FragmentDefinition>

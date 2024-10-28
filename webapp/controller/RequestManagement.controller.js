@@ -6,31 +6,41 @@ sap.ui.define([
     "../model/formatter",
     "sap/ui/model/json/JSONModel"
 ],
-    function (Controller, MessageBox, Filter , FilterOperator,formatter,JSONModel) {
+    function (Controller, MessageBox, Filter, FilterOperator, formatter, JSONModel) {
         "use strict";
 
         return Controller.extend("com.air.vp.lnchpage.controller.RequestManagement", {
             formatter: formatter,
             onInit: function () {
+                debugger;
                 let oModel = this.getOwnerComponent().getModel("request-process");
+                let userMaster = this.getOwnerComponent().getModel("user-master");
+                this.getView().setModel(userMaster, "userModel");
+                let approvalModel = this.getOwnerComponent().getModel();
+                var oViewModel = new sap.ui.model.json.JSONModel({
+                    selectedTable: "table1" // Default selection
+                });
+                this.getView().setModel(oViewModel, "viewModel");
+                debugger;
                 this.getView().setModel(oModel);
                 var oCountModel = new JSONModel({
-                    notInvitedCount:0,
+                    notInvitedCount: 0,
                     invitedCount: 0,
-                    rejectedCount:0,
-                    sendBackCount:0,
-                    deletedCount:0
+                    rejectedCount: 0,
+                    sendBackCount: 0,
+                    deletedCount: 0,
+                    inprogressCount: 0
                 });
                 this.getView().setModel(oCountModel, "countsModel");
                 const customizeConfig = {
                     autoColumnWidth: {
                         '*': { min: 2, max: 6, gap: 1, truncateLabel: false },
                         'REQUEST_NO': { min: 2, max: 6, gap: 1, truncateLabel: false },
-                        'COMPANY_CODE':{min: 2, max: 6, gap: 1, truncateLabel: false},
-                        'SUPPL_TYPE':{min: 2, max: 7, gap: 1, truncateLabel: false},
-                        "SUPPL_TYPE_DESC":{min: 2, max: 6, gap: 1, truncateLabel: false},
-                        'STATUS':{min: 2, max: 3, gap: 1, truncateLabel: false},
-                         "BP_TYPE_CODE":{min: 2, max: 8, gap: 1, truncateLabel: false}
+                        'COMPANY_CODE': { min: 2, max: 6, gap: 1, truncateLabel: false },
+                        'SUPPL_TYPE': { min: 2, max: 7, gap: 1, truncateLabel: false },
+                        "SUPPL_TYPE_DESC": { min: 2, max: 6, gap: 1, truncateLabel: false },
+                        'STATUS': { min: 2, max: 3, gap: 1, truncateLabel: false },
+                        "BP_TYPE_CODE": { min: 2, max: 8, gap: 1, truncateLabel: false }
                     }
                 };
                 this.oSmartTable = this.getView().byId('idSmartTableReqManagement');
@@ -40,9 +50,16 @@ sap.ui.define([
 
 
             },
-            onRebindSmartTable: function(){
+            onRebindSmartTable: function () {
                 console.log("rbin")
             },
+            onTableSelectionChange: function (oEvent) {
+                debugger;
+                var sSelectedKey = oEvent.getParameter("selectedItem").getKey();
+                var oViewModel = this.getView().getModel("viewModel");
+                oViewModel.setProperty("/selectedTable", sSelectedKey);
+            },
+            
 
             // onEditReqManagement: function(oEvent){
             //    debugger;
@@ -53,33 +70,33 @@ sap.ui.define([
             // this.EditFragmentReqManagement.open();
             // },
 
-            onDeleteReq: function(oEvent) {
+            onDeleteReq: function (oEvent) {
                 debugger;
                 var req = oEvent.getSource().getBindingContext().getObject().REQUEST_NO;
                 var oTable = this.getView().byId('idSmartTableReqManagementReject');
-    
+
                 // Get selected items
-               
+
                 var model = this.getView().byId('idSmartTableReqManagementReject').getModel();
                 var that = this; // Preserve the context
-    
+
                 MessageBox.confirm(`Are you sure you want to delete request ${req}?`, {
                     icon: MessageBox.Icon.WARNING,
                     actions: [MessageBox.Action.YES, MessageBox.Action.NO],
                     emphasizedAction: MessageBox.Action.YES,
-                    onClose: function(oAction) {
+                    onClose: function (oAction) {
                         if (oAction === MessageBox.Action.YES) {
                             let deleTable = that.getView().byId('idSmartTableReqManagementDeleted');
                             that.getView().setBusy(true); // Set busy indicator
-                            let sPath= `/RequestInfo(${req})`
-                            model.remove(sPath,{
-                                success: function(res){
+                            let sPath = `/RequestInfo(${req})`
+                            model.remove(sPath, {
+                                success: function (res) {
                                     that.getView().setBusy(false)
                                     oTable.rebindTable();
                                     deleTable.rebindTable()
                                     MessageBox.success("Request Deleted")
                                 },
-                                error: function(err){
+                                error: function (err) {
                                     MessageBox.error("Unable to Delete")
                                 }
                             })
@@ -87,33 +104,33 @@ sap.ui.define([
                     }
                 });
             },
-            onDeleteReqInvite: function(oEvent) {
+            onDeleteReqInvite: function (oEvent) {
                 debugger;
                 var req = oEvent.getSource().getBindingContext().getObject().REQUEST_NO;
                 var oTable = this.getView().byId('idSmartTableReqManagementInvited');
-    
+
                 // Get selected items
-               
+
                 var model = this.getView().byId('idSmartTableReqManagementInvited').getModel();
                 var that = this; // Preserve the context
-    
+
                 MessageBox.confirm(`Are you sure you want to delete request ${req}?`, {
                     icon: MessageBox.Icon.WARNING,
                     actions: [MessageBox.Action.YES, MessageBox.Action.NO],
                     emphasizedAction: MessageBox.Action.YES,
-                    onClose: function(oAction) {
+                    onClose: function (oAction) {
                         if (oAction === MessageBox.Action.YES) {
                             let deleTable = that.getView().byId('idSmartTableReqManagementDeleted');
                             that.getView().setBusy(true); // Set busy indicator
-                            let sPath= `/RequestInfo(${req})`
-                            model.remove(sPath,{
-                                success: function(res){
+                            let sPath = `/RequestInfo(${req})`
+                            model.remove(sPath, {
+                                success: function (res) {
                                     that.getView().setBusy(false)
                                     oTable.rebindTable();
                                     deleTable.rebindTable()
                                     MessageBox.success("Request Deleted")
                                 },
-                                error: function(err){
+                                error: function (err) {
                                     MessageBox.error("Unable to Delete")
                                 }
                             })
@@ -121,33 +138,33 @@ sap.ui.define([
                     }
                 });
             },
-            onDeleteReqsendback: function(oEvent) {
+            onDeleteReqsendback: function (oEvent) {
                 debugger;
                 var req = oEvent.getSource().getBindingContext().getObject().REQUEST_NO;
                 var oTable = this.getView().byId('idSmartTableSendback');
-    
+
                 // Get selected items
-               
+
                 var model = this.getView().byId('idSmartTableSendback').getModel();
                 var that = this; // Preserve the context
-    
+
                 MessageBox.confirm(`Are you sure you want to delete request ${req}?`, {
                     icon: MessageBox.Icon.WARNING,
                     actions: [MessageBox.Action.YES, MessageBox.Action.NO],
                     emphasizedAction: MessageBox.Action.YES,
-                    onClose: function(oAction) {
+                    onClose: function (oAction) {
                         if (oAction === MessageBox.Action.YES) {
                             that.getView().setBusy(true); // Set busy indicator
                             let deleTable = that.getView().byId('idSmartTableReqManagementDeleted');
-                            let sPath= `/RequestInfo(${req})`
-                            model.remove(sPath,{
-                                success: function(res){
+                            let sPath = `/RequestInfo(${req})`
+                            model.remove(sPath, {
+                                success: function (res) {
                                     that.getView().setBusy(false)
                                     oTable.rebindTable();
                                     MessageBox.success("Request Deleted")
                                     deleTable.rebindTable()
                                 },
-                                error: function(err){
+                                error: function (err) {
                                     MessageBox.error("Unable to Delete")
                                 }
                             })
@@ -155,34 +172,34 @@ sap.ui.define([
                     }
                 });
             },
-            onDeleteReqRegis: function(oEvent) {
+            onDeleteReqRegis: function (oEvent) {
                 debugger;
                 var req = oEvent.getSource().getBindingContext().getObject().REQUEST_NO;
                 var oTable = this.getView().byId('idSmartTableRegisterd');
-    
+
                 // Get selected items
-               
+
                 var model = this.getView().byId('idSmartTableRegisterd').getModel();
                 var that = this; // Preserve the context
-    
+
                 MessageBox.confirm(`Are you sure you want to delete request ${req}?`, {
                     icon: MessageBox.Icon.WARNING,
                     actions: [MessageBox.Action.YES, MessageBox.Action.NO],
                     emphasizedAction: MessageBox.Action.YES,
-                    onClose: function(oAction) {
+                    onClose: function (oAction) {
                         if (oAction === MessageBox.Action.YES) {
                             that.getView().setBusy(true); // Set busy indicator
                             let deleTable = that.getView().byId('idSmartTableReqManagementDeleted');
 
-                            let sPath= `/RequestInfo(${req})`
-                            model.remove(sPath,{
-                                success: function(res){
+                            let sPath = `/RequestInfo(${req})`
+                            model.remove(sPath, {
+                                success: function (res) {
                                     that.getView().setBusy(false)
                                     oTable.rebindTable();
                                     deleTable.rebindTable()
                                     MessageBox.success("Request Deleted")
                                 },
-                                error: function(err){
+                                error: function (err) {
                                     MessageBox.error("Unable to Delete")
                                 }
                             })
@@ -300,7 +317,7 @@ sap.ui.define([
                 let vendorAccount = sap.ui.getCore().byId("idVendorGroupType").getValue();
                 let venderEmail = sap.ui.getCore().byId("idVendorEmail").getValue();
                 let comment = sap.ui.getCore().byId("idTextArea").getValue();
-            
+
                 // Validate inputs
                 if (!reqType) {
                     MessageBox.error("Request Type is required.");
@@ -318,28 +335,28 @@ sap.ui.define([
                     MessageBox.error("A valid Vendor Email is required.");
                     return;
                 }
-            
+
                 // Proceed with form submission
                 this.getView().setBusy(true);
                 this.vhFragmentReqManagement.close();
-            
+
                 let reqModel = this.getView().getModel("request-process");
-            
+
                 let payload = {
                     action: "CREATE",
                     inputData: [
                         {
                             REGISTERED_ID: venderEmail,
-                            COMPANY_CODE: companyCode,
+                            DEPARTMENT: companyCode,
                             VENDOR_ACCOUNT_GROUP: vendorAccount,
                             REQUEST_TYPE: reqType,
                             COMMENT: comment,
-                            REQUESTER_ID: "login@gmail.com",
-                            REASSIGN_FLAG:false
+                            REQUESTER_ID: "zuheb@airditsoftware.com",
+                            REASSIGN_FLAG: false
                         }
                     ]
                 };
-            
+
                 reqModel.create("/RequestProcess", payload, {
                     success: function (oData) {
                         this.getView().setBusy(false);
@@ -361,12 +378,12 @@ sap.ui.define([
                     }.bind(this)
                 });
             },
-            
+
             _isValidEmail: function (email) {
                 var re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
                 return re.test(email);
             },
-            
+
 
             // onVendorSubTypeSelectionChange: function(oEvent) {
             //     // Get the selected item
@@ -408,62 +425,81 @@ sap.ui.define([
                 sap.ui.getCore().byId("idSubVendorTypes").setValue(`${sTitle} - ${sInfo}`)
             },
 
-            statusFormatter: function(status){
+            statusFormatter: function (status, role) {
                 switch (status) {
                     case 15:
                         return "Not Invited"
                     case 2:
-                        return  "Invited"
-                        
+                        return "Invited"
+
                     case 3:
                         return "Rejected"
                     case 7:
-                            return "SendBack"
+                        return `Sendback - ${role}`
+                    case 20:
+                        return `InProgress - Supplier`
+                         case 4:
+                        return "InProgress - User"
                     default:
                         return "No Data"
                 }
             },
-            statusColorFormatter: function(status){
+            statusColorFormatter: function (status) {
                 switch (status) {
                     case 15:
                         return "Indication13"
                     case 2:
-                        return  "Indication14"
-                        
+                        return "Indication15"
+
                     case 3:
                         return "Indication11"
-                        case 7:
-                            return "Indication15"
+                    case 7:
+                        return "Indication12"
+                    case 20:
+                        return `Indication10`
+                         case 4:
+                        return `Indication10`
                     default:
                         return "None"
                 }
             },
 
-            onIconTabBarSelect : function(oEvent){
+            onIconTabBarSelect: function (oEvent) {
                 debugger;
-                var oSmartTableNotInvited = this.byId("idSmartTableReqManagement");
+                var oSmartTableRegisterd = this.byId("idSmartTableRegisterd");
                 var oSmartTableInvited = this.byId("idSmartTableReqManagementInvited");
                 var oSmartTablerejected = this.byId("idSmartTableReqManagementReject");
                 var oSmartTablesendBack = this.byId("idSmartTableSendback");
+                var oSmartTableInprogresss = this.byId("idSmartTableReqManagementInprogress");
+                var oSmartTableDeleted = this.byId("idSmartTableReqManagementDeleted");
+
+
                 var sKey = oEvent.getParameter("key");
                 var oFilter;
-    
-                if (sKey === "NotInvited") {
-                    oSmartTableNotInvited.rebindTable();
+
+                if (sKey === "Register") {
+                    oSmartTableRegisterd.rebindTable();
                 } else if (sKey === "Invited") {
                     oSmartTableInvited.rebindTable();
-                } else if (sKey == "Rejected"){
+                } else if (sKey == "Rejected") {
                     oSmartTablerejected.rebindTable()
-                }else if (sKey == "SendBack"){
+                } else if (sKey == "SendBack") {
                     oSmartTablesendBack.rebindTable()
+                } else if (sKey == "InProgress") {
+                    oSmartTableInprogresss.rebindTable()
+                }
+                else if (sKey == "Deleted") {
+                    oSmartTableDeleted.rebindTable()
                 }
             },
 
-            onInvitedFilter: function(oEvent){
+            onInvitedFilter: function (oEvent) {
                 debugger
                 let oBindingParams = oEvent.getParameter("bindingParams");
-                 var oFilter = new sap.ui.model.Filter("STATUS","EQ","2")
-                oBindingParams.filters.push(oFilter);
+                var oFilter1 = new sap.ui.model.Filter("STATUS", "EQ", 2);
+                oBindingParams.filters.push(oFilter1);
+
+                // Define the dataReceived event handler
                 oBindingParams.events = {
                     dataReceived: function (oData) {
                         let iCount = oData.getParameter("data").results.length;
@@ -471,10 +507,25 @@ sap.ui.define([
                     }.bind(this)
                 };
             },
-            onDeletedFilter: function(oEvent){
+            onInProgress: function (oEvent) {
                 debugger
                 let oBindingParams = oEvent.getParameter("bindingParams");
-                 var oFilter = new sap.ui.model.Filter("STATUS","EQ","10")
+                var oFilter1 = new sap.ui.model.Filter("STATUS", "EQ", 20);
+                oBindingParams.filters.push(oFilter1);
+
+                // Define the dataReceived event handler
+                oBindingParams.events = {
+                    dataReceived: function (oData) {
+                        let iCount = oData.getParameter("data").results.length;
+                        this.getView().getModel("countsModel").setProperty("/inprogressCount", iCount);
+                    }.bind(this)
+                };
+            },
+
+            onDeletedFilter: function (oEvent) {
+                debugger
+                let oBindingParams = oEvent.getParameter("bindingParams");
+                var oFilter = new sap.ui.model.Filter("STATUS", "EQ", "10")
                 oBindingParams.filters.push(oFilter);
                 oBindingParams.events = {
                     dataReceived: function (oData) {
@@ -483,10 +534,14 @@ sap.ui.define([
                     }.bind(this)
                 };
             },
-            onRebindSmartTableregisterd: function(oEvent){
+
+            onOpenFormForInitator: function () {
+
+            },
+            onRebindSmartTableregisterd: function (oEvent) {
                 debugger
                 let oBindingParams = oEvent.getParameter("bindingParams");
-                 var oFilter = new sap.ui.model.Filter("STATUS","EQ","5")
+                var oFilter = new sap.ui.model.Filter("STATUS", "EQ", "5")
                 oBindingParams.filters.push(oFilter);
                 oBindingParams.events = {
                     dataReceived: function (oData) {
@@ -495,9 +550,9 @@ sap.ui.define([
                     }.bind(this)
                 };
             },
-            onRebindSmartTableSendBack: function(oEvent){
+            onRebindSmartTableSendBack: function (oEvent) {
                 let oBindingParams = oEvent.getParameter("bindingParams");
-                 var oFilter = new sap.ui.model.Filter("STATUS","EQ","7")
+                var oFilter = new sap.ui.model.Filter("STATUS", "EQ", "7")
                 oBindingParams.filters.push(oFilter);
                 oBindingParams.events = {
                     dataReceived: function (oData) {
@@ -507,10 +562,10 @@ sap.ui.define([
                 };
             },
 
-            onRebindSmartTableNotInvited: function(oEvent){
+            onRebindSmartTableNotInvited: function (oEvent) {
                 debugger;
                 let oBindingParams = oEvent.getParameter("bindingParams");
-                var filter = new sap.ui.model.Filter("STATUS","EQ","15")
+                var filter = new sap.ui.model.Filter("STATUS", "EQ", "15")
                 oBindingParams.filters.push(filter);
                 oBindingParams.events = {
                     dataReceived: function (oData) {
@@ -520,9 +575,9 @@ sap.ui.define([
                 };
             },
 
-            onRebindSmartTableReject: function(oEvent){
+            onRebindSmartTableReject: function (oEvent) {
                 let oBindingParams = oEvent.getParameter("bindingParams");
-                var filter = new sap.ui.model.Filter("STATUS","EQ","3")
+                var filter = new sap.ui.model.Filter("STATUS", "EQ", "3")
                 oBindingParams.filters.push(filter);
                 oBindingParams.events = {
                     dataReceived: function (oData) {
@@ -531,41 +586,41 @@ sap.ui.define([
                     }.bind(this)
                 };
             },
-            onSearchReqmanagement: function(oEvent) {
+            onSearchReqmanagement: function (oEvent) {
                 debugger;
                 var oSmartTable = this.byId("idSmartTableReqManagementInvited");
                 var oBinding = oSmartTable.getTable().getBinding("items");// Initialize an array to hold multiple filters
                 var aFilters = [];  // Get the search query from the event (if applicable)
                 var sSearchQuery = oEvent.getParameter("query"); // Filter for EMAIL (based on the search query)
                 let res = parseFloat(sSearchQuery)
-                aFilters.push(new sap.ui.model.Filter("STATUS", sap.ui.model.FilterOperator.EQ, "2")); 
+                aFilters.push(new sap.ui.model.Filter("STATUS", sap.ui.model.FilterOperator.EQ, "2"));
                 aFilters.push(new sap.ui.model.Filter("REQUEST_NO", sap.ui.model.FilterOperator.EQ, res));
                 var oCombinedFilter = new sap.ui.model.Filter({
                     filters: aFilters,
-                    and: true 
+                    and: true
                 });
-                if(sSearchQuery == ""){
-                    oBinding.filter(new sap.ui.model.Filter("STATUS", sap.ui.model.FilterOperator.EQ, "2")); 
-                }else{
+                if (sSearchQuery == "") {
+                    oBinding.filter(new sap.ui.model.Filter("STATUS", sap.ui.model.FilterOperator.EQ, "2"));
+                } else {
                     oBinding.filter(oCombinedFilter);
                 }
             },
-            onSearchReqmanagementReject: function(oEvent) {
+            onSearchReqmanagementReject: function (oEvent) {
                 debugger;
                 var oSmartTable = this.byId("idSmartTableReqManagementReject");
                 var oBinding = oSmartTable.getTable().getBinding("items");// Initialize an array to hold multiple filters
                 var aFilters = [];  // Get the search query from the event (if applicable)
                 var sSearchQuery = oEvent.getParameter("query"); // Filter for EMAIL (based on the search query)
                 let res = parseFloat(sSearchQuery)
-                aFilters.push(new sap.ui.model.Filter("STATUS", sap.ui.model.FilterOperator.EQ, "3")); 
+                aFilters.push(new sap.ui.model.Filter("STATUS", sap.ui.model.FilterOperator.EQ, "3"));
                 aFilters.push(new sap.ui.model.Filter("REQUEST_NO", sap.ui.model.FilterOperator.EQ, res));
                 var oCombinedFilter = new sap.ui.model.Filter({
                     filters: aFilters,
-                    and: true 
+                    and: true
                 });
-                if(sSearchQuery == ""){
-                    oBinding.filter(new sap.ui.model.Filter("STATUS", sap.ui.model.FilterOperator.EQ, "3")); 
-                }else{
+                if (sSearchQuery == "") {
+                    oBinding.filter(new sap.ui.model.Filter("STATUS", sap.ui.model.FilterOperator.EQ, "3"));
+                } else {
                     oBinding.filter(oCombinedFilter);
                 }
                 // if (res !== "Nan") {
@@ -578,22 +633,22 @@ sap.ui.define([
                 //     oBinding.filter(new sap.ui.model.Filter("STATUS", sap.ui.model.FilterOperator.EQ, "2"));  // Clear filters if search is canceled or empty
                 // }
             },
-            onSearchReqmanagementSendBack: function(oEvent) {
+            onSearchReqmanagementSendBack: function (oEvent) {
                 debugger;
                 var oSmartTable = this.byId("idSmartTableSendback");
                 var oBinding = oSmartTable.getTable().getBinding("items");// Initialize an array to hold multiple filters
                 var aFilters = [];  // Get the search query from the event (if applicable)
                 var sSearchQuery = oEvent.getParameter("query"); // Filter for EMAIL (based on the search query)
                 let res = parseFloat(sSearchQuery)
-                aFilters.push(new sap.ui.model.Filter("STATUS", sap.ui.model.FilterOperator.EQ, "7")); 
+                aFilters.push(new sap.ui.model.Filter("STATUS", sap.ui.model.FilterOperator.EQ, "7"));
                 aFilters.push(new sap.ui.model.Filter("REQUEST_NO", sap.ui.model.FilterOperator.EQ, res));
                 var oCombinedFilter = new sap.ui.model.Filter({
                     filters: aFilters,
-                    and: true 
+                    and: true
                 });
-                if(sSearchQuery == ""){
-                    oBinding.filter(new sap.ui.model.Filter("STATUS", sap.ui.model.FilterOperator.EQ, "7")); 
-                }else{
+                if (sSearchQuery == "") {
+                    oBinding.filter(new sap.ui.model.Filter("STATUS", sap.ui.model.FilterOperator.EQ, "7"));
+                } else {
                     oBinding.filter(oCombinedFilter);
                 }
                 // if (res !== "Nan") {
@@ -607,22 +662,22 @@ sap.ui.define([
                 // }
             },
 
-            onSearchRegistered: function(oEvent) {
+            onSearchRegistered: function (oEvent) {
                 debugger;
                 var oSmartTable = this.byId("idSmartTableRegisterd");
                 var oBinding = oSmartTable.getTable().getBinding("items");// Initialize an array to hold multiple filters
                 var aFilters = [];  // Get the search query from the event (if applicable)
                 var sSearchQuery = oEvent.getParameter("query"); // Filter for EMAIL (based on the search query)
                 let res = parseFloat(sSearchQuery)
-                aFilters.push(new sap.ui.model.Filter("STATUS", sap.ui.model.FilterOperator.EQ, "5")); 
+                aFilters.push(new sap.ui.model.Filter("STATUS", sap.ui.model.FilterOperator.EQ, "5"));
                 aFilters.push(new sap.ui.model.Filter("REQUEST_NO", sap.ui.model.FilterOperator.EQ, res));
                 var oCombinedFilter = new sap.ui.model.Filter({
                     filters: aFilters,
-                    and: true 
+                    and: true
                 });
-                if(sSearchQuery == ""){
-                    oBinding.filter(new sap.ui.model.Filter("STATUS", sap.ui.model.FilterOperator.EQ, "5")); 
-                }else{
+                if (sSearchQuery == "") {
+                    oBinding.filter(new sap.ui.model.Filter("STATUS", sap.ui.model.FilterOperator.EQ, "5"));
+                } else {
                     oBinding.filter(oCombinedFilter);
                 }
                 // if (res !== "Nan") {
@@ -636,22 +691,22 @@ sap.ui.define([
                 // }
             },
 
-            onSearchReqmanagementDeleted: function(oEvent) {
+            onSearchReqmanagementDeleted: function (oEvent) {
                 debugger;
                 var oSmartTable = this.byId("idSmartTableReqManagementDeleted");
                 var oBinding = oSmartTable.getTable().getBinding("items");// Initialize an array to hold multiple filters
                 var aFilters = [];  // Get the search query from the event (if applicable)
                 var sSearchQuery = oEvent.getParameter("query"); // Filter for EMAIL (based on the search query)
                 let res = parseFloat(sSearchQuery)
-                aFilters.push(new sap.ui.model.Filter("STATUS", sap.ui.model.FilterOperator.EQ, "10")); 
+                aFilters.push(new sap.ui.model.Filter("STATUS", sap.ui.model.FilterOperator.EQ, "10"));
                 aFilters.push(new sap.ui.model.Filter("REQUEST_NO", sap.ui.model.FilterOperator.EQ, res));
                 var oCombinedFilter = new sap.ui.model.Filter({
                     filters: aFilters,
-                    and: true 
+                    and: true
                 });
-                if(sSearchQuery == ""){
-                    oBinding.filter(new sap.ui.model.Filter("STATUS", sap.ui.model.FilterOperator.EQ, "10")); 
-                }else{
+                if (sSearchQuery == "") {
+                    oBinding.filter(new sap.ui.model.Filter("STATUS", sap.ui.model.FilterOperator.EQ, "10"));
+                } else {
                     oBinding.filter(oCombinedFilter);
                 }
                 // if (res !== "Nan") {
@@ -663,8 +718,90 @@ sap.ui.define([
                 // } else {
                 //     oBinding.filter(new sap.ui.model.Filter("STATUS", sap.ui.model.FilterOperator.EQ, "2"));  // Clear filters if search is canceled or empty
                 // }
+            },
+
+            onCreateRequestUser: function (oEvent) {
+                debugger;
+                var oButton = oEvent.getSource();
+                this.getOwnerComponent().getRouter().navTo("RegisterFormPage");
+            },
+            onOpenFormRegister: function (oEvent) {
+                debugger;
+                // var oButton = oEvent.getSource();
+                // let url = oEvent.getSource().getBindingContext().getObject().REQUEST_NO;
+                // let email = oEvent.getSource().getBindingContext().getObject().REGISTERED_ID;
+                // this.getOwnerComponent().getRouter().navTo("RegisterFormPageWithId", { id: url, email: email });
+                let status = oEvent.getSource().getBindingContext().getObject().STATUS;
+                let url = oEvent.getSource().getBindingContext().getObject().REQUEST_NO;
+                let email = oEvent.getSource().getBindingContext().getObject().REGISTERED_ID;
+                debugger;
+                if (status == 20) {
+                    this.getOwnerComponent().getRouter().navTo("RegisterFormPageWithId", { id: url, email: email });
+
+                }
+            },
+            onOpenFormSendBackForm: function(oEvent){
+                debugger;
+                let status = oEvent.getSource().getBindingContext().getObject().STATUS;
+                let url = oEvent.getSource().getBindingContext().getObject().REQUEST_NO;
+                let email = oEvent.getSource().getBindingContext().getObject().REGISTERED_ID;
+                debugger;
+                if (status == 7) {
+                    this.getOwnerComponent().getRouter().navTo("RegisterFormPageWithId", { id: url, email: email });
+
+                }
+            },
+            onSelectedBtn: function (oEvent) {
+                debugger; // Use this for checking values during debugging
+                var selectedItem = oEvent.getParameter("selectedItem");
+                
+                if (selectedItem) {
+                    var selectedKey = selectedItem.getKey();
+            
+                    if (selectedKey === "createSupplier") {
+                        if (!this.vhFragmentReqManagement) {
+                            // Ensure the fragment path is correct
+                            this.vhFragmentReqManagement = sap.ui.xmlfragment("com.air.vp.lnchpage.fragments.RequestManagement.createRequestManagement", this);
+                            this.getView().addDependent(this.vhFragmentReqManagement);
+                        }
+                        this.vhFragmentReqManagement.open();
+                    } else if (selectedKey === "createBuyer") {
+                        // Ensure the routing is correctly set up in your manifest
+                        this.getOwnerComponent().getRouter().navTo("RegisterFormPage");
+                    }
+                } else {
+                    console.error("No item selected or item not found.");
+                }
+            },
+            onMenuAction: function (oEvent) {
+                debugger;
+                var selectedItem = oEvent.getParameter("item");
+                var selectedKey = selectedItem.getKey(); // Fetch the key of the selected item
+    
+                // Perform action based on the selected key
+                switch (selectedKey) {
+                    case "createSupplier":
+                        if (!this.vhFragmentReqManagement) {
+                            // Ensure the fragment path is correct
+                            this.vhFragmentReqManagement = sap.ui.xmlfragment("com.air.vp.lnchpage.fragments.RequestManagement.createRequestManagement", this);
+                            this.getView().addDependent(this.vhFragmentReqManagement);
+                        }
+                        this.vhFragmentReqManagement.open();
+                        break;
+                    case "createUser":
+                        this.getOwnerComponent().getRouter().navTo("RegisterFormPage");
+                        break;
+                    default:
+                        console.log("No action selected");
+                }
+            },
+
+            onPresscreateUser: function(){
+                this.getOwnerComponent().getRouter().navTo("RegisterFormPage");
+
             }
             
+
 
         });
     });

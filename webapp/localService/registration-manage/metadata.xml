@@ -28,6 +28,7 @@
                 <EntitySet Name="RequestInfoByRegId" EntityType="registrationManageService.RequestInfoByRegId"/>
                 <EntitySet Name="RequestsStuckInApprovalForOverMonths" EntityType="registrationManageService.RequestsStuckInApprovalForOverMonths"/>
                 <EntitySet Name="RequestInfoWithoutFilter" EntityType="registrationManageService.RequestInfoWithoutFilter"/>
+                <EntitySet Name="RequestReport" EntityType="registrationManageService.RequestReport"/>
                 <EntitySet Name="Reqstatus" EntityType="registrationManageService.Reqstatus"/>
                 <EntitySet Name="RegDiscInfo" EntityType="registrationManageService.RegDiscInfo"/>
                 <EntitySet Name="RequestType" EntityType="registrationManageService.RequestType"/>
@@ -355,6 +356,74 @@
                     <End Role="RequestInfoWithoutFilter" EntitySet="RequestInfoWithoutFilter"/>
                     <End Role="MasterApprovalHierarchy" EntitySet="MasterApprovalHierarchy"/>
                 </AssociationSet>
+                <AssociationSet Name="RequestReport_TO_STATUS" Association="registrationManageService.RequestReport_TO_STATUS">
+                    <End Role="RequestReport" EntitySet="RequestReport"/>
+                    <End Role="Status" EntitySet="Status"/>
+                </AssociationSet>
+                <AssociationSet Name="RequestReport_TO_ADDRESS" Association="registrationManageService.RequestReport_TO_ADDRESS">
+                    <End Role="RequestReport" EntitySet="RequestReport"/>
+                    <End Role="REGAddress" EntitySet="REGAddress"/>
+                </AssociationSet>
+                <AssociationSet Name="RequestReport_TO_CONTACTS" Association="registrationManageService.RequestReport_TO_CONTACTS">
+                    <End Role="RequestReport" EntitySet="RequestReport"/>
+                    <End Role="REGContacts" EntitySet="REGContacts"/>
+                </AssociationSet>
+                <AssociationSet Name="RequestReport_TO_BANKS" Association="registrationManageService.RequestReport_TO_BANKS">
+                    <End Role="RequestReport" EntitySet="RequestReport"/>
+                    <End Role="REGBanks" EntitySet="REGBanks"/>
+                </AssociationSet>
+                <AssociationSet Name="RequestReport_TO_FINANCE" Association="registrationManageService.RequestReport_TO_FINANCE">
+                    <End Role="RequestReport" EntitySet="RequestReport"/>
+                    <End Role="RegFinancial" EntitySet="RegFinancial"/>
+                </AssociationSet>
+                <AssociationSet Name="RequestReport_TO_ATTACHMENTS" Association="registrationManageService.RequestReport_TO_ATTACHMENTS">
+                    <End Role="RequestReport" EntitySet="RequestReport"/>
+                    <End Role="REGAttachments" EntitySet="REGAttachments"/>
+                </AssociationSet>
+                <AssociationSet Name="RequestReport_TO_TAXCertificate" Association="registrationManageService.RequestReport_TO_TAXCertificate">
+                    <End Role="RequestReport" EntitySet="RequestReport"/>
+                    <End Role="REG_TAXCertificate" EntitySet="REG_TAXCertificate"/>
+                </AssociationSet>
+                <AssociationSet Name="RequestReport_TO_PRODUCT_SERVICES" Association="registrationManageService.RequestReport_TO_PRODUCT_SERVICES">
+                    <End Role="RequestReport" EntitySet="RequestReport"/>
+                    <End Role="RegProdServ" EntitySet="RegProdServ"/>
+                </AssociationSet>
+                <AssociationSet Name="RequestReport_TO_CAPACITY" Association="registrationManageService.RequestReport_TO_CAPACITY">
+                    <End Role="RequestReport" EntitySet="RequestReport"/>
+                    <End Role="RegCapacity" EntitySet="RegCapacity"/>
+                </AssociationSet>
+                <AssociationSet Name="RequestReport_TO_CUSTOMERS" Association="registrationManageService.RequestReport_TO_CUSTOMERS">
+                    <End Role="RequestReport" EntitySet="RequestReport"/>
+                    <End Role="RegCustomers" EntitySet="RegCustomers"/>
+                </AssociationSet>
+                <AssociationSet Name="RequestReport_TO_DISCLOSURE_FIELDS" Association="registrationManageService.RequestReport_TO_DISCLOSURE_FIELDS">
+                    <End Role="RequestReport" EntitySet="RequestReport"/>
+                    <End Role="RegDiscInfo" EntitySet="RegDiscInfo"/>
+                </AssociationSet>
+                <AssociationSet Name="RequestReport_TO_RELATIVES" Association="registrationManageService.RequestReport_TO_RELATIVES">
+                    <End Role="RequestReport" EntitySet="RequestReport"/>
+                    <End Role="RegDiscRelatives" EntitySet="RegDiscRelatives"/>
+                </AssociationSet>
+                <AssociationSet Name="RequestReport_TO_QA_CERTIFICATES" Association="registrationManageService.RequestReport_TO_QA_CERTIFICATES">
+                    <End Role="RequestReport" EntitySet="RequestReport"/>
+                    <End Role="REGDiscQaCertif" EntitySet="REGDiscQaCertif"/>
+                </AssociationSet>
+                <AssociationSet Name="RequestReport_TO_ATTACH_FIELDS" Association="registrationManageService.RequestReport_TO_ATTACH_FIELDS">
+                    <End Role="RequestReport" EntitySet="RequestReport"/>
+                    <End Role="REGAttachFields" EntitySet="REGAttachFields"/>
+                </AssociationSet>
+                <AssociationSet Name="RequestReport_TO_REQUEST_TYPE" Association="registrationManageService.RequestReport_TO_REQUEST_TYPE">
+                    <End Role="RequestReport" EntitySet="RequestReport"/>
+                    <End Role="RequestType" EntitySet="RequestType"/>
+                </AssociationSet>
+                <AssociationSet Name="RequestReport_TO_COMPANY_CODE" Association="registrationManageService.RequestReport_TO_COMPANY_CODE">
+                    <End Role="RequestReport" EntitySet="RequestReport"/>
+                    <End Role="CompanyCode" EntitySet="CompanyCode"/>
+                </AssociationSet>
+                <AssociationSet Name="RequestReport_TO_HIERARCHY" Association="registrationManageService.RequestReport_TO_HIERARCHY">
+                    <End Role="RequestReport" EntitySet="RequestReport"/>
+                    <End Role="MasterApprovalHierarchy" EntitySet="MasterApprovalHierarchy"/>
+                </AssociationSet>
                 <AssociationSet Name="VMUsers_TO_COMPANY_CODE" Association="registrationManageService.VMUsers_TO_COMPANY_CODE">
                     <End Role="VMUsers" EntitySet="VMUsers"/>
                     <End Role="CompanyCode" EntitySet="CompanyCode"/>
@@ -556,7 +625,8 @@
                 <Property Name="DUE_DILIGANCE_REQ_NO" Type="Edm.String"/>
                 <Property Name="APPROVER" Type="Edm.String"/>
                 <Property Name="LAST_UPDATED_ON" Type="Edm.DateTimeOffset" Precision="7"/>
-                <Property Name="CURRENT_MDM_ASSIGNEE" Type="Edm.String" MaxLength="100"/>
+                <Property Name="CURRENT_ASSIGNEE" Type="Edm.String"/>
+                <Property Name="REASSIGNED_ASSIGNEE" Type="Edm.String" MaxLength="100"/>
                 <Property Name="REASSIGN_FLAG" Type="Edm.Boolean"/>
                 <Property Name="REASSIGNED_USER_ID" Type="Edm.String" MaxLength="100"/>
                 <Property Name="CREATED_ON" Type="Edm.DateTimeOffset" Precision="7"/>
@@ -611,7 +681,8 @@
                 <Property Name="DUE_DILIGANCE_REQ_NO" Type="Edm.String"/>
                 <Property Name="APPROVER" Type="Edm.String"/>
                 <Property Name="LAST_UPDATED_ON" Type="Edm.DateTimeOffset" Precision="7"/>
-                <Property Name="CURRENT_MDM_ASSIGNEE" Type="Edm.String" MaxLength="100"/>
+                <Property Name="CURRENT_ASSIGNEE" Type="Edm.String"/>
+                <Property Name="REASSIGNED_ASSIGNEE" Type="Edm.String" MaxLength="100"/>
                 <Property Name="REASSIGN_FLAG" Type="Edm.Boolean"/>
                 <Property Name="REASSIGNED_USER_ID" Type="Edm.String" MaxLength="100"/>
                 <Property Name="CREATED_ON" Type="Edm.DateTimeOffset" Precision="7"/>
@@ -677,7 +748,8 @@
                 <Property Name="DUE_DILIGANCE_REQ_NO" Type="Edm.String"/>
                 <Property Name="APPROVER" Type="Edm.String"/>
                 <Property Name="LAST_UPDATED_ON" Type="Edm.DateTimeOffset" Precision="7"/>
-                <Property Name="CURRENT_MDM_ASSIGNEE" Type="Edm.String" MaxLength="100"/>
+                <Property Name="CURRENT_ASSIGNEE" Type="Edm.String"/>
+                <Property Name="REASSIGNED_ASSIGNEE" Type="Edm.String" MaxLength="100"/>
                 <Property Name="REASSIGN_FLAG" Type="Edm.Boolean"/>
                 <Property Name="REASSIGNED_USER_ID" Type="Edm.String" MaxLength="100"/>
                 <Property Name="CREATED_ON" Type="Edm.DateTimeOffset" Precision="7"/>
@@ -700,6 +772,62 @@
                 <NavigationProperty Name="TO_REQUEST_TYPE" Relationship="registrationManageService.RequestInfoWithoutFilter_TO_REQUEST_TYPE" FromRole="RequestInfoWithoutFilter" ToRole="RequestType"/>
                 <NavigationProperty Name="TO_COMPANY_CODE" Relationship="registrationManageService.RequestInfoWithoutFilter_TO_COMPANY_CODE" FromRole="RequestInfoWithoutFilter" ToRole="CompanyCode"/>
                 <NavigationProperty Name="TO_HIERARCHY" Relationship="registrationManageService.RequestInfoWithoutFilter_TO_HIERARCHY" FromRole="RequestInfoWithoutFilter" ToRole="MasterApprovalHierarchy"/>
+            </EntityType>
+            <EntityType Name="RequestReport">
+                <Key>
+                    <PropertyRef Name="REQUEST_NO"/>
+                </Key>
+                <Property Name="REQUEST_NO" Type="Edm.Int32" Nullable="false"/>
+                <Property Name="VENDOR_ORGANISATION_NAME" Type="Edm.String"/>
+                <Property Name="CONTACT_PERSON" Type="Edm.String"/>
+                <Property Name="PRIORITY" Type="Edm.String"/>
+                <Property Name="INSTRUCTIONS" Type="Edm.String"/>
+                <Property Name="STATUS" Type="Edm.Int32"/>
+                <Property Name="REGISTERED_ID" Type="Edm.String" MaxLength="100"/>
+                <Property Name="COMPANY_CODE" Type="Edm.String" MaxLength="10"/>
+                <Property Name="REQUEST_TYPE" Type="Edm.String"/>
+                <Property Name="APPROVER_LEVEL" Type="Edm.Int32"/>
+                <Property Name="APPROVER_ROLE" Type="Edm.String" MaxLength="50"/>
+                <Property Name="REQUESTER_ID" Type="Edm.String" MaxLength="100"/>
+                <Property Name="SUPPL_TYPE" Type="Edm.String" MaxLength="50"/>
+                <Property Name="SUPPL_TYPE_DESC" Type="Edm.String" MaxLength="50"/>
+                <Property Name="BP_TYPE_CODE" Type="Edm.String" MaxLength="4"/>
+                <Property Name="BP_TYPE_DESC" Type="Edm.String" MaxLength="100"/>
+                <Property Name="DUE_DELI_NUM" Type="Edm.String"/>
+                <Property Name="PAN_NO" Type="Edm.String"/>
+                <Property Name="GST_NO" Type="Edm.String"/>
+                <Property Name="LST_NO" Type="Edm.String"/>
+                <Property Name="CST_NO" Type="Edm.String"/>
+                <Property Name="MSME_CATEGORY" Type="Edm.String"/>
+                <Property Name="VENDOR_ACCOUNT_GROUP" Type="Edm.String"/>
+                <Property Name="DUE_DILIGANCE" Type="Edm.Boolean"/>
+                <Property Name="DUE_DILIGANCE_REQ_NO" Type="Edm.String"/>
+                <Property Name="APPROVER" Type="Edm.String"/>
+                <Property Name="LAST_UPDATED_ON" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="CURRENT_ASSIGNEE" Type="Edm.String"/>
+                <Property Name="REASSIGNED_ASSIGNEE" Type="Edm.String" MaxLength="100"/>
+                <Property Name="REASSIGN_FLAG" Type="Edm.Boolean"/>
+                <Property Name="REASSIGNED_USER_ID" Type="Edm.String" MaxLength="100"/>
+                <Property Name="CREATED_ON" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="COMMENT" Type="Edm.String" MaxLength="1000"/>
+                <Property Name="PROCESS_LEVEL" Type="Edm.String" MaxLength="10"/>
+                <NavigationProperty Name="TO_STATUS" Relationship="registrationManageService.RequestReport_TO_STATUS" FromRole="RequestReport" ToRole="Status"/>
+                <NavigationProperty Name="TO_ADDRESS" Relationship="registrationManageService.RequestReport_TO_ADDRESS" FromRole="RequestReport" ToRole="REGAddress"/>
+                <NavigationProperty Name="TO_CONTACTS" Relationship="registrationManageService.RequestReport_TO_CONTACTS" FromRole="RequestReport" ToRole="REGContacts"/>
+                <NavigationProperty Name="TO_BANKS" Relationship="registrationManageService.RequestReport_TO_BANKS" FromRole="RequestReport" ToRole="REGBanks"/>
+                <NavigationProperty Name="TO_FINANCE" Relationship="registrationManageService.RequestReport_TO_FINANCE" FromRole="RequestReport" ToRole="RegFinancial"/>
+                <NavigationProperty Name="TO_ATTACHMENTS" Relationship="registrationManageService.RequestReport_TO_ATTACHMENTS" FromRole="RequestReport" ToRole="REGAttachments"/>
+                <NavigationProperty Name="TO_TAXCertificate" Relationship="registrationManageService.RequestReport_TO_TAXCertificate" FromRole="RequestReport" ToRole="REG_TAXCertificate"/>
+                <NavigationProperty Name="TO_PRODUCT_SERVICES" Relationship="registrationManageService.RequestReport_TO_PRODUCT_SERVICES" FromRole="RequestReport" ToRole="RegProdServ"/>
+                <NavigationProperty Name="TO_CAPACITY" Relationship="registrationManageService.RequestReport_TO_CAPACITY" FromRole="RequestReport" ToRole="RegCapacity"/>
+                <NavigationProperty Name="TO_CUSTOMERS" Relationship="registrationManageService.RequestReport_TO_CUSTOMERS" FromRole="RequestReport" ToRole="RegCustomers"/>
+                <NavigationProperty Name="TO_DISCLOSURE_FIELDS" Relationship="registrationManageService.RequestReport_TO_DISCLOSURE_FIELDS" FromRole="RequestReport" ToRole="RegDiscInfo"/>
+                <NavigationProperty Name="TO_RELATIVES" Relationship="registrationManageService.RequestReport_TO_RELATIVES" FromRole="RequestReport" ToRole="RegDiscRelatives"/>
+                <NavigationProperty Name="TO_QA_CERTIFICATES" Relationship="registrationManageService.RequestReport_TO_QA_CERTIFICATES" FromRole="RequestReport" ToRole="REGDiscQaCertif"/>
+                <NavigationProperty Name="TO_ATTACH_FIELDS" Relationship="registrationManageService.RequestReport_TO_ATTACH_FIELDS" FromRole="RequestReport" ToRole="REGAttachFields"/>
+                <NavigationProperty Name="TO_REQUEST_TYPE" Relationship="registrationManageService.RequestReport_TO_REQUEST_TYPE" FromRole="RequestReport" ToRole="RequestType"/>
+                <NavigationProperty Name="TO_COMPANY_CODE" Relationship="registrationManageService.RequestReport_TO_COMPANY_CODE" FromRole="RequestReport" ToRole="CompanyCode"/>
+                <NavigationProperty Name="TO_HIERARCHY" Relationship="registrationManageService.RequestReport_TO_HIERARCHY" FromRole="RequestReport" ToRole="MasterApprovalHierarchy"/>
             </EntityType>
             <EntityType Name="Reqstatus">
                 <Property Name="STATUS2" Type="Edm.Int32"/>
@@ -1509,6 +1637,98 @@
             </Association>
             <Association Name="RequestInfoWithoutFilter_TO_HIERARCHY">
                 <End Role="RequestInfoWithoutFilter" Type="registrationManageService.RequestInfoWithoutFilter" Multiplicity="*"/>
+                <End Role="MasterApprovalHierarchy" Type="registrationManageService.MasterApprovalHierarchy" Multiplicity="0..1"/>
+            </Association>
+            <Association Name="RequestReport_TO_STATUS">
+                <End Role="RequestReport" Type="registrationManageService.RequestReport" Multiplicity="*"/>
+                <End Role="Status" Type="registrationManageService.Status" Multiplicity="0..1"/>
+                <ReferentialConstraint>
+                    <Principal Role="Status">
+                        <PropertyRef Name="CODE"/>
+                    </Principal>
+                    <Dependent Role="RequestReport">
+                        <PropertyRef Name="STATUS"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="RequestReport_TO_ADDRESS">
+                <End Role="RequestReport" Type="registrationManageService.RequestReport" Multiplicity="*"/>
+                <End Role="REGAddress" Type="registrationManageService.REGAddress" Multiplicity="*"/>
+            </Association>
+            <Association Name="RequestReport_TO_CONTACTS">
+                <End Role="RequestReport" Type="registrationManageService.RequestReport" Multiplicity="*"/>
+                <End Role="REGContacts" Type="registrationManageService.REGContacts" Multiplicity="*"/>
+            </Association>
+            <Association Name="RequestReport_TO_BANKS">
+                <End Role="RequestReport" Type="registrationManageService.RequestReport" Multiplicity="*"/>
+                <End Role="REGBanks" Type="registrationManageService.REGBanks" Multiplicity="*"/>
+            </Association>
+            <Association Name="RequestReport_TO_FINANCE">
+                <End Role="RequestReport" Type="registrationManageService.RequestReport" Multiplicity="*"/>
+                <End Role="RegFinancial" Type="registrationManageService.RegFinancial" Multiplicity="*"/>
+            </Association>
+            <Association Name="RequestReport_TO_ATTACHMENTS">
+                <End Role="RequestReport" Type="registrationManageService.RequestReport" Multiplicity="*"/>
+                <End Role="REGAttachments" Type="registrationManageService.REGAttachments" Multiplicity="*"/>
+            </Association>
+            <Association Name="RequestReport_TO_TAXCertificate">
+                <End Role="RequestReport" Type="registrationManageService.RequestReport" Multiplicity="*"/>
+                <End Role="REG_TAXCertificate" Type="registrationManageService.REG_TAXCertificate" Multiplicity="*"/>
+            </Association>
+            <Association Name="RequestReport_TO_PRODUCT_SERVICES">
+                <End Role="RequestReport" Type="registrationManageService.RequestReport" Multiplicity="*"/>
+                <End Role="RegProdServ" Type="registrationManageService.RegProdServ" Multiplicity="*"/>
+            </Association>
+            <Association Name="RequestReport_TO_CAPACITY">
+                <End Role="RequestReport" Type="registrationManageService.RequestReport" Multiplicity="*"/>
+                <End Role="RegCapacity" Type="registrationManageService.RegCapacity" Multiplicity="*"/>
+            </Association>
+            <Association Name="RequestReport_TO_CUSTOMERS">
+                <End Role="RequestReport" Type="registrationManageService.RequestReport" Multiplicity="*"/>
+                <End Role="RegCustomers" Type="registrationManageService.RegCustomers" Multiplicity="*"/>
+            </Association>
+            <Association Name="RequestReport_TO_DISCLOSURE_FIELDS">
+                <End Role="RequestReport" Type="registrationManageService.RequestReport" Multiplicity="*"/>
+                <End Role="RegDiscInfo" Type="registrationManageService.RegDiscInfo" Multiplicity="*"/>
+            </Association>
+            <Association Name="RequestReport_TO_RELATIVES">
+                <End Role="RequestReport" Type="registrationManageService.RequestReport" Multiplicity="*"/>
+                <End Role="RegDiscRelatives" Type="registrationManageService.RegDiscRelatives" Multiplicity="*"/>
+            </Association>
+            <Association Name="RequestReport_TO_QA_CERTIFICATES">
+                <End Role="RequestReport" Type="registrationManageService.RequestReport" Multiplicity="*"/>
+                <End Role="REGDiscQaCertif" Type="registrationManageService.REGDiscQaCertif" Multiplicity="*"/>
+            </Association>
+            <Association Name="RequestReport_TO_ATTACH_FIELDS">
+                <End Role="RequestReport" Type="registrationManageService.RequestReport" Multiplicity="*"/>
+                <End Role="REGAttachFields" Type="registrationManageService.REGAttachFields" Multiplicity="*"/>
+            </Association>
+            <Association Name="RequestReport_TO_REQUEST_TYPE">
+                <End Role="RequestReport" Type="registrationManageService.RequestReport" Multiplicity="*"/>
+                <End Role="RequestType" Type="registrationManageService.RequestType" Multiplicity="0..1"/>
+                <ReferentialConstraint>
+                    <Principal Role="RequestType">
+                        <PropertyRef Name="CODE"/>
+                    </Principal>
+                    <Dependent Role="RequestReport">
+                        <PropertyRef Name="REQUEST_TYPE"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="RequestReport_TO_COMPANY_CODE">
+                <End Role="RequestReport" Type="registrationManageService.RequestReport" Multiplicity="*"/>
+                <End Role="CompanyCode" Type="registrationManageService.CompanyCode" Multiplicity="0..1"/>
+                <ReferentialConstraint>
+                    <Principal Role="CompanyCode">
+                        <PropertyRef Name="BUKRS"/>
+                    </Principal>
+                    <Dependent Role="RequestReport">
+                        <PropertyRef Name="COMPANY_CODE"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="RequestReport_TO_HIERARCHY">
+                <End Role="RequestReport" Type="registrationManageService.RequestReport" Multiplicity="*"/>
                 <End Role="MasterApprovalHierarchy" Type="registrationManageService.MasterApprovalHierarchy" Multiplicity="0..1"/>
             </Association>
             <Association Name="VMUsers_TO_COMPANY_CODE">
